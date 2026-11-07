@@ -2,8 +2,8 @@
 export const BUSINESS = {
   name: 'Colores Santos',
   tagline: 'Painting & Finishes',
-  whatsapp: '13050000000', // formato internacional sin "+" ni espacios
-  phone: '+1 (305) 000-0000',
+  whatsapp: '13057960889', // formato internacional sin "+" ni espacios
+  phone: '+1 (305) 796-0889',
   email: 'info@coloressantos.com',
   area: 'Miami & Surrounding Areas',
   hours: 'Mon – Sat · 7:00 AM – 6:00 PM',
