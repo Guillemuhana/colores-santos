@@ -26,7 +26,7 @@ function useSmoothScroll() {
 function Footer() {
   return (
     <footer className="grain relative overflow-hidden bg-forest-950 text-white">
-      <div className="mx-auto grid max-w-[1320px] gap-10 px-5 py-16 md:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1.2fr]">
+      <div className="mx-auto grid max-w-[1760px] gap-10 px-5 md:px-8 xl:px-12 2xl:px-16 py-16 md:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1.2fr]">
         <div>
           <Logo light className="text-[10px]" />
           <p className="mt-5 max-w-xs text-sm leading-relaxed text-white/65">
@@ -57,12 +57,12 @@ function Footer() {
           </ul>
         </div>
       </div>
-      <div className="mx-auto max-w-[1320px] px-5 pb-10">
+      <div className="mx-auto max-w-[1760px] px-5 md:px-8 xl:px-12 2xl:px-16 pb-10">
         <h4 className="mb-3 text-sm font-bold text-brand-300">Areas We Serve in Miami-Dade, Florida</h4>
         <p className="text-sm leading-relaxed text-white/60">{AREAS.join(' · ')}</p>
       </div>
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-[1320px] flex-wrap justify-between gap-2 px-5 py-5 text-xs text-white/50">
+        <div className="mx-auto flex max-w-[1760px] flex-wrap justify-between gap-2 px-5 md:px-8 xl:px-12 2xl:px-16 py-5 text-xs text-white/50">
           <span>© {new Date().getFullYear()} {BUSINESS.name} Painting &amp; Finishes. All rights reserved.</span>
           <span>Licensed &amp; insured · Painting contractor in Miami, FL</span>
         </div>

@@ -6,7 +6,7 @@ import { Bar, EstimateButton, Eyebrow, Reveal, SplitTitle, Stagger, WhatsAppButt
 import { PROCESS_ICONS } from '../data/services'
 import { PaintDrips, PaintSplat, RollerSVG } from './paint'
 
-const wrap = 'mx-auto max-w-[1320px] px-5'
+const wrap = 'mx-auto max-w-[1760px] px-5 md:px-8 xl:px-12 2xl:px-16'
 
 /* ---------- Hero with curved image and parallax ---------- */
 export function PageHero({ crumbs, eyebrow, title, green, intro, image, alt, children, tall = false }) {
@@ -30,8 +30,8 @@ export function PageHero({ crumbs, eyebrow, title, green, intro, image, alt, chi
   const wobble = useTransform(p, [0, 0.25, 0.5, 0.75, 1], [-1.2, 0.8, -0.6, 0.5, 0])
 
   return (
-    <section ref={ref} className="relative overflow-hidden bg-gradient-to-b from-white to-mist/60 pt-[84px]">
-      <div className={`${wrap} relative grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] ${tall ? 'lg:min-h-[640px]' : 'lg:min-h-[560px]'}`}>
+    <section ref={ref} className="relative overflow-hidden bg-gradient-to-b from-white to-mist/60 pt-[92px] md:pt-[108px]">
+      <div className={`${wrap} grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] ${tall ? 'lg:min-h-[max(640px,calc(100svh-108px))]' : 'lg:min-h-[max(560px,calc(100svh-108px))]'}`}>
         <div className="relative z-10 py-10 lg:py-16">
           {crumbs && (
             <motion.nav aria-label="Breadcrumb" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-6 flex flex-wrap items-center gap-1 text-sm font-semibold">
@@ -50,7 +50,7 @@ export function PageHero({ crumbs, eyebrow, title, green, intro, image, alt, chi
           {children}
         </div>
 
-        <div className="relative -mx-5 h-[360px] sm:h-[440px] lg:absolute lg:inset-y-0 lg:right-0 lg:mx-0 lg:h-auto lg:w-[58%]">
+        <div className="relative -mx-5 h-[360px] sm:h-[440px] md:-mx-8 lg:absolute lg:bottom-0 lg:right-0 lg:top-[108px] lg:mx-0 lg:h-auto lg:w-[56%]">
           <motion.div
             className="absolute inset-0 bg-gradient-to-br from-brand-300 to-brand-500"
             style={{ borderTopLeftRadius: '55% 100%' }}

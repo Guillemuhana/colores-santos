@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router'
 import { motion } from 'motion/react'
-import { ArrowRight, Award, CalendarCheck, Clock, Handshake, House, HardHat, Mail, MapPin, Phone, ShieldCheck, Sparkles, TrendingUp, Users, Leaf } from 'lucide-react'
+import { ArrowRight, Award, CalendarCheck, Clock, FileText, Handshake, House, HardHat, Images, LoaderCircle, Mail, MapPin, Palette, Phone, ShieldCheck, Sparkles, TrendingUp, Users, Leaf } from 'lucide-react'
+import { PhotoUpload } from '../components/PhotoUpload'
 import { BenefitsStrip, BeforeAfter, CtaBanner, DetailSection, PageHero, PaintDrips, Process, ServiceCard, WhyChoose, wrap } from '../components/sections'
 import { Bar, Reveal, SplitTitle, Stagger, WhatsAppIcon, ease } from '../components/ui'
 import { DEFAULT_PROCESS, RESIDENTIAL_CORE, SERVICES, getService } from '../data/services'
@@ -281,10 +282,15 @@ const TYPES = ['Residential', 'Commercial', 'HOA / Condominium', 'Property Manag
 
 export function Contact() {
   const [f, setF] = useState({ name: '', phone: '', email: '', city: '', type: 'Residential', services: [], message: '' })
+  const [photos, setPhotos] = useState([])
+  const uploading = photos.some((p) => p.status === 'uploading')
+  const photoLinks = photos.filter((p) => p.status === 'done').map((p) => p.url)
+  const failed = photos.filter((p) => p.status === 'error').length
   const set = (k) => (e) => setF({ ...f, [k]: e.target.value })
   const toggle = (n) => setF({ ...f, services: f.services.includes(n) ? f.services.filter((x) => x !== n) : [...f.services, n] })
   const submit = (e) => {
     e.preventDefault()
+    if (uploading) return
     const msg = [
       `Hi ${BUSINESS.name}! I'd like a free estimate.`,
       '',
@@ -306,7 +312,7 @@ export function Contact() {
       <div className={`${wrap} relative grid gap-12 lg:grid-cols-[1fr_1.3fr]`}>
         <div>
           <SplitTitle lines={['Get a Free', 'Painting Estimate']} className="text-[clamp(2.6rem,5.5vw,4.4rem)] font-extrabold leading-none" />
-          <Reveal delay={0.2}><p className="mt-5 max-w-md text-lg text-ink/70">Tell us about your project anywhere in Miami-Dade. We'll reply on WhatsApp with next steps and schedule your free, no-obligation estimate.</p></Reveal>
+          <Reveal delay={0.2}><p className="mt-5 max-w-md text-lg text-ink/70">Tell us about your project anywhere in Miami-Dade. Add photos of the house or area to paint and we'll email you a personalized, no-obligation estimate with before &amp; after images.</p></Reveal>
           <Stagger className="mt-10 space-y-4">
             {[[Phone, 'Call us', BUSINESS.phone, `tel:${BUSINESS.phone.replace(/[^\d+]/g, '')}`], [Mail, 'Email', BUSINESS.email, `mailto:${BUSINESS.email}`], [MapPin, 'Service area', BUSINESS.area], [Clock, 'Hours', BUSINESS.hours]].map(([I, l, v, href]) => (
               <Stagger.Item key={l} className="flex items-center gap-4">
@@ -327,7 +333,7 @@ export function Contact() {
           <div className="grid gap-4 sm:grid-cols-2">
             <input required placeholder="Full name *" className={input} value={f.name} onChange={set('name')} />
             <input required type="tel" placeholder="Phone *" className={input} value={f.phone} onChange={set('phone')} />
-            <input type="email" placeholder="Email" className={input} value={f.email} onChange={set('email')} />
+            <input required type="email" placeholder="Email * (we send your estimate here)" className={input} value={f.email} onChange={set('email')} />
             <input placeholder="City / Area" className={input} value={f.city} onChange={set('city')} />
           </div>
           <p className="mb-2 mt-6 text-sm font-bold">Property type</p>
@@ -353,10 +359,33 @@ export function Contact() {
             })}
           </div>
           <textarea rows={4} placeholder="Tell us about your project (size, timeline, details)…" className={`${input} mt-6 resize-none`} value={f.message} onChange={set('message')} />
-          <button type="submit" className="group mt-6 flex w-full items-center justify-center gap-3 rounded-xl bg-[#25D366] px-6 py-4 text-lg font-bold text-white shadow-lg shadow-[#25D366]/30 transition-transform hover:-translate-y-0.5">
-            <WhatsAppIcon className="size-6" /> Send via WhatsApp <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" />
+          <PhotoUpload items={photos} onChange={setPhotos} />
+
+          {/* what the customer gets */}
+          <div className="mt-6 overflow-hidden rounded-2xl bg-gradient-to-br from-forest-900 to-forest-950 p-5 text-white sm:p-6">
+            <p className="flex items-center gap-2 font-display text-lg font-bold">
+              <Mail className="size-5 text-brand-400" /> Your personalized estimate, by email
+            </p>
+            <p className="mt-1.5 text-sm leading-relaxed text-white/70">
+              We review your photos and details and email you a custom quote{f.email ? <> to <span className="font-semibold text-brand-300">{f.email}</span></> : null}, based exactly on what you asked us to price.
+            </p>
+            <ul className="mt-4 grid gap-2.5 text-sm sm:grid-cols-3">
+              {[[FileText, 'Itemized quote', 'Clear scope, materials & price'], [Images, 'Before & after', 'Images of how your space will look'], [Palette, 'Color advice', 'Finish & color recommendations']].map(([I, t, d]) => (
+                <li key={t} className="rounded-xl bg-white/[0.06] p-3 ring-1 ring-white/10">
+                  <I className="size-5 text-brand-400" />
+                  <p className="mt-1.5 font-semibold">{t}</p>
+                  <p className="text-xs text-white/60">{d}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <button type="submit" disabled={uploading} className="group mt-6 flex w-full items-center justify-center gap-3 rounded-xl bg-[#25D366] px-6 py-4 text-lg font-bold text-white shadow-lg shadow-[#25D366]/30 transition-transform enabled:hover:-translate-y-0.5 disabled:cursor-wait disabled:opacity-70">
+            {uploading
+              ? <><LoaderCircle className="size-6 animate-spin" /> Uploading photos…</>
+              : <><WhatsAppIcon className="size-6" /> Request my estimate <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" /></>}
           </button>
-          <p className="mt-3 text-center text-xs text-ink/50">Free, no-obligation estimate · We usually reply the same day</p>
+          <p className="mt-3 text-center text-xs text-ink/50">Free, no-obligation estimate · Sent via WhatsApp · Your quote arrives by email</p>
         </motion.form>
       </div>
     </section>

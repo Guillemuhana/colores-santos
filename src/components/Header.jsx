@@ -72,7 +72,7 @@ export default function Header() {
 
   return (
     <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled ? 'bg-white/85 py-2 shadow-[0_8px_30px_-12px_rgb(11_58_50/0.25)] backdrop-blur-xl' : 'bg-white py-3.5'}`}>
-      <div className="mx-auto flex max-w-[1320px] items-center justify-between gap-6 px-5">
+      <div className="mx-auto flex max-w-[1760px] items-center justify-between gap-6 px-5 md:px-8 xl:px-12 2xl:px-16">
         <Logo className={`transition-[font-size] duration-500 ${scrolled ? 'text-[7.5px] md:text-[8px]' : 'text-[8px] md:text-[10px]'}`} />
         <nav className="hidden items-center gap-5 xl:flex 2xl:gap-7">
           {NAV.map((n) => <NavItem key={n.to} item={n} />)}
