@@ -11,5 +11,15 @@ export const BUSINESS = {
   facebook: '',
 }
 
+// URL pública del sitio (sin "/" final). Cambiar cuando tengan dominio propio:
+// se usa en canonical, Open Graph, sitemap.xml y robots.txt.
+export const SITE_URL = 'https://colores-santos.vercel.app'
+
+// Ciudades/barrios donde trabajan (SEO local). Ajustar a la zona real.
+export const AREAS = [
+  'Miami', 'Miami Beach', 'Coral Gables', 'Doral', 'Hialeah', 'Kendall', 'Brickell', 'Coconut Grove',
+  'Miami Lakes', 'Aventura', 'North Miami', 'Pinecrest', 'Key Biscayne', 'Homestead',
+]
+
 export const waLink = (text = `Hi ${BUSINESS.name}! I'd like a free estimate.`) =>
   `https://wa.me/${BUSINESS.whatsapp}?text=${encodeURIComponent(text)}`

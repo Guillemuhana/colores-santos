@@ -9,7 +9,7 @@ import { PaintCanvas, PaintDrips, PaintSplat, RollerSVG } from './paint'
 const wrap = 'mx-auto max-w-[1320px] px-5'
 
 /* ---------- Hero with curved image and parallax ---------- */
-export function PageHero({ crumbs, eyebrow, title, green, intro, image, children, tall = false }) {
+export function PageHero({ crumbs, eyebrow, title, green, intro, image, alt, children, tall = false }) {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '18%'])
@@ -21,7 +21,7 @@ export function PageHero({ crumbs, eyebrow, title, green, intro, image, children
       <div className={`${wrap} relative grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] ${tall ? 'lg:min-h-[640px]' : 'lg:min-h-[560px]'}`}>
         <div className="relative z-10 py-10 lg:py-16">
           {crumbs && (
-            <motion.nav initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-6 flex flex-wrap items-center gap-1 text-sm font-semibold">
+            <motion.nav aria-label="Breadcrumb" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-6 flex flex-wrap items-center gap-1 text-sm font-semibold">
               {crumbs.map(([label, to], i) => (
                 <span key={label} className="flex items-center gap-1">
                   {to ? <Link to={to} className="hover:text-brand-600">{label}</Link> : <span className="text-brand-600">{label}</span>}
@@ -52,7 +52,7 @@ export function PageHero({ crumbs, eyebrow, title, green, intro, image, children
             animate={{ clipPath: 'inset(0 0 0% 0)' }}
             transition={{ duration: 1.7, ease: [0.45, 0, 0.25, 1], delay: 0.35 }}
           >
-            <motion.img src={image} alt="" className="h-full w-full object-cover" style={{ y, scale }} fetchPriority="high" />
+            <motion.img src={image} alt={alt || `${title.join(' ')} in Miami, FL`} className="h-full w-full object-cover" style={{ y, scale }} fetchPriority="high" />
             <div className="absolute inset-0 bg-gradient-to-t from-forest-950/20 via-transparent to-transparent" />
           </motion.div>
           {/* paint roller that "rolls" the photo onto the wall */}
@@ -88,7 +88,7 @@ export function BenefitsStrip({ items }) {
 }
 
 /* ---------- Dark service detail with checklist + gallery ---------- */
-export function DetailSection({ title, text, includes, gallery }) {
+export function DetailSection({ title, text, includes, gallery, name = '' }) {
   const g = gallery
   return (
     <>
@@ -115,7 +115,7 @@ export function DetailSection({ title, text, includes, gallery }) {
               key={src}
               className={`group relative overflow-hidden rounded-2xl border-4 border-white/90 shadow-2xl ${i === 0 ? 'col-span-2 aspect-[4/3] sm:col-span-1 sm:row-span-2 sm:aspect-auto' : 'aspect-[4/3]'} ${g.length === 4 && i === 1 ? 'sm:col-span-2' : ''}`}
             >
-              <img src={src} alt="" loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-110" />
+              <img src={src} alt={`${name} project in Miami, FL – photo ${i + 1}`} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-110" />
             </Stagger.Item>
           ))}
         </Stagger>
@@ -166,7 +166,7 @@ export function Process({ steps, title = ['Our', 'Process'], text = 'A simple an
 }
 
 /* ---------- Draggable before / after ---------- */
-export function BeforeAfter({ before, after, text }) {
+export function BeforeAfter({ before, after, text, name = 'Painting' }) {
   const box = useRef(null)
   const [pos, setPos] = useState(50)
   const [drag, setDrag] = useState(false)
@@ -185,21 +185,21 @@ export function BeforeAfter({ before, after, text }) {
         <Reveal>
           <div
             ref={box}
-            className={`relative aspect-[16/9] select-none overflow-hidden rounded-3xl shadow-2xl shadow-forest-900/20 ${drag ? 'cursor-grabbing' : 'cursor-ew-resize'}`}
+            className={`relative aspect-[4/3] select-none sm:aspect-[16/9] overflow-hidden rounded-3xl shadow-2xl shadow-forest-900/20 ${drag ? 'cursor-grabbing' : 'cursor-ew-resize'}`}
             onPointerDown={(e) => { setDrag(true); e.currentTarget.setPointerCapture(e.pointerId); move(e.clientX) }}
             onPointerMove={(e) => drag && move(e.clientX)}
             onPointerUp={() => setDrag(false)}
             style={{ touchAction: 'pan-y' }}
           >
-            <img src={after} alt="After" className="absolute inset-0 h-full w-full object-cover" draggable="false" />
+            <img src={after} alt={`${name} in Miami – after`} className="absolute inset-0 h-full w-full object-cover" draggable="false" />
             <div className="absolute inset-0" style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}>
-              <img src={before} alt="Before" className="absolute inset-0 h-full w-full object-cover" draggable="false" />
+              <img src={before} alt={`${name} in Miami – before`} className="absolute inset-0 h-full w-full object-cover" draggable="false" />
             </div>
             <span className="absolute bottom-4 left-4 rounded-full bg-ink/85 px-4 py-1.5 text-sm font-bold text-white backdrop-blur">Before</span>
             <span className="absolute bottom-4 right-4 rounded-full bg-brand-400 px-4 py-1.5 text-sm font-bold text-forest-950">After</span>
             <div className="absolute inset-y-0 w-[6px] -translate-x-1/2 bg-gradient-to-r from-brand-600 via-brand-300 to-brand-500 opacity-90 shadow-[0_0_24px_rgb(31_216_166/0.6)]" style={{ left: `${pos}%` }}>
               <div className="absolute top-1/2 left-1/2 h-[70%] w-[64px] -translate-x-1/2 -translate-y-1/2">
-                <RollerSVG vertical className="absolute left-1/2 top-1/2 w-[min(46vh,360px)] -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_10px_18px_rgb(0_0_0/0.4)]" />
+                <RollerSVG vertical className="absolute left-1/2 top-1/2 w-[min(40vh,230px)] sm:w-[min(46vh,360px)] -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_10px_18px_rgb(0_0_0/0.4)]" />
               </div>
             </div>
           </div>
@@ -222,7 +222,7 @@ export function CtaBanner({ title, text, flip = false }) {
       <div className={`${wrap} grid items-center gap-8 py-16 lg:grid-cols-2 lg:py-20`}>
         <div className={`relative h-56 sm:h-72 ${flip ? 'lg:order-2' : ''}`}>
           <motion.div className="absolute inset-0 overflow-hidden rounded-3xl" style={{ x }}>
-            <motion.img src="/img/roller.jpg" alt="" className="h-full w-full object-cover" style={{ rotate: rot, scale: 1.15 }} loading="lazy" />
+            <motion.img src="/img/roller.jpg" alt="Paint roller applying fresh paint" className="h-full w-full object-cover" style={{ rotate: rot, scale: 1.15 }} loading="lazy" />
           </motion.div>
         </div>
         <div className={flip ? 'lg:order-1' : ''}>
@@ -241,7 +241,7 @@ export function ServiceCard({ s, i = 0 }) {
     <Stagger.Item className="h-full">
       <Link to={`/residential/${s.slug}`} className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-lg shadow-forest-900/10 ring-1 ring-black/5 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-brand-500/20">
         <div className="relative aspect-[16/9] overflow-hidden">
-          <img src={s.tile} alt="" loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-110" />
+          <img src={s.tile} alt={`${s.name} in Miami, FL`} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-110" />
           <span className="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-0.5 text-xs font-bold text-forest-700 backdrop-blur">0{i + 1}</span>
         </div>
         <div className="flex flex-1 items-start gap-3 p-5">

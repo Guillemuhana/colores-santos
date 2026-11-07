@@ -5,7 +5,8 @@ import Lenis from 'lenis'
 import { Clock, Mail, MapPin, Phone } from 'lucide-react'
 import Header, { Logo } from './Header'
 import { WhatsAppIcon, ease } from './ui'
-import { BUSINESS, waLink } from '../config'
+import { AREAS, BUSINESS, waLink } from '../config'
+import { applySeo } from '../seo'
 import { SERVICES } from '../data/services'
 
 function useSmoothScroll() {
@@ -56,10 +57,14 @@ function Footer() {
           </ul>
         </div>
       </div>
+      <div className="mx-auto max-w-[1320px] px-5 pb-10">
+        <h4 className="mb-3 text-sm font-bold text-brand-300">Areas We Serve in Miami-Dade, Florida</h4>
+        <p className="text-sm leading-relaxed text-white/60">{AREAS.join(' · ')}</p>
+      </div>
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-[1320px] flex-wrap justify-between gap-2 px-5 py-5 text-xs text-white/50">
           <span>© {new Date().getFullYear()} {BUSINESS.name} Painting &amp; Finishes. All rights reserved.</span>
-          <span>Licensed &amp; insured · Serving {BUSINESS.area}</span>
+          <span>Licensed &amp; insured · Painting contractor in Miami, FL</span>
         </div>
       </div>
     </footer>
@@ -88,6 +93,7 @@ function FloatingWhatsApp() {
 export default function Layout() {
   const { pathname } = useLocation()
   const lenis = useSmoothScroll()
+  useEffect(() => applySeo(pathname), [pathname])
   useEffect(() => {
     if (lenis.current) lenis.current.scrollTo(0, { immediate: true })
     else window.scrollTo(0, 0)

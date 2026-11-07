@@ -15,11 +15,11 @@ export function ServicePage() {
   if (!s) return <Navigate to="/services" replace />
   return (
     <>
-      <PageHero crumbs={[['Home', '/'], ['Residential', '/residential'], [s.name]]} eyebrow="Residential Services" title={s.title} intro={s.intro} image={s.hero} />
+      <PageHero crumbs={[['Home', '/'], ['Residential', '/residential'], [s.name]]} eyebrow="Residential Services · Miami, FL" title={s.title} intro={s.intro} image={s.hero} alt={`${s.name} in Miami, FL`} />
       <BenefitsStrip items={s.benefits} />
-      <DetailSection title={s.detailTitle} text={s.detail} includes={s.includes} gallery={s.gallery} />
+      <DetailSection name={s.name} title={s.detailTitle} text={s.detail} includes={s.includes} gallery={s.gallery} />
       <Process steps={s.process} />
-      {s.before && <BeforeAfter before={s.before} after={s.after} text={s.baText} />}
+      {s.before && <BeforeAfter name={s.name} before={s.before} after={s.after} text={s.baText} />}
       <MoreServices current={s.slug} />
       <CtaBanner title={s.cta} text={s.ctaText} />
     </>
@@ -50,7 +50,7 @@ export function Residential() {
   return (
     <>
       <PageHero
-        eyebrow="Residential"
+        eyebrow="Residential · Miami, FL"
         title={['Painting & Home', 'Improvement', 'Solutions']}
         green={[2]}
         intro="Enhance, protect and add value to your home with professional painting, finishes and light renovation services."
@@ -75,7 +75,7 @@ export function Residential() {
             {extra.map((s) => (
               <Reveal key={s.slug}>
                 <Link to={`/residential/${s.slug}`} className="group flex items-center gap-4 rounded-2xl border border-white/15 bg-white/5 p-4 text-white backdrop-blur transition-colors hover:bg-white/10">
-                  <img src={s.tile} alt="" className="size-16 rounded-xl object-cover" />
+                  <img src={s.tile} alt={`${s.name} in Miami`} loading="lazy" className="size-16 rounded-xl object-cover" />
                   <div className="flex-1"><h3 className="font-bold">{s.name}</h3><p className="text-sm text-white/65">{s.short}</p></div>
                   <ArrowRight className="size-5 text-brand-400 transition-transform group-hover:translate-x-1" />
                 </Link>
@@ -129,7 +129,7 @@ export function Services() {
     <>
       <section className="bg-gradient-to-b from-mist to-white pb-10 pt-36">
         <div className={wrap}>
-          <SplitTitle lines={['All', 'Services']} className="text-[clamp(2.6rem,6vw,4.6rem)] font-extrabold leading-none" />
+          <SplitTitle lines={['Painting Services', 'in Miami, FL']} className="text-[clamp(2.6rem,6vw,4.6rem)] font-extrabold leading-none" />
           <Reveal delay={0.2}><p className="mt-4 max-w-xl text-lg text-ink/70">Comprehensive painting and finish solutions to enhance, protect and add value to your property.</p></Reveal>
         </div>
       </section>
@@ -147,7 +147,7 @@ export function Services() {
 export function Commercial() {
   return (
     <>
-      <PageHero crumbs={[['Home', '/'], ['Commercial']]} eyebrow="Commercial Services" title={['Commercial', 'Painting & Finishes']}
+      <PageHero crumbs={[['Home', '/'], ['Commercial']]} eyebrow="Commercial Services · Miami, FL" title={['Commercial', 'Painting & Finishes']}
         intro="Professional, efficient and high-quality painting solutions for businesses and commercial properties across South Florida." image="/img/commercial-hero.jpg" />
       <BenefitsStrip items={[[Users, 'Minimal Business Disruption'], [ShieldCheck, 'Durable & Long-Lasting Finishes'], [Clock, 'On-Time & Reliable Service'], [HardHat, 'Safety & Compliance'], [Award, 'Quality Work & Professional Team']]} />
       <section className="grain relative overflow-hidden bg-forest-900 py-16 lg:py-20">
@@ -195,7 +195,7 @@ function Gallery({ title, images }) {
         <Stagger className="grid gap-5 sm:grid-cols-3">
           {images.map((im) => (
             <Stagger.Item key={im} className="group aspect-[4/3] overflow-hidden rounded-2xl shadow-lg">
-              <img src={im} alt="" loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-110" />
+              <img src={im} alt={`${title.join(' ')} – Miami, FL`} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-110" />
             </Stagger.Item>
           ))}
         </Stagger>
@@ -245,8 +245,8 @@ export function About() {
       <section className="bg-white py-16 lg:py-24">
         <div className={`${wrap} grid gap-12 lg:grid-cols-2 lg:items-center`}>
           <Reveal className="grid grid-cols-2 gap-4">
-            <img src="/img/carpentry-g1.jpg" alt="" className="aspect-[3/4] w-full rounded-3xl object-cover shadow-xl" />
-            <img src="/img/cabinet-g1.jpg" alt="" className="mt-12 aspect-[3/4] w-full rounded-3xl object-cover shadow-xl" />
+            <img src="/img/carpentry-g1.jpg" alt="Custom carpentry by Colores Santos in Miami" loading="lazy" className="aspect-[3/4] w-full rounded-3xl object-cover shadow-xl" />
+            <img src="/img/cabinet-g1.jpg" alt="Cabinet refinishing in a Miami kitchen" loading="lazy" className="mt-12 aspect-[3/4] w-full rounded-3xl object-cover shadow-xl" />
           </Reveal>
           <div>
             <Bar />
@@ -305,8 +305,8 @@ export function Contact() {
       <div className="pointer-events-none absolute -right-40 top-0 size-[560px] rounded-full bg-brand-300/25 blur-3xl" />
       <div className={`${wrap} relative grid gap-12 lg:grid-cols-[1fr_1.3fr]`}>
         <div>
-          <SplitTitle lines={['Get a', 'Free Estimate']} className="text-[clamp(2.6rem,5.5vw,4.4rem)] font-extrabold leading-none" />
-          <Reveal delay={0.2}><p className="mt-5 max-w-md text-lg text-ink/70">Tell us about your project. We'll reply on WhatsApp with next steps and schedule your free, no-obligation estimate.</p></Reveal>
+          <SplitTitle lines={['Get a Free', 'Painting Estimate']} className="text-[clamp(2.6rem,5.5vw,4.4rem)] font-extrabold leading-none" />
+          <Reveal delay={0.2}><p className="mt-5 max-w-md text-lg text-ink/70">Tell us about your project anywhere in Miami-Dade. We'll reply on WhatsApp with next steps and schedule your free, no-obligation estimate.</p></Reveal>
           <Stagger className="mt-10 space-y-4">
             {[[Phone, 'Call us', BUSINESS.phone, `tel:${BUSINESS.phone.replace(/[^\d+]/g, '')}`], [Mail, 'Email', BUSINESS.email, `mailto:${BUSINESS.email}`], [MapPin, 'Service area', BUSINESS.area], [Clock, 'Hours', BUSINESS.hours]].map(([I, l, v, href]) => (
               <Stagger.Item key={l} className="flex items-center gap-4">

@@ -4,6 +4,7 @@ import { PageHero, Process, CtaBanner, Marquee, WhyChoose, wrap, PaintDrips } fr
 import { Bar, Reveal, SplitTitle, Stagger } from '../components/ui'
 import { SERVICES, DEFAULT_PROCESS } from '../data/services'
 import { SEGMENTS } from '../data/segments'
+import { AREAS } from '../config'
 
 export default function Home() {
   return (
@@ -11,9 +12,11 @@ export default function Home() {
       <PageHero
         tall
         green={[1]}
-        title={['Professional', 'Painting & Finishes', 'for Homes, Businesses', '& Communities']}
+        eyebrow="Painting Contractor · Miami, FL"
+        title={['Professional', 'Painting & Finishes', 'in Miami, Florida']}
         intro="Complete interior and exterior solutions, including painting, stucco, drywall, carpentry and custom finishes, for residential, commercial and multi-family properties in Miami and surrounding areas."
         image="/img/home-hero.jpg"
+        alt="Freshly painted home exterior in Miami, Florida"
       >
         <Reveal delay={0.65} className="mt-9 flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium text-ink/80">
           {[[ShieldCheck, 'Quality Workmanship'], [Users, 'Reliable & Professional'], [MapPin, 'Serving Miami & Surroundings']].map(([I, t]) => (
@@ -29,7 +32,7 @@ export default function Home() {
             <Stagger.Item key={s.to}>
               <Link to={s.to} className="group block h-full overflow-hidden rounded-2xl bg-white shadow-xl shadow-forest-900/10 ring-1 ring-black/5 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand-500/25">
                 <div className="aspect-[16/9] overflow-hidden">
-                  <img src={s.card} alt="" className="h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-110" />
+                  <img src={s.card} alt={`${s.name} painting in Miami`} className="h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-110" />
                 </div>
                 <div className="p-5">
                   <div className="flex items-center gap-3">
@@ -65,7 +68,7 @@ export default function Home() {
             {SERVICES.map((s) => (
               <Stagger.Item key={s.slug}>
                 <Link to={`/residential/${s.slug}`} className="group block overflow-hidden rounded-2xl bg-white text-ink transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-brand-400/30">
-                  <div className="aspect-[2/1] overflow-hidden"><img src={s.tile} alt="" loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-110" /></div>
+                  <div className="aspect-[2/1] overflow-hidden"><img src={s.tile} alt={`${s.name} in Miami, FL`} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-110" /></div>
                   <div className="flex min-h-[72px] items-center gap-2.5 p-3.5">
                     <s.icon className="size-6 shrink-0 stroke-[1.6] text-brand-500" />
                     <span className="text-[15px] font-bold leading-tight">{s.name}</span>
@@ -86,6 +89,32 @@ export default function Home() {
       ]} />
 
       <Process tone="mist" title={['How We', 'Work']} text="A simple, professional process from quote to final touch." steps={DEFAULT_PROCESS} />
+
+      {/* Local SEO: service area */}
+      <section className="bg-white py-16 lg:py-20">
+        <div className={`${wrap} grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:items-center`}>
+          <div>
+            <Bar />
+            <h2 className="text-4xl font-bold leading-tight sm:text-5xl">Painting Contractor <span className="block text-gradient">Serving Miami-Dade</span></h2>
+            <Reveal delay={0.1}>
+              <p className="mt-5 text-lg leading-relaxed text-ink/75">
+                South Florida's sun, humidity, salt air and hurricane season are hard on any property. We use premium, mildew-resistant and UV-protective
+                coatings, and prepare every surface properly, so your paint, stucco and finishes look great and last longer in Miami's climate.
+              </p>
+              <p className="mt-4 text-lg leading-relaxed text-ink/75">
+                From single-family homes and condos to offices, retail and HOA communities, we work across Miami-Dade County with free, no-obligation estimates.
+              </p>
+            </Reveal>
+          </div>
+          <Stagger className="flex flex-wrap gap-2.5" gap={0.03}>
+            {AREAS.map((a) => (
+              <Stagger.Item key={a} className="flex items-center gap-1.5 rounded-full border border-brand-200 bg-mist px-4 py-2 text-sm font-semibold text-forest-800">
+                <MapPin className="size-4 text-brand-500" />{a}, FL
+              </Stagger.Item>
+            ))}
+          </Stagger>
+        </div>
+      </section>
 
       <CtaBanner flip title={["Let's Paint & Upgrade", 'Your Next Project']} text="Get a free, no-obligation estimate and see how Colores Santos can bring new life to your property." />
     </>

@@ -61,7 +61,7 @@ export function PaintDrips({ color = '#0b3a32', seed = 7, count = 16, max = 52 }
     dur: 1.6 + r() * 1.6,
   }))
   return (
-    <div className="pointer-events-none relative z-20 h-0" aria-hidden="true">
+    <div className="pointer-events-none relative z-20 h-0 [overflow-x:clip] [overflow-y:visible]" aria-hidden="true">
       <svg className="absolute size-0">
         <filter id={`goo-${id}`}>
           <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="b" />
