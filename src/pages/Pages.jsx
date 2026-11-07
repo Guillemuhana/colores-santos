@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router'
 import { motion } from 'motion/react'
-import { ArrowRight, Award, CalendarCheck, Clock, FileText, Handshake, House, HardHat, Images, LoaderCircle, Mail, MapPin, Palette, Phone, ShieldCheck, Sparkles, TrendingUp, Users, Leaf } from 'lucide-react'
+import { ArrowRight, Award, CalendarCheck, Clock, FileText, Handshake, House, HardHat, Images, LoaderCircle, Mail, CircleCheck, Send, MapPin, Palette, Phone, ShieldCheck, Sparkles, TrendingUp, Users, Leaf } from 'lucide-react'
 import { PhotoUpload } from '../components/PhotoUpload'
 import { BenefitsStrip, BeforeAfter, CtaBanner, DetailSection, PageHero, PaintDrips, Process, ServiceCard, WhyChoose, wrap } from '../components/sections'
 import { Bar, Reveal, SplitTitle, Stagger, WhatsAppIcon, ease } from '../components/ui'
@@ -288,21 +288,35 @@ export function Contact() {
   const failed = photos.filter((p) => p.status === 'error').length
   const set = (k) => (e) => setF({ ...f, [k]: e.target.value })
   const toggle = (n) => setF({ ...f, services: f.services.includes(n) ? f.services.filter((x) => x !== n) : [...f.services, n] })
-  const submit = (e) => {
+  const [status, setStatus] = useState('idle') // idle | sending | sent | error
+  const waMessage = () => [
+    `Hi ${BUSINESS.name}! I'd like a free estimate.`,
+    '',
+    `Name: ${f.name}`,
+    `Phone: ${f.phone}`,
+    f.email && `Email: ${f.email}`,
+    f.city && `City / Area: ${f.city}`,
+    `Property type: ${f.type}`,
+    f.services.length && `Services: ${f.services.join(', ')}`,
+    f.message && `Details: ${f.message}`,
+    photoLinks.length && `\nPhotos (${photoLinks.length}):\n${photoLinks.map((u, i) => `${i + 1}. ${u}`).join('\n')}`,
+  ].filter(Boolean).join('\n')
+  const submit = async (e) => {
     e.preventDefault()
-    if (uploading) return
-    const msg = [
-      `Hi ${BUSINESS.name}! I'd like a free estimate.`,
-      '',
-      `Name: ${f.name}`,
-      `Phone: ${f.phone}`,
-      f.email && `Email: ${f.email}`,
-      f.city && `City / Area: ${f.city}`,
-      `Property type: ${f.type}`,
-      f.services.length && `Services: ${f.services.join(', ')}`,
-      f.message && `Details: ${f.message}`,
-    ].filter(Boolean).join('\n')
-    window.open(waLink(msg), '_blank', 'noopener')
+    if (uploading || status === 'sending') return
+    setStatus('sending')
+    try {
+      const res = await fetch('/api/estimate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...f, photos: photoLinks, failedPhotos: failed, company: e.target.company?.value || '' }),
+      })
+      if (!res.ok) throw new Error(String(res.status))
+      setStatus('sent')
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    } catch {
+      setStatus('error')
+    }
   }
   const input = 'w-full rounded-xl border border-black/10 bg-white px-4 py-3.5 outline-none transition focus:border-brand-400 focus:ring-4 focus:ring-brand-400/20'
 
@@ -323,6 +337,9 @@ export function Contact() {
           </Stagger>
         </div>
 
+        {status === 'sent' ? (
+          <EstimateSent email={f.email} name={f.name} photos={photoLinks.length} wa={waLink(waMessage())} />
+        ) : (
         <motion.form
           onSubmit={submit}
           initial={{ opacity: 0, y: 40 }}
@@ -380,15 +397,64 @@ export function Contact() {
             </ul>
           </div>
 
-          <button type="submit" disabled={uploading} className="group mt-6 flex w-full items-center justify-center gap-3 rounded-xl bg-[#25D366] px-6 py-4 text-lg font-bold text-white shadow-lg shadow-[#25D366]/30 transition-transform enabled:hover:-translate-y-0.5 disabled:cursor-wait disabled:opacity-70">
+          <button type="submit" disabled={uploading || status === 'sending'} className="group mt-6 flex w-full items-center justify-center gap-3 rounded-xl bg-brand-400 px-6 py-4 text-lg font-bold text-forest-950 shadow-lg shadow-brand-400/30 transition-transform enabled:hover:-translate-y-0.5 disabled:cursor-wait disabled:opacity-70">
             {uploading
               ? <><LoaderCircle className="size-6 animate-spin" /> Uploading photos…</>
-              : <><WhatsAppIcon className="size-6" /> Request my estimate <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" /></>}
+              : status === 'sending'
+                ? <><LoaderCircle className="size-6 animate-spin" /> Sending your request…</>
+                : <><Send className="size-5" /> Request my estimate <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" /></>}
           </button>
-          <p className="mt-3 text-center text-xs text-ink/50">Free, no-obligation estimate · Sent via WhatsApp · Your quote arrives by email</p>
+          {/* honeypot for bots */}
+          <input type="text" name="company" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
+          {status === 'error' && (
+            <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-800">
+              We couldn't send your request right now. Please try again, or send it to us on WhatsApp:
+              <a href={waLink(waMessage())} target="_blank" rel="noopener noreferrer" className="mt-3 flex items-center justify-center gap-2 rounded-lg bg-[#25D366] px-4 py-2.5 font-bold text-white"><WhatsAppIcon className="size-5" /> Send via WhatsApp</a>
+            </div>
+          )}
+          <p className="mt-3 text-center text-xs text-ink/50">Free, no-obligation estimate · Your personalized quote arrives by email</p>
         </motion.form>
+        )}
       </div>
     </section>
+  )
+}
+
+function EstimateSent({ email, name, photos, wa }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30, scale: 0.97 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.7, ease }}
+      className="self-start rounded-3xl bg-white p-8 text-center shadow-2xl shadow-forest-900/15 ring-1 ring-black/5 sm:p-12"
+      role="status"
+    >
+      <motion.span
+        initial={{ scale: 0, rotate: -30 }}
+        animate={{ scale: 1, rotate: 0 }}
+        transition={{ type: 'spring', stiffness: 260, damping: 14, delay: 0.2 }}
+        className="mx-auto grid size-20 place-items-center rounded-full bg-brand-400 text-forest-950 shadow-xl shadow-brand-400/40"
+      >
+        <CircleCheck className="size-10" />
+      </motion.span>
+      <h2 className="mt-6 text-3xl font-extrabold sm:text-4xl">Request received{name ? `, ${name.split(' ')[0]}` : ''}!</h2>
+      <p className="mx-auto mt-3 max-w-md text-lg text-ink/70">
+        We're reviewing your details{photos ? ` and ${photos} photo${photos > 1 ? 's' : ''}` : ''}. Your personalized estimate will arrive at
+      </p>
+      <p className="mt-2 inline-flex items-center gap-2 rounded-full bg-brand-50 px-4 py-2 font-bold text-brand-700"><Mail className="size-4" /> {email}</p>
+      <ul className="mx-auto mt-8 grid max-w-lg gap-3 text-left text-sm sm:grid-cols-3">
+        {[[FileText, 'Itemized quote'], [Images, 'Before & after images'], [Palette, 'Color advice']].map(([I, t]) => (
+          <li key={t} className="flex items-center gap-2 rounded-xl bg-mist px-3 py-3 font-semibold"><I className="size-5 shrink-0 text-brand-600" />{t}</li>
+        ))}
+      </ul>
+      <div className="mt-8 flex flex-wrap justify-center gap-3">
+        <a href={wa} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-xl bg-[#25D366] px-5 py-3 font-bold text-white shadow-lg shadow-[#25D366]/30 transition-transform hover:-translate-y-0.5">
+          <WhatsAppIcon className="size-5" /> Also message us on WhatsApp
+        </a>
+        <Link to="/" className="inline-flex items-center gap-2 rounded-xl border border-black/10 px-5 py-3 font-bold transition-colors hover:border-brand-400">Back to home</Link>
+      </div>
+      <p className="mt-6 text-xs text-ink/50">Need it sooner? Call us at <a href={`tel:${BUSINESS.phone.replace(/[^\d+]/g, '')}`} className="font-semibold text-ink/70">{BUSINESS.phone}</a></p>
+    </motion.div>
   )
 }
 
