@@ -4,7 +4,7 @@ export const BUSINESS = {
   tagline: 'Painting & Finishes',
   whatsapp: '13057960889', // formato internacional sin "+" ni espacios
   phone: '+1 (305) 796-0889',
-  email: 'info@coloressantos.com',
+  email: 'coloressantos@gmail.com',
   area: 'Miami & Surrounding Areas',
   hours: 'Mon – Sat · 7:00 AM – 6:00 PM',
   instagram: '',
