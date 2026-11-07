@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useId, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router'
 import { AnimatePresence, motion, useScroll, useSpring } from 'motion/react'
 import { ChevronDown, Menu, X } from 'lucide-react'
@@ -6,21 +6,76 @@ import { SERVICES } from '../data/services'
 import { EstimateButton, WhatsAppButton, ease } from './ui'
 
 export function Logo({ light = false }) {
+  const uid = useId().replace(/:/g, '')
+  const g = (n) => `${n}-${uid}`
   return (
-    <Link to="/" className="group flex items-center gap-2.5" aria-label="Colores Santos home">
-      <svg viewBox="0 0 64 56" className="h-11 w-auto shrink-0 transition-transform duration-500 group-hover:-rotate-6">
-        <path d="M2 30c8-14 22-22 40-22" stroke="#1fd8a6" strokeWidth="9" strokeLinecap="round" fill="none" opacity=".9" />
-        <rect x="14" y="4" width="36" height="16" rx="5" fill={light ? '#fff' : '#0d1412'} />
-        <rect x="18" y="7" width="28" height="10" rx="3" fill="#1fd8a6" />
-        <path d="M50 12h7v14H33v8" fill="none" stroke={light ? '#fff' : '#0d1412'} strokeWidth="4" strokeLinejoin="round" />
-        <rect x="29" y="34" width="8" height="18" rx="3" fill={light ? '#fff' : '#0d1412'} />
+    <Link to="/" className={`cs-logo group flex items-center gap-3 ${light ? 'cs-logo--light' : ''}`} aria-label="Colores Santos home">
+      <svg viewBox="0 0 56 56" className="cs-logo__mark h-11 w-11 shrink-0" aria-hidden="true">
+        <defs>
+          <linearGradient id={g('bg')} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stopColor="#14584b" />
+            <stop offset="1" stopColor="#072822" />
+          </linearGradient>
+          <linearGradient id={g('paint')} x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stopColor="#5ddfba" />
+            <stop offset=".6" stopColor="#96ebd2" />
+            <stop offset="1" stopColor="#c9f5e6" />
+          </linearGradient>
+          <linearGradient id={g('cyl')} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stopColor="#96ebd2" />
+            <stop offset=".45" stopColor="#1fd8a6" />
+            <stop offset="1" stopColor="#0c8566" />
+          </linearGradient>
+          <linearGradient id={g('shine')} x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stopColor="#fff" stopOpacity="0" />
+            <stop offset=".5" stopColor="#fff" stopOpacity=".35" />
+            <stop offset="1" stopColor="#fff" stopOpacity="0" />
+          </linearGradient>
+          <clipPath id={g('clip')}><rect width="56" height="56" rx="15" /></clipPath>
+        </defs>
+
+        <g clipPath={`url(#${g('clip')})`}>
+          <rect width="56" height="56" fill={`url(#${g('bg')})`} />
+          {/* painted band (revealed as the roller passes) */}
+          <g className="cs-logo__band">
+            <path
+              d="M8 13.5c4-.9 9 .6 14-.3s10 .5 15-.2 7 .4 10 .1v9.6c-3 .5-7-.3-11 .3s-9-.6-14 .1-9-.3-14 .2Z"
+              fill={`url(#${g('paint')})`}
+            />
+            <path d="M8 15.5h39" stroke="#fff" strokeOpacity=".25" strokeWidth="1" />
+          </g>
+          {/* drip */}
+          <path className="cs-logo__drip" d="M13 22.4h3.4v5.2a1.7 1.7 0 0 1-3.4 0Z" fill="#12c193" />
+          <circle className="cs-logo__drop" cx="14.7" cy="31" r="1.5" fill="#1fd8a6" />
+          {/* roller */}
+          <g className="cs-logo__roller">
+            <rect x="25" y="10" width="21" height="15" rx="4.5" fill={`url(#${g('cyl')})`} stroke="#072822" strokeOpacity=".45" strokeWidth="1.2" />
+            <rect x="25" y="10" width="3.2" height="15" rx="1.6" fill="#fff" fillOpacity=".9" />
+            <path d="M27.5 13.2h16" stroke="#fff" strokeOpacity=".55" strokeWidth="1.4" strokeLinecap="round" />
+            <path d="M46 17.5h4.2v10.3H34v5.4" fill="none" stroke="#fff" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" />
+            <rect x="30.5" y="32.5" width="7" height="15" rx="3.2" fill="#fff" />
+            <path d="M32.6 36v8" stroke="#0b3a32" strokeOpacity=".2" strokeWidth="1.2" strokeLinecap="round" />
+          </g>
+          {/* glossy sweep */}
+          <rect className="cs-logo__shine" x="-30" y="0" width="22" height="56" fill={`url(#${g('shine')})`} transform="skewX(-20)" />
+        </g>
+        <rect x=".75" y=".75" width="54.5" height="54.5" rx="14.5" fill="none" stroke="#fff" strokeOpacity=".12" strokeWidth="1.5" />
       </svg>
+
       <div className="leading-none">
-        <div className={`font-display text-[22px] font-extrabold tracking-tight ${light ? 'text-white' : 'text-ink'}`}>
-          COLORES <span className="text-brand-400">SANTOS</span>
+        <div className="cs-logo__word font-display text-[22px] font-extrabold tracking-tight">
+          <span className="cs-logo__colores">
+            {'COLORES'.split('').map((c, i) => (
+              <span key={i} style={{ '--i': i }}>{c}</span>
+            ))}
+          </span>{' '}
+          <span className="cs-logo__santos ml-1">
+            <span className="cs-logo__swipe" aria-hidden="true" />
+            <span className="cs-logo__santos-text">SANTOS</span>
+          </span>
         </div>
-        <div className={`mt-1 flex items-center gap-1.5 text-[9.5px] font-bold tracking-[0.22em] ${light ? 'text-white/80' : 'text-ink/80'}`}>
-          <span className="h-px w-3 bg-current" /> PAINTING &amp; FINISHES <span className="h-px w-3 bg-current" />
+        <div className="cs-logo__tag mt-1.5 flex items-center gap-1.5 text-[9.5px] font-bold tracking-[0.22em]">
+          <span className="cs-logo__rule" /> PAINTING &amp; FINISHES <span className="cs-logo__rule" />
         </div>
       </div>
     </Link>
