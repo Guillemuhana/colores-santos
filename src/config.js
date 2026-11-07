@@ -21,5 +21,8 @@ export const AREAS = [
   'Miami Lakes', 'Aventura', 'North Miami', 'Pinecrest', 'Key Biscayne', 'Homestead',
 ]
 
+// Before/after: oculto hasta tener fotos reales de trabajos propios (public/img/*-before.jpg y *-after.jpg).
+export const SHOW_BEFORE_AFTER = false
+
 export const waLink = (text = `Hi ${BUSINESS.name}! I'd like a free estimate.`) =>
   `https://wa.me/${BUSINESS.whatsapp}?text=${encodeURIComponent(text)}`

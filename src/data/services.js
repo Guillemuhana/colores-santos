@@ -76,7 +76,7 @@ export const SERVICES = [
     short: 'A cost-effective way to modernize your kitchen, bathrooms and built-ins.',
     icon: DoorOpen,
     tile: img('t-cabinet'),
-    title: ['Cabinet Painting &', 'Refinishing'],
+    title: ['Cabinet Painting', '& Refinishing'],
     intro: 'Give your kitchen, bathroom or built-ins a fresh, modern look with professional cabinet painting and refinishing.',
     hero: img('cabinet-hero'),
     benefits: [

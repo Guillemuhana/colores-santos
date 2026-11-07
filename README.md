@@ -31,3 +31,13 @@ npm run build
 ```
 
 Deploy: Vercel (preset Vite). `vercel.json` incluye el rewrite para las rutas SPA.
+
+## Fotos
+Las fotos de heroes, tarjetas y galerías son de [Unsplash](https://unsplash.com/license) (licencia gratuita, uso comercial permitido, sin atribución obligatoria).
+Lo ideal es ir reemplazándolas por fotos reales de trabajos de Colores Santos, con el mismo nombre de archivo (mínimo ~1600 px de ancho para heroes).
+La sección Before/After está oculta (`SHOW_BEFORE_AFTER` en `src/config.js`) hasta tener fotos reales de antes/después.
+
+## SEO
+- `src/seo.js`: title, description, Open Graph y datos estructurados (JSON-LD) por página.
+- `npm run build` genera HTML estático por ruta, `sitemap.xml`, `robots.txt` y `404.html`.
+- Cambiar `SITE_URL` en `src/config.js` cuando haya dominio propio, y dar de alta el sitio en Google Search Console + Google Business Profile.

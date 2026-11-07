@@ -6,7 +6,7 @@ import { BenefitsStrip, BeforeAfter, CtaBanner, DetailSection, PageHero, PaintDr
 import { Bar, Reveal, SplitTitle, Stagger, WhatsAppIcon, ease } from '../components/ui'
 import { DEFAULT_PROCESS, RESIDENTIAL_CORE, SERVICES, getService } from '../data/services'
 import { INDUSTRIES, SEGMENT_PAGES } from '../data/segments'
-import { BUSINESS, waLink } from '../config'
+import { BUSINESS, SHOW_BEFORE_AFTER, waLink } from '../config'
 
 /* ---------------- Service detail ---------------- */
 export function ServicePage() {
@@ -19,7 +19,7 @@ export function ServicePage() {
       <BenefitsStrip items={s.benefits} />
       <DetailSection name={s.name} title={s.detailTitle} text={s.detail} includes={s.includes} gallery={s.gallery} />
       <Process steps={s.process} />
-      {s.before && <BeforeAfter name={s.name} before={s.before} after={s.after} text={s.baText} />}
+      {SHOW_BEFORE_AFTER && s.before && <BeforeAfter name={s.name} before={s.before} after={s.after} text={s.baText} />}
       <MoreServices current={s.slug} />
       <CtaBanner title={s.cta} text={s.ctaText} />
     </>
