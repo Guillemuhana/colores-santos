@@ -28,7 +28,7 @@ function Footer() {
     <footer className="grain relative overflow-hidden bg-forest-950 text-white">
       <div className="mx-auto grid max-w-[1320px] gap-10 px-5 py-16 md:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1.2fr]">
         <div>
-          <Logo light />
+          <Logo light className="text-[10px]" />
           <p className="mt-5 max-w-xs text-sm leading-relaxed text-white/65">
             Complete interior and exterior solutions for residential, commercial and multi-family properties in {BUSINESS.area}.
           </p>

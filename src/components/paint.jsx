@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef } from 'react'
+import { useId } from 'react'
 import { motion } from 'motion/react'
 
 const ease = [0.22, 1, 0.36, 1]
@@ -128,70 +128,6 @@ export function RollerSVG({ className = '', vertical = false }) {
       <ellipse cx="478" cy="82" rx="8" ry="44" fill="#0d8f6d" />
     </svg>
   )
-}
-
-/* ------------------------------------------------------------------
- * PaintCanvas: brush that paints soft bristle strokes under the cursor
- * and slowly dries/fades away. Desktop (fine pointer) only.
- * ------------------------------------------------------------------ */
-export function PaintCanvas({ color = [31, 216, 166], alpha = 0.16, fade = 0.012, className = '' }) {
-  const ref = useRef(null)
-  useEffect(() => {
-    if (!window.matchMedia('(pointer: fine)').matches) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    const cv = ref.current
-    const ctx = cv.getContext('2d')
-    const dpr = Math.min(window.devicePixelRatio || 1, 2)
-    const bristles = Array.from({ length: 18 }, (_, i) => ({ off: (i / 17 - 0.5) * 2, w: 1 + Math.random() * 3.2, a: 0.35 + Math.random() * 0.65 }))
-    let last = null
-    let raf
-    let size = 34
-
-    const resize = () => {
-      const r = cv.getBoundingClientRect()
-      cv.width = r.width * dpr
-      cv.height = r.height * dpr
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-    }
-    resize()
-    const ro = new ResizeObserver(resize)
-    ro.observe(cv)
-
-    const onMove = (e) => {
-      const r = cv.getBoundingClientRect()
-      const p = { x: e.clientX - r.left, y: e.clientY - r.top }
-      if (p.x < 0 || p.y < 0 || p.x > r.width || p.y > r.height) { last = null; return }
-      if (last) {
-        const dx = p.x - last.x, dy = p.y - last.y
-        const dist = Math.hypot(dx, dy)
-        if (dist < 2) return
-        const nx = -dy / dist, ny = dx / dist
-        size += ((dist > 30 ? 22 : 38) - size) * 0.15 // faster = thinner stroke
-        ctx.globalCompositeOperation = 'source-over'
-        ctx.lineCap = 'round'
-        for (const b of bristles) {
-          const o = b.off * size * 0.5
-          ctx.strokeStyle = `rgba(${color.join(',')},${alpha * b.a})`
-          ctx.lineWidth = b.w
-          ctx.beginPath()
-          ctx.moveTo(last.x + nx * o, last.y + ny * o)
-          ctx.lineTo(p.x + nx * o + (Math.random() - 0.5), p.y + ny * o + (Math.random() - 0.5))
-          ctx.stroke()
-        }
-      }
-      last = p
-    }
-    const dry = () => {
-      ctx.globalCompositeOperation = 'destination-out'
-      ctx.fillStyle = `rgba(0,0,0,${fade})`
-      ctx.fillRect(0, 0, cv.width, cv.height)
-      raf = requestAnimationFrame(dry)
-    }
-    raf = requestAnimationFrame(dry)
-    window.addEventListener('pointermove', onMove, { passive: true })
-    return () => { cancelAnimationFrame(raf); ro.disconnect(); window.removeEventListener('pointermove', onMove) }
-  }, [color, alpha, fade])
-  return <canvas ref={ref} className={`pointer-events-none absolute inset-0 h-full w-full ${className}`} aria-hidden="true" />
 }
 
 /* ------------------------------------------------------------------

@@ -1,10 +1,10 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
-import { motion, useScroll, useTransform } from 'motion/react'
+import { animate, motion, useMotionValue, useScroll, useTransform } from 'motion/react'
 import { ArrowRight, ChevronRight, CircleCheck, MoveHorizontal } from 'lucide-react'
 import { Bar, EstimateButton, Eyebrow, Reveal, SplitTitle, Stagger, WhatsAppButton, ease } from './ui'
 import { PROCESS_ICONS } from '../data/services'
-import { PaintCanvas, PaintDrips, PaintSplat, RollerSVG } from './paint'
+import { PaintDrips, PaintSplat, RollerSVG } from './paint'
 
 const wrap = 'mx-auto max-w-[1320px] px-5'
 
@@ -15,9 +15,22 @@ export function PageHero({ crumbs, eyebrow, title, green, intro, image, alt, chi
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '18%'])
   const scale = useTransform(scrollYProgress, [0, 1], [1.05, 1.15])
 
+  // one progress value drives the roller AND the painted area so they stay glued together
+  const p = useMotionValue(0)
+  useEffect(() => {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduce) { p.set(1.3); return }
+    const c = animate(p, [0, 1, 1.3], { duration: 2.6, times: [0, 0.78, 1], ease: [[0.5, 0, 0.3, 1], [0.4, 0, 1, 1]], delay: 0.45 })
+    return () => c.stop()
+  }, [p])
+  const edge = useTransform(p, (v) => `${Math.min(v, 1.3) * 100}%`)
+  const reveal = useTransform(p, (v) => `inset(0 0 ${Math.max(0, 100 - v * 100)}% 0)`)
+  const rollerOpacity = useTransform(p, [0, 0.03, 1.05, 1.3], [0, 1, 1, 0])
+  const sheen = useTransform(p, [0, 0.1, 1, 1.3], [0, 1, 1, 0])
+  const wobble = useTransform(p, [0, 0.25, 0.5, 0.75, 1], [-1.2, 0.8, -0.6, 0.5, 0])
+
   return (
     <section ref={ref} className="relative overflow-hidden bg-gradient-to-b from-white to-mist/60 pt-[84px]">
-      <PaintCanvas />
       <div className={`${wrap} relative grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] ${tall ? 'lg:min-h-[640px]' : 'lg:min-h-[560px]'}`}>
         <div className="relative z-10 py-10 lg:py-16">
           {crumbs && (
@@ -47,23 +60,29 @@ export function PageHero({ crumbs, eyebrow, title, green, intro, image, alt, chi
           />
           <motion.div
             className="absolute inset-y-0 left-4 right-0 overflow-hidden lg:left-6"
-            style={{ borderTopLeftRadius: '55% 100%' }}
-            initial={{ clipPath: 'inset(0 0 100% 0)' }}
-            animate={{ clipPath: 'inset(0 0 0% 0)' }}
-            transition={{ duration: 1.7, ease: [0.45, 0, 0.25, 1], delay: 0.35 }}
+            style={{ borderTopLeftRadius: '55% 100%', clipPath: reveal }}
           >
             <motion.img src={image} alt={alt || `${title.join(' ')} in Miami, FL`} className="h-full w-full object-cover" style={{ y, scale }} fetchPriority="high" />
             <div className="absolute inset-0 bg-gradient-to-t from-forest-950/20 via-transparent to-transparent" />
+            {/* fresh wet-paint sheen right behind the roller, dries as it goes */}
+            <motion.div
+              className="pointer-events-none absolute inset-x-0 h-[22%] -translate-y-full bg-gradient-to-b from-transparent via-white/25 to-white/40 mix-blend-soft-light"
+              style={{ top: edge, opacity: sheen }}
+            />
           </motion.div>
-          {/* paint roller that "rolls" the photo onto the wall */}
+          {/* REAL photographed paint roller that rolls the photo onto the wall */}
           <motion.div
-            className="pointer-events-none absolute -left-[4%] right-[-6%] z-10"
-            initial={{ top: '-12%', opacity: 1 }}
-            animate={{ top: ['-12%', '88%', '88%'], opacity: [1, 1, 0] }}
-            transition={{ duration: 2.3, times: [0, 0.74, 1], ease: [0.45, 0, 0.25, 1], delay: 0.35 }}
+            className="pointer-events-none absolute -left-[3%] z-10 w-[106%]"
+            style={{ top: edge, opacity: rollerOpacity, rotate: wobble }}
           >
-            <div className="h-6 bg-gradient-to-b from-transparent to-white/30 blur-sm" />
-            <RollerSVG className="-mt-6 w-full drop-shadow-[0_18px_22px_rgb(0_0_0/0.35)]" />
+            <img
+              src="/img/brand/roller.webp"
+              alt=""
+              width="1000"
+              height="835"
+              className="block w-full -translate-y-[87%] drop-shadow-[0_28px_30px_rgb(7_40_34/0.45)]"
+              fetchPriority="high"
+            />
           </motion.div>
         </div>
       </div>
@@ -217,7 +236,6 @@ export function CtaBanner({ title, text, flip = false }) {
   const rot = useTransform(scrollYProgress, [0, 1], [-8, 4])
   return (
     <section ref={ref} className={`relative overflow-hidden ${flip ? 'bg-forest-900 text-white' : 'bg-white'}`}>
-      <PaintCanvas alpha={flip ? 0.22 : 0.16} />
       <PaintSplat className="-right-10 -top-10 size-44 opacity-20" delay={0.2} />
       <div className={`${wrap} grid items-center gap-8 py-16 lg:grid-cols-2 lg:py-20`}>
         <div className={`relative h-56 sm:h-72 ${flip ? 'lg:order-2' : ''}`}>
