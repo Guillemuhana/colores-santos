@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { Link, Outlet, useLocation } from 'react-router'
 import { motion } from 'motion/react'
 import Lenis from 'lenis'
-import { Clock, Mail, MapPin, Phone } from 'lucide-react'
+import { Camera, Clock, FileText, Mail, MapPin, Phone } from 'lucide-react'
 import Header, { Logo } from './Header'
 import { WhatsAppIcon, ease } from './ui'
 import { AREAS, BUSINESS, waLink } from '../config'
@@ -90,6 +90,41 @@ function FloatingWhatsApp() {
   )
 }
 
+/* Vertical "Free Estimate" tab pinned to the right edge of the screen */
+function EstimateTab() {
+  const { pathname } = useLocation()
+  if (pathname.startsWith('/contact')) return null
+  return (
+    <motion.div
+      initial={{ x: 80, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      transition={{ delay: 1.6, duration: 0.8, ease }}
+      className="fixed right-0 top-1/2 z-40 -translate-y-1/2"
+    >
+      <Link
+        to="/contact"
+        aria-label="Get a free estimate"
+        className="estimate-tab group relative flex flex-col items-center gap-2.5 overflow-hidden rounded-l-2xl bg-gradient-to-b from-brand-300 via-brand-400 to-brand-500 py-4 pl-2.5 pr-2 text-forest-950 shadow-[-10px_10px_30px_-8px_rgb(7_40_34/0.45)] ring-1 ring-white/40 transition-[padding,transform] duration-500 hover:pr-4 sm:py-5 sm:pl-3 sm:pr-2.5 sm:hover:pr-5"
+      >
+        <span className="relative grid size-8 place-items-center rounded-xl bg-forest-950 text-brand-300 shadow-inner transition-transform duration-500 group-hover:rotate-[-8deg] group-hover:scale-110 sm:size-9">
+          <FileText className="size-4 sm:size-[18px]" />
+          <span className="absolute -right-1 -top-1 flex size-3">
+            <span className="absolute inset-0 animate-ping rounded-full bg-white/80" />
+            <span className="relative size-3 rounded-full border-2 border-brand-400 bg-white" />
+          </span>
+        </span>
+        <span className="rotate-180 font-display text-[12px] font-extrabold uppercase tracking-[0.22em] [writing-mode:vertical-rl] sm:text-[13px]">
+          Free Estimate
+        </span>
+        <span className="flex flex-col items-center gap-1 text-[9px] font-bold uppercase tracking-wider text-forest-950/70">
+          <Camera className="size-3.5" />
+        </span>
+        <span aria-hidden="true" className="estimate-tab__shine pointer-events-none absolute inset-x-0 -top-1/2 h-1/2 bg-gradient-to-b from-transparent via-white/60 to-transparent" />
+      </Link>
+    </motion.div>
+  )
+}
+
 export default function Layout() {
   const { pathname } = useLocation()
   const lenis = useSmoothScroll()
@@ -106,6 +141,7 @@ export default function Layout() {
         <Outlet />
       </motion.main>
       <Footer />
+      <EstimateTab />
       <FloatingWhatsApp />
     </>
   )
