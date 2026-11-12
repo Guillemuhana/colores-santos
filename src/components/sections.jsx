@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
-import { animate, motion, useMotionValue, useScroll, useTransform } from 'motion/react'
+import { animate, motion, useInView, useMotionValue, useScroll, useTransform } from 'motion/react'
 import { ArrowRight, ChevronRight, CircleCheck, MoveHorizontal } from 'lucide-react'
 import { Bar, EstimateButton, Eyebrow, Reveal, SplitTitle, Stagger, WhatsAppButton, ease } from './ui'
 import { PROCESS_ICONS } from '../data/services'
@@ -16,13 +16,17 @@ export function PageHero({ crumbs, eyebrow, title, green, intro, image, alt, chi
   const scale = useTransform(scrollYProgress, [0, 1], [1.05, 1.15])
 
   // one progress value drives the roller AND the painted area so they stay glued together
+  // on phones the photo sits below the text, so wait until it is actually on screen before rolling
+  const media = useRef(null)
+  const inView = useInView(media, { once: true, amount: 0.6 })
   const p = useMotionValue(0)
   useEffect(() => {
+    if (!inView) return
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reduce) { p.set(1.3); return }
-    const c = animate(p, [0, 1, 1.3], { duration: 2.6, times: [0, 0.78, 1], ease: [[0.5, 0, 0.3, 1], [0.4, 0, 1, 1]], delay: 0.45 })
+    const c = animate(p, [0, 1, 1.3], { duration: 2.6, times: [0, 0.78, 1], ease: [[0.5, 0, 0.3, 1], [0.4, 0, 1, 1]], delay: 0.35 })
     return () => c.stop()
-  }, [p])
+  }, [p, inView])
   const edge = useTransform(p, (v) => `${Math.min(v, 1.3) * 100}%`)
   const reveal = useTransform(p, (v) => `inset(0 0 ${Math.max(0, 100 - v * 100)}% 0)`)
   const rollerOpacity = useTransform(p, [0, 0.03, 1.05, 1.3], [0, 1, 1, 0])
@@ -50,7 +54,7 @@ export function PageHero({ crumbs, eyebrow, title, green, intro, image, alt, chi
           {children}
         </div>
 
-        <div className="relative -mx-5 h-[360px] sm:h-[440px] md:-mx-8 lg:absolute lg:bottom-0 lg:right-0 lg:top-[108px] lg:mx-0 lg:h-auto lg:w-[56%]">
+        <div ref={media} className="relative -mx-5 h-[360px] sm:h-[440px] md:-mx-8 lg:absolute lg:bottom-0 lg:right-0 lg:top-[108px] lg:mx-0 lg:h-auto lg:w-[56%]">
           <motion.div
             className="absolute inset-0 bg-gradient-to-br from-brand-300 to-brand-500"
             style={{ borderTopLeftRadius: '55% 100%' }}
