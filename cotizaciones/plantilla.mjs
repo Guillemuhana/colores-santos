@@ -206,17 +206,17 @@ export function render(d, img, empresa) {
       <figcaption><span class="ph-n">${esc(ax.etiquetaFoto || 'Photo')} ${++nFoto}</span>${f.alerta ? `<span class="ph-tag">${esc(f.alerta)}</span>` : ''}<span class="ph-c">${esc(f.pie || '')}</span></figcaption>
     </figure>`
   const bloqueTexto = (titulo, arr, cls) => arr?.length ? `<div class="gx-b ${cls}"><h4>${esc(titulo)}</h4>${lista(arr, cls === 'lim' ? 'no' : 'si')}</div>` : ''
-  const sAnexo = ax ? ax.grupos.map((g, gi) => `<section class="annex">
+  const sAnexo = ax ? ax.grupos.map((g, gi) => `<section class="annex ${gi === 0 || g.paginaNueva ? 'annex-new' : ''}">
     ${gi === 0 ? `<div class="ax-head"><span class="ax-k">${esc(ax.kicker || 'Annex A')}</span><h2>${esc(ax.titulo)}</h2>${ax.intro ? `<p>${esc(ax.intro)}</p>` : ''}</div>` : ''}
     <div class="gx-t"><span class="gx-n">${gi + 1}</span><div><h3>${esc(g.titulo)}</h3>${g.ref ? `<small>${esc(g.ref)}</small>` : ''}</div></div>
     ${g.intro ? `<p class="gx-i">${esc(g.intro)}</p>` : ''}
-    ${g.layout === 'lado' ? `<div class="gx-side">${foto(g.fotos[0], g.alto || 130)}<div class="gx-notes">
+    ${g.layout === 'lado' ? `<div class="gx-side" style="grid-template-columns:${g.anchoFoto || 98}mm 1fr">${foto(g.fotos[0], g.alto || 130)}<div class="gx-notes">
         ${bloqueTexto(g.tituloObs || 'Observed condition', g.observaciones, 'obs')}
         ${bloqueTexto(g.tituloAlcance || 'Included scope', g.alcance, 'inc')}
         ${bloqueTexto(g.tituloLimites || 'Limitations', g.limites, 'lim')}
       </div></div>`
-      : `<div class="ph-grid" style="grid-template-columns:repeat(${g.porFila || 3},1fr)">${g.fotos.map((f) => foto(f, g.alto || 78)).join('')}</div>
-        ${(g.observaciones || g.alcance || g.limites) ? `<div class="gx-row">${bloqueTexto(g.tituloObs || 'Observed condition', g.observaciones, 'obs')}${bloqueTexto(g.tituloAlcance || 'Included scope', g.alcance, 'inc')}${bloqueTexto(g.tituloLimites || 'Limitations', g.limites, 'lim')}</div>` : ''}`}
+      : `<div class="ph-grid" style="grid-template-columns:repeat(${g.porFila || 3},1fr)">${g.fotos.map((f) => foto(f, g.alto || 78)).join('')}${g.notasEnGrilla ? `<div class="gx-notes">${bloqueTexto(g.tituloObs || 'Observed condition', g.observaciones, 'obs')}${bloqueTexto(g.tituloAlcance || 'Included scope', g.alcance, 'inc')}${bloqueTexto(g.tituloLimites || 'Limitations', g.limites, 'lim')}</div>` : ''}</div>
+        ${!g.notasEnGrilla && (g.observaciones || g.alcance || g.limites) ? `<div class="gx-row">${bloqueTexto(g.tituloObs || 'Observed condition', g.observaciones, 'obs')}${bloqueTexto(g.tituloAlcance || 'Included scope', g.alcance, 'inc')}${bloqueTexto(g.tituloLimites || 'Limitations', g.limites, 'lim')}</div>` : ''}`}
   </section>`).join('') : ''
 
   // ---------- Portada (opcional) ----------
@@ -443,7 +443,9 @@ export function render(d, img, empresa) {
   .cover + .wrap > .parties, .cover ~ .wrap > .parties { margin-top: 0; }
 
   /* ---------- Photo annex ---------- */
-  .annex { break-before: page; }
+  .annex { margin-top: 9mm; }
+  .annex-new { break-before: page; margin-top: 0; }
+  .gx-t, .gx-i { break-after: avoid; }
   .ax-head { padding: 2mm 0 5mm; margin-bottom: 5mm; border-bottom: 1px solid var(--line); }
   .ax-k { display: inline-block; font: 700 7pt 'Plus Jakarta Sans'; letter-spacing: .22em; text-transform: uppercase; color: #fff; background: var(--f950); border-radius: 99px; padding: 3px 10px; }
   .ax-head h2 { font-size: 19pt; font-weight: 800; color: var(--f950); margin: 6px 0 3px; }

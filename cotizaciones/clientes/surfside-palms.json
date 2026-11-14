@@ -253,8 +253,8 @@
       {
         "titulo": "Elevator-Front Floor Areas & Perimeter Curbs",
         "ref": "Line item 3 · 2 elevator-front floor areas",
-        "porFila": 3,
-        "alto": 80,
+        "porFila": 2,
+        "alto": 117,
         "fotos": [
           {
             "src": "fotos/surfside-palms/ascensor-piso.jpg",
@@ -283,13 +283,14 @@
           "Extensive concrete restoration",
           "Moisture remediation"
         ],
-        "tituloLimites": "Not included"
+        "tituloLimites": "Not included",
+        "notasEnGrilla": true
       },
       {
         "titulo": "Standard Metal Doors with Frames",
         "ref": "Line item 1 · 8 standard metal doors, including frames",
         "porFila": 2,
-        "alto": 72,
+        "alto": 117,
         "fotos": [
           {
             "src": "fotos/surfside-palms/marco-corrosion.jpg",
@@ -320,13 +321,14 @@
           "No structural repair; the original strength of the metal is not restored",
           "No warranty against recurrence of pre-existing corrosion",
           "If a safe cosmetic repair is not feasible, the Association will be informed before intervening"
-        ]
+        ],
+        "paginaNueva": true
       },
       {
         "titulo": "Louvered / Ventilation Doors",
         "ref": "Line item 2 · 3 louvered / ventilation metal doors",
         "layout": "lado",
-        "alto": 128,
+        "alto": 165,
         "fotos": [
           {
             "src": "fotos/surfside-palms/ventilacion-doble.jpg",
@@ -351,7 +353,9 @@
           "Cosmetic treatment does not restore the original strength of the metal or stop corrosion inside compromised sections",
           "No warranty against recurrence of pre-existing corrosion",
           "If a safe cosmetic repair is not feasible, the Association will be informed before intervening"
-        ]
+        ],
+        "anchoFoto": 122,
+        "paginaNueva": true
       }
     ]
   },
