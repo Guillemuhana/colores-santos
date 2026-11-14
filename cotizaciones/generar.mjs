@@ -22,7 +22,7 @@ for (const gr of data.anexo?.grupos || []) for (const f of gr.fotos || []) {
   if (!f.src.startsWith('data:')) f.src = `data:image/jpeg;base64,${readFileSync(join(here, f.src)).toString('base64')}`
 }
 
-if (data.portada?.foto && !data.portada.foto.startsWith('data:')) data.portada.foto = `data:image/jpeg;base64,${readFileSync(join(here, data.portada.foto)).toString('base64')}`
+if (data.portada?.foto && !data.portada.foto.startsWith('data:')) data.portada.foto = `data:image/${data.portada.foto.endsWith('.png') ? 'png' : 'jpeg'};base64,${readFileSync(join(here, data.portada.foto)).toString('base64')}`
 
 const b64 = (f, mime) => `data:${mime};base64,${readFileSync(join(here, '..', 'public', 'img', 'brand', f)).toString('base64')}`
 const img = { roller: b64('roller-icon.webp', 'image/webp'), stroke: b64('stroke.webp', 'image/webp') }

@@ -426,7 +426,7 @@ export function render(d, img, empresa) {
   .cv-ph { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; text-align: center; color: #96ebd2;
     background: repeating-linear-gradient(135deg, #124a40 0 14px, #0e3d35 14px 28px); border: 2px dashed rgb(150 235 210 / .45); margin: 10mm; border-radius: 14px; }
   .cv-ph b { font: 700 13pt 'Outfit'; color: #fff; } .cv-ph span { font-size: 8.5pt; max-width: 120mm; color: #b8f3e1; }
-  .cv-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgb(7 40 34 / .55) 0%, transparent 30%, transparent 70%, rgb(7 40 34 / .6) 100%); pointer-events: none; }
+  .cv-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgb(7 40 34 / .8) 0%, rgb(7 40 34 / .35) 22%, transparent 40%, transparent 75%, rgb(7 40 34 / .6) 100%); pointer-events: none; }
   .cv-logo { position: absolute; top: 12mm; left: 16mm; }
   .cv-cred { position: absolute; right: 16mm; bottom: 4mm; font-size: 6.8pt; color: rgb(255 255 255 / .75); }
   .cv-body { flex: 1; padding: 13mm 16mm 10mm; display: flex; flex-direction: column;
