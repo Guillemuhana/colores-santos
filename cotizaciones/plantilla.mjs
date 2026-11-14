@@ -33,7 +33,7 @@ const T = {
 
 // Posición (mm) de las casillas de firma en la última página. generar.mjs usa los mismos
 // números para poner encima los campos rellenables del PDF, así quedan alineados.
-export const GEO = { pageH: 279.4, top: 14, left: 16, cardTop: 120, cardLeftClient: 95.9, cardW: 87.9,
+export const GEO = { pageH: 279.4, top: 14, left: 16, cardTop: 131, cardLeftClient: 95.9, cardW: 87.9,
   boxes: { firma: [12, 30], nombre: [50, 9], cargo: [65, 9], fecha: [80, 9] } }
 
 const esc = (s = '') => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]))
@@ -197,8 +197,8 @@ export function render(d, img, empresa) {
   const lbl = (k, txt) => `<div class="ac-l" style="top:${B[k][0] - 4.4}mm">${esc(txt)}</div>`
   const bx = (k, inner = '', cls = '') => `<div class="ac-box ${cls}" style="top:${B[k][0]}mm;height:${B[k][1]}mm">${inner}</div>`
   const L = lang === 'en'
-    ? { firma: 'Signature', nombre: 'Name', cargo: 'Title', fecha: 'Date', cliente: 'Client acceptance', aqui: 'Sign here', resumen: ['Proposal date', 'Project', 'Total', 'Deposit due'], como: 'How to sign digitally' }
-    : { firma: 'Firma', nombre: 'Nombre', cargo: 'Cargo', fecha: 'Fecha', cliente: 'Aceptación del cliente', aqui: 'Firme aquí', resumen: ['Fecha', 'Proyecto', 'Total', 'Anticipo'], como: 'Cómo firmar digitalmente' }
+    ? { firma: 'Signature', nombre: 'Name', cargo: 'Title', fecha: 'Date', cliente: 'Client acceptance', aqui: 'Sign here', resumen: ['Proposal date', 'Project', 'Total', 'Deposit due'], como: 'Or sign this PDF', online: 'Accept online', boton: 'Accept Proposal' }
+    : { firma: 'Firma', nombre: 'Nombre', cargo: 'Cargo', fecha: 'Fecha', cliente: 'Aceptación del cliente', aqui: 'Firme aquí', resumen: ['Fecha', 'Proyecto', 'Total', 'Anticipo'], como: 'O firme este PDF', online: 'Aceptar online', boton: 'Aceptar cotización' }
   const dep = (d.pagos || [])[0]
   const sAccept = `<section class="accept">
     <div class="ac-top">
@@ -212,6 +212,7 @@ export function render(d, img, empresa) {
         ${dep ? `<div><span>${L.resumen[3]}${dep.porcentaje != null ? ` (${dep.porcentaje}%)` : ''}</span><b>${money(dep.monto ?? (c.total * (dep.porcentaje || 0)) / 100)}</b></div>` : ''}
       </div>
       ${ap.puntos?.length ? lista(ap.puntos, 'si') : ''}
+      ${d.firmaUrl ? `<a class="ac-online" href="${esc(d.firmaUrl)}"><span class="ac-o-t"><b>${L.online}</b><small>${esc(ap.textoOnline || '')}</small></span><span class="ac-btn">${L.boton} &rarr;</span></a>` : ''}
       ${ap.instrucciones ? `<p class="ac-how"><b>${L.como}:</b> ${esc(ap.instrucciones)}</p>` : ''}
     </div>
 
@@ -488,12 +489,16 @@ export function render(d, img, empresa) {
   .accept { break-before: page; position: relative; height: 249mm; margin: 0; }
   .ac-top h2 { font-size: 21pt; font-weight: 800; color: var(--f950); margin: 7px 0 6px; }
   .ac-p { color: var(--body); max-width: 175mm; }
-  .ac-sum { display: grid; grid-template-columns: 1fr 1.6fr 1fr 1fr; margin: 6mm 0 5mm; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .ac-sum { display: grid; grid-template-columns: 1fr 1.6fr 1fr 1fr; margin: 4.5mm 0 3.5mm; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
   .ac-sum div { padding: 8px 12px; } .ac-sum div + div { border-left: 1px solid var(--line); }
   .ac-sum span { display: block; font: 700 6.6pt 'Plus Jakarta Sans'; letter-spacing: .16em; text-transform: uppercase; color: var(--b600); }
   .ac-sum b { font: 700 10.5pt 'Outfit'; color: var(--f950); line-height: 1.2; }
   .ac-sum div:nth-child(3) { background: var(--f950); } .ac-sum div:nth-child(3) span { color: var(--b200); } .ac-sum div:nth-child(3) b { color: #fff; font-size: 13pt; }
-  .ac-how { margin-top: 4mm; font-size: 8.2pt; color: var(--muted); background: #f4f6f5; border-radius: 8px; padding: 7px 11px; }
+  .ac-online { display: flex; align-items: center; justify-content: space-between; gap: 6mm; margin-top: 3.5mm; padding: 9px 10px 9px 14px; border-radius: 10px;
+    background: linear-gradient(110deg, #072822, #0e3d35 60%, #0c8566); text-decoration: none; }
+  .ac-o-t b { display: block; font: 700 10.5pt 'Outfit'; color: #fff; } .ac-o-t small { display: block; font-size: 7.8pt; color: #b8f3e1; line-height: 1.35; }
+  .ac-btn { flex: none; font: 800 10.5pt 'Outfit'; color: #072822; background: #1fd8a6; border-radius: 8px; padding: 8px 16px; white-space: nowrap; }
+  .ac-how { margin-top: 2.5mm; font-size: 7.6pt; color: var(--muted); background: #f4f6f5; border-radius: 8px; padding: 7px 11px; }
   .ac-how b { color: var(--f950); }
   .ac-card { position: absolute; left: 0; width: 87.9mm; height: 89mm; }
   .ac-h { position: absolute; top: 0; left: 0; right: 0; padding-bottom: 5px; border-bottom: 2px solid var(--b500); display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }

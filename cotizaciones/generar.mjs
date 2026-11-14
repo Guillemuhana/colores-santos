@@ -44,7 +44,9 @@ mkdirSync(previewDir, { recursive: true })
 mkdirSync(publicDir, { recursive: true })
 const htmlPath = join(previewDir, link + '.html')
 const pdfPath = join(publicDir, link + '.pdf')
-writeFileSync(htmlPath, render(data, img, empresa))
+// Página web donde el cliente acepta y firma online (public/firmar.html + api/firmar.js)
+const firmaUrl = `${SITE_URL}/firmar/${link}`
+writeFileSync(htmlPath, render({ ...data, firmaUrl }, img, empresa))
 
 const browsers = [
   'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',
@@ -94,6 +96,20 @@ try {
     f.addToPage(page, { ...rect(GEO.boxes[key]), borderWidth: 0, borderColor: undefined, backgroundColor: undefined, textColor: rgb(0.05, 0.08, 0.07) })
     f.setFontSize(10)
   }
+  // Datos para la página de firma online: dónde estampar la firma del cliente, totales, etc.
+  const c = calcular(data)
+  const dep = data.pagos?.[0]
+  writeFileSync(join(publicDir, link + '.json'), JSON.stringify({
+    slug: link, pdf: `/cotizacion/${link}.pdf`, idioma: data.idioma === 'en' ? 'en' : 'es',
+    titulo: data.tituloDocumento || (data.idioma === 'en' ? 'Estimate' : 'Cotización'),
+    cliente: data.cliente?.nombre || '', atencion: data.cliente?.atencion || '',
+    proyecto: data.proyecto?.titulo || '', direccion: data.proyecto?.direccion || '',
+    fecha: data.fecha, total: c.total,
+    deposito: dep ? (dep.monto ?? (c.total * (dep.porcentaje || 0)) / 100) : null,
+    puntos: data.aprobacion?.puntos || [],
+    pagina: doc.getPageCount() - 1,
+    campos: Object.fromEntries(Object.keys(GEO.boxes).map((key) => [key, rect(GEO.boxes[key])])),
+  }, null, 2))
   for (const a of data.adjuntos || []) {
     const src = await PDFDocument.load(readFileSync(join(here, a)))
     for (const p of await doc.copyPages(src, src.getPageIndices())) doc.addPage(p)
@@ -103,4 +119,4 @@ try {
 }
 
 const { total } = calcular(data)
-console.log(`✔ PDF listo: ${pdfPath}\n  Link (después de publicar): ${SITE_URL}/cotizacion/${link}.pdf\n  Total: ${new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(total)}`)
+console.log(`✔ PDF listo: ${pdfPath}\n  Link (después de publicar): ${SITE_URL}/cotizacion/${link}.pdf\n  Firma online: ${firmaUrl}\n  Total:${new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(total)}`)

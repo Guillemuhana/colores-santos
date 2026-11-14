@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Accept Proposal · Colores Santos</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Página de firma: banda verde de marca arriba, tarjeta de resumen y panel de firma debajo. */
+  :root {
+    --bg: #eef5f2; --surface: #ffffff; --ink: #0d1412; --body: #33423e; --muted: #5b6b67; --line: #dbe7e3;
+    --forest: #0b3a32; --forest-deep: #072822; --brand: #1fd8a6; --brand-dark: #0c8566; --mist: #e9fbf5; --pen: #16224a;
+    --danger: #b42318; --danger-bg: #fef3f2;
+    --display: 'Outfit', ui-sans-serif, system-ui, sans-serif; --text: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background: var(--bg); color: var(--ink); font: 15px/1.55 var(--text); -webkit-font-smoothing: antialiased; }
+  h1, h2 { font-family: var(--display); letter-spacing: -.01em; margin: 0; text-wrap: balance; }
+  .wrap { max-width: 720px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+  header { background: radial-gradient(120% 160% at 0% 0%, #124a40 0%, var(--forest) 45%, var(--forest-deep) 100%); color: #fff; }
+  header .wrap { padding-block: 22px 70px; }
+  .logo { display: block; width: 170px; height: auto; }
+  .kicker { display: inline-block; margin-top: 26px; font: 700 11px var(--text); letter-spacing: .2em; text-transform: uppercase; color: var(--brand); border: 1px solid rgb(31 216 166 / .45); border-radius: 99px; padding: 4px 11px; }
+  header h1 { font-size: clamp(26px, 6vw, 36px); font-weight: 800; margin-top: 10px; line-height: 1.1; }
+  header p { margin: 8px 0 0; color: #b5d6cd; }
+  .stripe { height: 5px; background: linear-gradient(90deg, var(--brand-dark), var(--brand) 60%, #96ebd2); }
+
+  main .wrap { margin-top: -52px; display: grid; gap: 16px; padding-block: 0 40px; }
+  .card { background: var(--surface); border-radius: 16px; box-shadow: 0 10px 30px rgb(7 40 34 / .1); padding: 22px; }
+  .facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; margin-top: 4px; }
+  .facts div { padding: 12px 14px; min-width: 0; }
+  .facts div:nth-child(odd) { border-right: 1px solid var(--line); }
+  .facts div:nth-child(n+3) { border-top: 1px solid var(--line); }
+  .facts span { display: block; font: 700 10.5px var(--text); letter-spacing: .16em; text-transform: uppercase; color: var(--brand-dark); }
+  .facts b { font: 700 17px var(--display); color: var(--forest-deep); }
+  .facts .total { background: var(--forest-deep); } .facts .total span { color: #96ebd2; } .facts .total b { color: #fff; font-size: 22px; }
+  .client { font: 700 20px var(--display); color: var(--forest-deep); }
+  .addr { color: var(--muted); font-size: 14px; margin: 2px 0 14px; }
+  .pdf { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 14px; padding: 13px; border-radius: 12px; border: 1.5px solid var(--forest); color: var(--forest); font-weight: 700; text-decoration: none; }
+  .pdf:hover { background: var(--mist); }
+  ul { list-style: none; padding: 0; margin: 14px 0 0; display: grid; gap: 6px; }
+  li { position: relative; padding-left: 24px; color: var(--body); font-size: 14px; }
+  li::before { content: "✓"; position: absolute; left: 0; top: 0; width: 17px; height: 17px; border-radius: 50%; background: var(--brand); color: var(--forest-deep); font: 800 11px/17px var(--text); text-align: center; }
+
+  h2 { font-size: 21px; font-weight: 800; color: var(--forest-deep); }
+  .sub { color: var(--muted); font-size: 14px; margin: 4px 0 16px; }
+  label, .lbl { display: block; font: 700 11px var(--text); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .pad-wrap { position: relative; border: 1.5px dashed #93cbb9; border-radius: 12px; background: #fcfefd; touch-action: none; }
+  .pad-wrap.has { border-style: solid; border-color: var(--brand-dark); }
+  canvas { display: block; width: 100%; height: 190px; cursor: crosshair; border-radius: 12px; }
+  .pad-hint { position: absolute; left: 16px; bottom: 34px; right: 16px; border-bottom: 1.5px solid #c8ddd6; pointer-events: none; }
+  .pad-hint span { position: absolute; left: 0; bottom: 6px; color: #9ab7ae; font-size: 13px; font-weight: 600; }
+  .pad-wrap.has .pad-hint span { display: none; }
+  .clear { position: absolute; top: 8px; right: 8px; border: 0; background: var(--mist); color: var(--brand-dark); font: 700 12px var(--text); padding: 6px 11px; border-radius: 8px; cursor: pointer; }
+  .row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+  input[type=text] { width: 100%; font: 600 16px var(--text); color: var(--ink); padding: 12px 13px; border: 1.5px solid var(--line); border-radius: 10px; background: #fff; }
+  input[type=text]:focus { outline: none; border-color: var(--brand-dark); box-shadow: 0 0 0 3px rgb(31 216 166 / .25); }
+  .check { display: flex; gap: 10px; align-items: flex-start; margin-top: 16px; font: 500 14px var(--text); letter-spacing: 0; text-transform: none; color: var(--body); cursor: pointer; }
+  .check input { width: 20px; height: 20px; margin: 1px 0 0; accent-color: var(--brand-dark); flex: none; }
+  .accept { width: 100%; margin-top: 18px; border: 0; border-radius: 12px; padding: 17px; background: var(--brand); color: var(--forest-deep); font: 800 18px var(--display); cursor: pointer;
+    box-shadow: 0 8px 20px rgb(31 216 166 / .35); transition: transform .15s, box-shadow .15s; animation: rise .35s ease-out; }
+  .accept:hover { transform: translateY(-1px); box-shadow: 0 10px 26px rgb(31 216 166 / .45); }
+  .accept:disabled { opacity: .55; cursor: not-allowed; transform: none; box-shadow: none; }
+  .accept:focus-visible, .pdf:focus-visible, .clear:focus-visible { outline: 3px solid var(--brand-dark); outline-offset: 2px; }
+  .need { margin-top: 14px; font-size: 13px; color: var(--muted); text-align: center; }
+  .err { margin-top: 12px; padding: 11px 13px; border-radius: 10px; background: var(--danger-bg); color: var(--danger); font-size: 14px; }
+  .done { text-align: center; padding-block: 34px; }
+  .done .ok { width: 64px; height: 64px; margin: 0 auto 14px; border-radius: 50%; background: var(--brand); color: var(--forest-deep); font: 800 32px/64px var(--display); }
+  .done p { color: var(--body); max-width: 46ch; margin: 8px auto 0; }
+  .done .pdf { max-width: 340px; margin: 20px auto 0; background: var(--forest); color: #fff; border-color: var(--forest); }
+  .foot { text-align: center; color: var(--muted); font-size: 12.5px; }
+  @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  @media (max-width: 480px) { .row { grid-template-columns: minmax(0, 1fr); } .card { padding: 18px; } .facts .total b { font-size: 19px; } }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <img class="logo" src="/img/brand/email-logo.png" alt="Colores Santos · Painting & Finishes" width="170" height="60">
+    <span class="kicker" id="kicker">Proposal acceptance</span>
+    <h1 id="title">Loading proposal…</h1>
+    <p id="lead"></p>
+  </div>
+  <div class="stripe"></div>
+</header>
+
+<main>
+  <div class="wrap">
+    <section class="card" id="summary" hidden>
+      <div class="client" id="client"></div>
+      <div class="addr" id="addr"></div>
+      <div class="facts">
+        <div><span id="l-project">Project</span><b id="project"></b></div>
+        <div><span id="l-date">Proposal date</span><b id="date"></b></div>
+        <div class="total"><span id="l-total">Total</span><b id="total"></b></div>
+        <div><span id="l-deposit">Deposit due</span><b id="deposit"></b></div>
+      </div>
+      <ul id="points"></ul>
+      <a class="pdf" id="pdf" href="#" target="_blank" rel="noopener">📄 <span id="l-pdf">Read the full proposal (PDF)</span></a>
+    </section>
+
+    <section class="card" id="signCard" hidden>
+      <form id="form" novalidate>
+        <h2 id="l-sign">Sign to accept</h2>
+        <p class="sub" id="l-signsub">Draw your signature with your finger or mouse.</p>
+        <div class="pad-wrap" id="padWrap">
+          <canvas id="pad" aria-label="Signature pad"></canvas>
+          <div class="pad-hint"><span id="l-here">✕ Sign here</span></div>
+          <button type="button" class="clear" id="clear">Clear</button>
+        </div>
+        <div class="row">
+          <div><label for="name" id="l-name">Full name</label><input type="text" id="name" autocomplete="name" required></div>
+          <div><label for="role" id="l-role">Title</label><input type="text" id="role" autocomplete="organization-title"></div>
+        </div>
+        <label class="check"><input type="checkbox" id="agree"><span id="l-agree">I have read the proposal and accept its scope, price, payment schedule, warranty and conditions.</span></label>
+        <button type="submit" class="accept" id="send" hidden>Accept Proposal</button>
+        <p class="need" id="need">Sign above to continue.</p>
+        <div class="err" id="err" hidden></div>
+      </form>
+    </section>
+
+    <section class="card done" id="done" hidden>
+      <div class="ok">✓</div>
+      <h2 id="l-done">Proposal accepted</h2>
+      <p id="l-donep">Thank you! Your signed proposal was sent to Colores Santos. We will contact you shortly to schedule the work.</p>
+      <a class="pdf" id="signedPdf" href="#" target="_blank" rel="noopener" hidden>⬇ <span id="l-dl">Download your signed copy</span></a>
+    </section>
+
+    <section class="card" id="missing" hidden>
+      <h2>Proposal not found</h2>
+      <p class="sub">Check the link you received or contact Colores Santos at +1 (305) 796-0889.</p>
+    </section>
+
+    <p class="foot">Colores Santos LLC · Painting &amp; Finishes · Miami, FL · +1 (305) 796-0889</p>
+  </div>
+</main>
+
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id)
+  const slug = (location.pathname.match(/\/firmar\/([a-z0-9-]+)/) || [])[1]
+  const T = {
+    en: { kicker: 'Proposal acceptance', lead: 'Review the summary, then sign below to accept.', project: 'Project', date: 'Proposal date', total: 'Total', deposit: 'Deposit due',
+      pdf: 'Read the full proposal (PDF)', sign: 'Sign to accept', signsub: 'Draw your signature with your finger or mouse.', here: '✕ Sign here', clear: 'Clear',
+      name: 'Full name', role: 'Title', agree: 'I have read the proposal and accept its scope, price, payment schedule, warranty and conditions.',
+      btn: 'Accept Proposal', sending: 'Sending…', need: 'Sign above to continue.', needName: 'Enter your full name and check the box to continue.',
+      done: 'Proposal accepted', donep: 'Thank you! Your signed proposal was sent to Colores Santos. We will contact you shortly to schedule the work.', dl: 'Download your signed copy',
+      fail: 'We could not send your acceptance. Please try again, or call Colores Santos at +1 (305) 796-0889.', locale: 'en-US' },
+    es: { kicker: 'Aceptación de cotización', lead: 'Revise el resumen y firme abajo para aceptar.', project: 'Proyecto', date: 'Fecha', total: 'Total', deposit: 'Anticipo',
+      pdf: 'Ver la cotización completa (PDF)', sign: 'Firme para aceptar', signsub: 'Dibuje su firma con el dedo o el mouse.', here: '✕ Firme aquí', clear: 'Borrar',
+      name: 'Nombre completo', role: 'Cargo', agree: 'Leí la cotización y acepto su alcance, precio, forma de pago, garantía y condiciones.',
+      btn: 'Aceptar cotización', sending: 'Enviando…', need: 'Firme arriba para continuar.', needName: 'Escriba su nombre completo y marque la casilla para continuar.',
+      done: 'Cotización aceptada', donep: '¡Gracias! Su cotización firmada fue enviada a Colores Santos. Nos comunicaremos pronto para coordinar el trabajo.', dl: 'Descargar su copia firmada',
+      fail: 'No pudimos enviar su aceptación. Intente de nuevo o llame a Colores Santos al +1 (305) 796-0889.', locale: 'es-ES' },
+  }
+  let t = T.en
+  const money = (n) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(n || 0)
+
+  const show = (id) => { $(id).hidden = false }
+  if (!slug) { $('title').textContent = 'Proposal not found'; show('missing'); return }
+
+  fetch(`/cotizacion/${slug}.json`, { cache: 'no-store' }).then((r) => (r.ok ? r.json() : Promise.reject())).then((m) => {
+    t = T[m.idioma] || T.en
+    document.documentElement.lang = m.idioma || 'en'
+    document.title = `${t.btn} · ${m.cliente}`
+    $('title').textContent = `${m.titulo || ''} · ${m.proyecto}`.replace(/^ · /, '')
+    $('lead').textContent = t.lead
+    $('kicker').textContent = t.kicker
+    $('client').textContent = m.cliente
+    $('addr').textContent = [m.atencion && `Attn: ${m.atencion}`, m.direccion].filter(Boolean).join(' · ')
+    $('project').textContent = m.proyecto
+    $('date').textContent = m.fecha ? new Date(m.fecha + 'T12:00:00').toLocaleDateString(t.locale, { day: 'numeric', month: 'long', year: 'numeric' }) : ''
+    $('total').textContent = money(m.total)
+    if (m.deposito) $('deposit').textContent = money(m.deposito); else $('deposit').parentElement.hidden = true
+    $('points').innerHTML = ''
+    for (const p of m.puntos || []) { const li = document.createElement('li'); li.textContent = p; $('points').append(li) }
+    $('pdf').href = `${m.pdf}?v=${Date.now()}`
+    for (const k of ['project', 'date', 'total', 'deposit', 'pdf', 'sign', 'signsub', 'here', 'name', 'role', 'agree', 'done', 'donep', 'dl']) if ($('l-' + k)) $('l-' + k).textContent = t[k]
+    $('clear').textContent = t.clear; $('send').textContent = t.btn; $('need').textContent = t.need
+    show('summary'); show('signCard'); sizePad()
+  }).catch(() => { $('title').textContent = 'Proposal not found'; show('missing') })
+
+  // ---------- Signature pad ----------
+  const canvas = $('pad'), ctx = canvas.getContext('2d')
+  let strokes = [], cur = null
+  function sizePad() {
+    const r = canvas.getBoundingClientRect(), dpr = Math.max(1, window.devicePixelRatio || 1)
+    canvas.width = Math.round(r.width * dpr); canvas.height = Math.round(r.height * dpr)
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0); redraw()
+  }
+  function drawStroke(ctx2, s) {
+    ctx2.lineCap = 'round'; ctx2.lineJoin = 'round'; ctx2.strokeStyle = ctx2.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--pen').trim() || '#16224a'
+    for (let i = 1; i < s.length; i++) {
+      const a = s[i - 1], b = s[i]
+      ctx2.lineWidth = Math.max(1.4, 3.2 - Math.min(2, Math.hypot(b.x - a.x, b.y - a.y) / 9))
+      ctx2.beginPath(); ctx2.moveTo(a.x, a.y); ctx2.lineTo(b.x, b.y); ctx2.stroke()
+    }
+    if (s.length === 1) { ctx2.beginPath(); ctx2.arc(s[0].x, s[0].y, 1.6, 0, Math.PI * 2); ctx2.fill() }
+  }
+  function redraw() { const r = canvas.getBoundingClientRect(); ctx.clearRect(0, 0, r.width, r.height); strokes.forEach((s) => drawStroke(ctx, s)) }
+  const pt = (e) => { const r = canvas.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top } }
+  canvas.addEventListener('pointerdown', (e) => { e.preventDefault(); canvas.setPointerCapture(e.pointerId); cur = [pt(e)]; strokes.push(cur); redraw(); update() })
+  canvas.addEventListener('pointermove', (e) => { if (!cur) return; e.preventDefault(); cur.push(pt(e)); redraw() })
+  const end = () => { cur = null; update() }
+  canvas.addEventListener('pointerup', end); canvas.addEventListener('pointercancel', end)
+  $('clear').addEventListener('click', () => { strokes = []; redraw(); update() })
+  window.addEventListener('resize', () => { if (!$('signCard').hidden) sizePad() })
+
+  const signed = () => strokes.reduce((n, s) => n + s.length, 0) > 8
+  function update() {
+    $('padWrap').classList.toggle('has', signed())
+    const ready = signed()
+    $('send').hidden = !ready                       // el botón aparece cuando ya firmó
+    $('send').disabled = !($('name').value.trim() && $('agree').checked)
+    $('need').hidden = ready && !$('send').disabled
+    $('need').textContent = ready ? t.needName : t.need
+  }
+  $('name').addEventListener('input', update); $('agree').addEventListener('change', update)
+
+  // Exporta solo la firma (recortada, fondo transparente) en buena resolución
+  function exportSig() {
+    const pts = strokes.flat(), pad = 8, k = 3
+    const minX = Math.min(...pts.map((p) => p.x)) - pad, minY = Math.min(...pts.map((p) => p.y)) - pad
+    const w = Math.max(...pts.map((p) => p.x)) + pad - minX, h = Math.max(...pts.map((p) => p.y)) + pad - minY
+    const c = document.createElement('canvas'); c.width = Math.ceil(w * k); c.height = Math.ceil(h * k)
+    const x = c.getContext('2d'); x.scale(k, k); x.translate(-minX, -minY); x.fillStyle = '#16224a'
+    strokes.forEach((s) => drawStroke(x, s))
+    return c.toDataURL('image/png')
+  }
+
+  $('form').addEventListener('submit', async (e) => {
+    e.preventDefault()
+    if (!signed() || $('send').disabled) return
+    $('send').disabled = true; $('send').textContent = t.sending; $('err').hidden = true
+    try {
+      const res = await fetch('/api/firmar', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug, name: $('name').value.trim(), title: $('role').value.trim(), accepted: true, signature: exportSig() }) })
+      const out = await res.json().catch(() => ({}))
+      if (!res.ok || !out.ok) throw new Error(out.error || res.status)
+      $('signCard').hidden = true; $('summary').hidden = true
+      if (out.url) { $('signedPdf').href = out.url; $('signedPdf').hidden = false }
+      show('done'); window.scrollTo({ top: 0, behavior: 'smooth' })
+    } catch {
+      $('err').textContent = t.fail; $('err').hidden = false
+      $('send').textContent = t.btn; update()
+    }
+  })
+})()
+</script>
+</body>
+</html>

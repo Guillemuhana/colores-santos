@@ -1,0 +1,47 @@
+{
+  "slug": "surfside-palms-condo-association",
+  "pdf": "/cotizacion/surfside-palms-condo-association.pdf",
+  "idioma": "en",
+  "titulo": "Proposal",
+  "cliente": "Surfside Palms Condo Association",
+  "atencion": "Angel Del Guercio",
+  "proyecto": "Metal Doors & Elevator-Front Floors",
+  "direccion": "8888 Collins Avenue, Surfside, FL 33154",
+  "fecha": "2026-11-14",
+  "total": 5800,
+  "deposito": 1740,
+  "puntos": [
+    "Scope, exclusions and limitations as described in this proposal",
+    "Existing conditions documented in Annex A (photographic record)",
+    "Payment: 30% deposit upon approval and 70% balance upon completion",
+    "Start within 24 hours after the deposit clears; approx. 5 working days",
+    "Limited one-year workmanship warranty, limited to application defects"
+  ],
+  "pagina": 9,
+  "campos": {
+    "firma": {
+      "x": 319.1811023622048,
+      "y": 263.62204724409446,
+      "width": 245.1968503937008,
+      "height": 81.63779527559056
+    },
+    "nombre": {
+      "x": 319.1811023622048,
+      "y": 215.43307086614172,
+      "width": 245.1968503937008,
+      "height": 22.110236220472444
+    },
+    "cargo": {
+      "x": 319.1811023622048,
+      "y": 172.91338582677164,
+      "width": 245.1968503937008,
+      "height": 22.110236220472444
+    },
+    "fecha": {
+      "x": 319.1811023622048,
+      "y": 130.39370078740154,
+      "width": 245.1968503937008,
+      "height": 22.110236220472444
+    }
+  }
+}
