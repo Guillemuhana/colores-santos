@@ -17,6 +17,13 @@ if (!arg) {
 }
 const data = JSON.parse(readFileSync(resolve(arg), 'utf8'))
 
+// Fotos del anexo: rutas relativas a cotizaciones/ -> base64 embebido
+for (const gr of data.anexo?.grupos || []) for (const f of gr.fotos || []) {
+  if (!f.src.startsWith('data:')) f.src = `data:image/jpeg;base64,${readFileSync(join(here, f.src)).toString('base64')}`
+}
+
+if (data.portada?.foto && !data.portada.foto.startsWith('data:')) data.portada.foto = `data:image/jpeg;base64,${readFileSync(join(here, data.portada.foto)).toString('base64')}`
+
 const b64 = (f, mime) => `data:${mime};base64,${readFileSync(join(here, '..', 'public', 'img', 'brand', f)).toString('base64')}`
 const img = { roller: b64('roller-icon.webp', 'image/webp'), stroke: b64('stroke.webp', 'image/webp') }
 // Datos de la empresa desde src/config.js; el JSON puede pisar alguno con "empresa": { ... }

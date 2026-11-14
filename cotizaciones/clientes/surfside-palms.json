@@ -16,6 +16,23 @@
     "titulo": "Metal Doors & Elevator-Front Floors",
     "direccion": "8888 Collins Avenue, Surfside, FL 33154"
   },
+  "portada": {
+    "titulo": "Metal Doors & Elevator-Front Floors",
+    "foto": null,
+    "placeholder": "Building exterior photo — pending authorized image",
+    "placeholderNota": "Main façade or general view of Surfside Palms, 8888 Collins Avenue. To be replaced with a photo taken by Colores Santos or provided by the Association.",
+    "credito": "",
+    "datos": [
+      {
+        "etiqueta": "Est. duration",
+        "valor": "~5 working days"
+      },
+      {
+        "etiqueta": "Target",
+        "valor": "Nov 24, 2026"
+      }
+    ]
+  },
   "resumen": [
     {
       "etiqueta": "Proposal total",
@@ -64,7 +81,7 @@
     }
   ],
   "etiquetaTotal": "Total",
-  "notaPrecios": "Pricing includes all labor and materials for the scope described in this proposal. Any change in scope or unforeseen concealed condition will be quoted separately for written approval.",
+  "notaPrecios": "Pricing includes all labor and materials for the scope described in this proposal. Existing site conditions are documented in Annex A. Any change in scope or unforeseen concealed condition will be quoted separately for written approval.",
   "alcance": [
     {
       "titulo": "Door Preparation and Painting",
@@ -73,8 +90,8 @@
         "Clean and prepare all door surfaces",
         "Remove loose paint and accessible surface rust",
         "Sand and feather edges",
-        "Apply compatible metal filler/putty and additional sanding to localized damaged areas where appropriate",
-        "Spot-prime exposed metal with rust-inhibiting primer",
+        "Apply compatible metal filler/putty or sheet-metal patch, with additional sanding, to localized damaged areas where viable",
+        "Anti-corrosion treatment: spot-prime exposed metal with rust-inhibiting primer",
         "Apply compatible finish coats"
       ],
       "notas": [
@@ -82,7 +99,7 @@
       ],
       "aviso": {
         "titulo": "Important limitation:",
-        "texto": "Metal filler, sanding, patching, and any agreed cosmetic lower-panel treatment improve surface appearance but do not replace damaged metal, restore structural strength, or stop corrosion originating inside severely compromised sections. Replacement of door leaves, frames, or structural components is not included."
+        "texto": "Metal filler, sanding, patching, and any agreed cosmetic lower-panel treatment improve surface appearance but do not replace damaged metal, restore the original strength of the metal, or stop corrosion originating inside severely compromised sections. Replacement of door leaves, frames, or structural components is not included. If the condition of a door or frame does not allow a safe cosmetic repair, Colores Santos will inform the Association before intervening."
       }
     },
     {
@@ -207,9 +224,10 @@
   "garantia": {
     "titulo": "Limited One-Year Workmanship Warranty",
     "destacado": "12 months from completion",
-    "texto": "Colores Santos LLC warrants its workmanship for 12 months from completion against paint peeling, lifting, or premature adhesion failure directly caused by deficient preparation or application by Colores Santos. At its discretion, Colores Santos will inspect and correct verified covered workmanship defects in the affected area.",
+    "texto": "Colores Santos LLC warrants its workmanship for 12 months from completion against paint peeling, lifting, or premature adhesion failure directly caused by deficient preparation or application by Colores Santos. The warranty is limited to application defects. At its discretion, Colores Santos will inspect and correct verified covered workmanship defects in the affected area.",
     "noCubre": [
       "Ongoing or concealed corrosion",
+      "Recurrence of pre-existing corrosion",
       "Perforated or structurally unsound metal",
       "Pre-existing coating failure outside the prepared scope",
       "Moisture intrusion",
@@ -225,6 +243,116 @@
     "firmas": [
       "Authorized representative · Surfside Palms Condo Association",
       "Colores Santos LLC"
+    ]
+  },
+  "anexo": {
+    "kicker": "Annex A",
+    "titulo": "Photographic Record of Existing Conditions",
+    "intro": "Photographs taken on site documenting the condition of the work areas before any work. Images are unretouched and do not represent finished results. They are grouped according to the line items in Section 01.",
+    "grupos": [
+      {
+        "titulo": "Elevator-Front Floor Areas & Perimeter Curbs",
+        "ref": "Line item 3 · 2 elevator-front floor areas",
+        "porFila": 3,
+        "alto": 80,
+        "fotos": [
+          {
+            "src": "fotos/surfside-palms/ascensor-piso.jpg",
+            "pie": "Elevator-front floor area: worn gray coating with stains and surface wear; curb edge in foreground."
+          },
+          {
+            "src": "fotos/surfside-palms/ascensor-area-1.jpg",
+            "pie": "Elevator-front area seen from the parking aisle, with curved perimeter curb."
+          },
+          {
+            "src": "fotos/surfside-palms/ascensor-area-2.jpg",
+            "pie": "Perimeter curb and coated floor next to the mailbox units."
+          }
+        ],
+        "observaciones": [
+          "Worn, stained gray floor coating",
+          "Chipped and soiled perimeter curb edges"
+        ],
+        "alcance": [
+          "Clean/degrease and remove loose or failing coating",
+          "Abrade sound coating; two finish coats of floor coating",
+          "Perimeter curbs repainted white"
+        ],
+        "limites": [
+          "Full removal of sound existing coating",
+          "Extensive concrete restoration",
+          "Moisture remediation"
+        ],
+        "tituloLimites": "Not included"
+      },
+      {
+        "titulo": "Standard Metal Doors with Frames",
+        "ref": "Line item 1 · 8 standard metal doors, including frames",
+        "porFila": 2,
+        "alto": 72,
+        "fotos": [
+          {
+            "src": "fotos/surfside-palms/marco-corrosion.jpg",
+            "alerta": "Severe corrosion",
+            "pie": "Door frame: advanced corrosion along the frame profile, with coating loss and deteriorated metal surface."
+          },
+          {
+            "src": "fotos/surfside-palms/puerta-antipanico.jpg",
+            "pie": "Exterior door with panic bar: peeling paint, residue from removed labels and worn edges."
+          },
+          {
+            "src": "fotos/surfside-palms/puerta-electric-room.jpg",
+            "pie": "Electric Room door: marks and paint loss at the lower section."
+          },
+          {
+            "src": "fotos/surfside-palms/puerta-teclado.jpg",
+            "pie": "Exterior door with closer and keypad: scuffs, chips and stains on the door face."
+          }
+        ],
+        "alcance": [
+          "Cleaning; removal of loose paint and accessible rust",
+          "Sanding and feathering of edges",
+          "Rust-inhibiting primer on exposed metal",
+          "Cosmetic filler/patch where viable; finish coats"
+        ],
+        "limites": [
+          "No replacement of door leaves, frames or components",
+          "No structural repair; the original strength of the metal is not restored",
+          "No warranty against recurrence of pre-existing corrosion",
+          "If a safe cosmetic repair is not feasible, the Association will be informed before intervening"
+        ]
+      },
+      {
+        "titulo": "Louvered / Ventilation Doors",
+        "ref": "Line item 2 · 3 louvered / ventilation metal doors",
+        "layout": "lado",
+        "alto": 128,
+        "fotos": [
+          {
+            "src": "fotos/surfside-palms/ventilacion-doble.jpg",
+            "alerta": "Perforated metal",
+            "pie": "Double louvered ventilation door (VLT 8888): corrosion and perforated metal at the lower section."
+          }
+        ],
+        "observaciones": [
+          "Corrosion at the lower section of the double door",
+          "Perforated metal at the bottom of the leaf",
+          "Corrosion staining on louvers and frame"
+        ],
+        "alcance": [
+          "Cleaning and preparation of the agreed exposed surfaces",
+          "Removal of loose paint and accessible surface rust",
+          "Anti-corrosion treatment with rust-inhibiting primer",
+          "Cosmetic filler/patch where viable",
+          "Compatible finish coats"
+        ],
+        "limites": [
+          "Perforated sections are not replaced or structurally repaired",
+          "Cosmetic treatment does not restore the original strength of the metal or stop corrosion inside compromised sections",
+          "No warranty against recurrence of pre-existing corrosion",
+          "If a safe cosmetic repair is not feasible, the Association will be informed before intervening"
+        ]
+      }
     ]
   },
   "adjuntos": [

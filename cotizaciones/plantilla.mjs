@@ -198,6 +198,54 @@ export function render(d, img, empresa) {
     </div>
   </section>`
 
+  // ---------- Anexo fotográfico (cada grupo en su propia página) ----------
+  const ax = d.anexo
+  let nFoto = 0
+  const foto = (f, h) => `<figure class="ph ${f.alerta ? 'ph-alert' : ''}">
+      <div class="ph-box" style="height:${h}mm"><img src="${f.src}" alt=""></div>
+      <figcaption><span class="ph-n">${esc(ax.etiquetaFoto || 'Photo')} ${++nFoto}</span>${f.alerta ? `<span class="ph-tag">${esc(f.alerta)}</span>` : ''}<span class="ph-c">${esc(f.pie || '')}</span></figcaption>
+    </figure>`
+  const bloqueTexto = (titulo, arr, cls) => arr?.length ? `<div class="gx-b ${cls}"><h4>${esc(titulo)}</h4>${lista(arr, cls === 'lim' ? 'no' : 'si')}</div>` : ''
+  const sAnexo = ax ? ax.grupos.map((g, gi) => `<section class="annex">
+    ${gi === 0 ? `<div class="ax-head"><span class="ax-k">${esc(ax.kicker || 'Annex A')}</span><h2>${esc(ax.titulo)}</h2>${ax.intro ? `<p>${esc(ax.intro)}</p>` : ''}</div>` : ''}
+    <div class="gx-t"><span class="gx-n">${gi + 1}</span><div><h3>${esc(g.titulo)}</h3>${g.ref ? `<small>${esc(g.ref)}</small>` : ''}</div></div>
+    ${g.intro ? `<p class="gx-i">${esc(g.intro)}</p>` : ''}
+    ${g.layout === 'lado' ? `<div class="gx-side">${foto(g.fotos[0], g.alto || 130)}<div class="gx-notes">
+        ${bloqueTexto(g.tituloObs || 'Observed condition', g.observaciones, 'obs')}
+        ${bloqueTexto(g.tituloAlcance || 'Included scope', g.alcance, 'inc')}
+        ${bloqueTexto(g.tituloLimites || 'Limitations', g.limites, 'lim')}
+      </div></div>`
+      : `<div class="ph-grid" style="grid-template-columns:repeat(${g.porFila || 3},1fr)">${g.fotos.map((f) => foto(f, g.alto || 78)).join('')}</div>
+        ${(g.observaciones || g.alcance || g.limites) ? `<div class="gx-row">${bloqueTexto(g.tituloObs || 'Observed condition', g.observaciones, 'obs')}${bloqueTexto(g.tituloAlcance || 'Included scope', g.alcance, 'inc')}${bloqueTexto(g.tituloLimites || 'Limitations', g.limites, 'lim')}</div>` : ''}`}
+  </section>`).join('') : ''
+
+  // ---------- Portada (opcional) ----------
+  const pt = d.portada
+  const sPortada = pt ? `<section class="cover">
+    <div class="cv-photo">
+      ${pt.foto ? `<img src="${pt.foto}" alt="">` : `<div class="cv-ph"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-5-5-8 8"/></svg><b>${esc(pt.placeholder || 'Building exterior photo')}</b><span>${esc(pt.placeholderNota || '')}</span></div>`}
+      <div class="cv-shade"></div>
+      <div class="cv-logo logo">
+        <img class="roller" src="${img.roller}" alt="">
+        <div class="logo-t"><span class="logo-col">COLORES</span><span class="logo-san"><img src="${img.stroke}" alt=""><b>SANTOS</b></span><span class="logo-tag">PAINTING &amp; FINISHES</span></div>
+      </div>
+      ${pt.credito ? `<span class="cv-cred">${esc(pt.credito)}</span>` : ''}
+    </div>
+    <div class="stripe"></div>
+    <div class="cv-body">
+      <span class="doc-kicker">${esc(d.subtituloDocumento || t.doc)}</span>
+      <h1>${esc(pt.titulo || pro.titulo || '')}</h1>
+      <p class="cv-for">${t.cliente} <b>${esc(cli.nombre || '')}</b>${cli.atencion ? ` · ${t.atencion}: ${esc(cli.atencion)}` : ''}</p>
+      <p class="cv-addr">${esc(pro.direccion || '')}</p>
+      <div class="cv-facts">
+        <div><span>${t.fecha}</span><b>${fmtFecha(d.fecha, lang)}</b></div>
+        <div><span>${esc(d.resumen?.[0]?.etiqueta || t.totalFinal)}</span><b>${money(c.total)}</b></div>
+        ${(pt.datos || []).map((x) => `<div><span>${esc(x.etiqueta)}</span><b>${esc(x.valor)}</b></div>`).join('')}
+      </div>
+      <div class="cv-foot"><span>${esc(empresa.name)}</span><span>${esc(empresa.phone)} · ${esc(empresa.email)}</span></div>
+    </div>
+  </section>` : ''
+
   return `<!doctype html>
 <html lang="${lang}">
 <head>
@@ -216,6 +264,7 @@ export function render(d, img, empresa) {
     @bottom-right { content: "${esc(cli.corto || cli.nombre || '')}  ·  ${t.pagina} " counter(page) " / " counter(pages); font: 600 7.5pt 'Plus Jakarta Sans', sans-serif; color: #6f7f7b; padding-right: 16mm; }
   }
   @page :first { margin-top: 0; }
+  ${pt ? '@page :first { margin: 0; @bottom-left { content: none } @bottom-right { content: none } }' : ''}
   * { box-sizing: border-box; }
   html, body { margin: 0; background: #fff; }
   body { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--ink); font-size: 9.3pt; line-height: 1.5;
@@ -370,6 +419,59 @@ export function render(d, img, empresa) {
   .ins-lim div:not(:nth-child(3n+1)) { border-left: 1px solid var(--line); }
   .ins-lim span { display: block; font-size: 7.6pt; color: var(--muted); } .ins-lim b { font: 700 11.5pt 'Outfit'; color: var(--f950); }
 
+  /* ---------- Cover ---------- */
+  .cover { height: 279.4mm; display: flex; flex-direction: column; break-after: page; background: #072822; color: #fff; }
+  .cv-photo { position: relative; height: 158mm; overflow: hidden; background: #0e3d35; }
+  .cv-photo > img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .cv-ph { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; text-align: center; color: #96ebd2;
+    background: repeating-linear-gradient(135deg, #124a40 0 14px, #0e3d35 14px 28px); border: 2px dashed rgb(150 235 210 / .45); margin: 10mm; border-radius: 14px; }
+  .cv-ph b { font: 700 13pt 'Outfit'; color: #fff; } .cv-ph span { font-size: 8.5pt; max-width: 120mm; color: #b8f3e1; }
+  .cv-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgb(7 40 34 / .55) 0%, transparent 30%, transparent 70%, rgb(7 40 34 / .6) 100%); pointer-events: none; }
+  .cv-logo { position: absolute; top: 12mm; left: 16mm; }
+  .cv-cred { position: absolute; right: 16mm; bottom: 4mm; font-size: 6.8pt; color: rgb(255 255 255 / .75); }
+  .cv-body { flex: 1; padding: 13mm 16mm 10mm; display: flex; flex-direction: column;
+    background: radial-gradient(120% 140% at 100% 0%, #124a40 0%, #0b3a32 45%, #072822 100%); }
+  .cv-body h1 { font-size: 30pt; font-weight: 800; line-height: 1.04; margin: 8px 0 10px; color: #fff; max-width: 165mm; }
+  .cv-for { color: #c9f5e6; font-size: 10.5pt; } .cv-for b { color: #fff; }
+  .cv-addr { color: #96ebd2; font-size: 9.5pt; margin-top: 2px; }
+  .cv-facts { display: flex; gap: 0; margin-top: auto; border-top: 1px solid rgb(150 235 210 / .25); padding-top: 6mm; }
+  .cv-facts div { flex: 1; padding-right: 6mm; } .cv-facts div + div { border-left: 1px solid rgb(150 235 210 / .2); padding-left: 6mm; }
+  .cv-facts span { display: block; font: 700 6.8pt 'Plus Jakarta Sans'; letter-spacing: .18em; text-transform: uppercase; color: #5ddfba; }
+  .cv-facts b { font: 700 13pt 'Outfit'; color: #fff; white-space: nowrap; }
+  .cv-body .doc-kicker { align-self: flex-start; }
+  .cv-foot { display: flex; justify-content: space-between; margin-top: 7mm; font-size: 7.6pt; color: rgb(201 245 230 / .7); }
+  .cover + .wrap > .parties, .cover ~ .wrap > .parties { margin-top: 0; }
+
+  /* ---------- Photo annex ---------- */
+  .annex { break-before: page; }
+  .ax-head { padding: 2mm 0 5mm; margin-bottom: 5mm; border-bottom: 1px solid var(--line); }
+  .ax-k { display: inline-block; font: 700 7pt 'Plus Jakarta Sans'; letter-spacing: .22em; text-transform: uppercase; color: #fff; background: var(--f950); border-radius: 99px; padding: 3px 10px; }
+  .ax-head h2 { font-size: 19pt; font-weight: 800; color: var(--f950); margin: 6px 0 3px; }
+  .ax-head p { color: var(--muted); font-size: 8.6pt; max-width: 165mm; }
+  .gx-t { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; break-after: avoid; }
+  .gx-n { width: 26px; height: 26px; border-radius: 8px; background: linear-gradient(135deg, #12c193, #0c8566); color: #fff; font: 800 11pt/26px 'Outfit'; text-align: center; flex: none; }
+  .gx-t h3 { font-size: 13.5pt; font-weight: 700; color: var(--f950); line-height: 1.15; }
+  .gx-t small { color: var(--muted); font-size: 8pt; }
+  .gx-i { color: var(--body); font-size: 8.6pt; margin: 0 0 4mm; }
+  .ph-grid { display: grid; gap: 4mm; margin-top: 3mm; }
+  .ph { margin: 0; break-inside: avoid; }
+  .ph-box { border-radius: 10px; overflow: hidden; background: #e7eeec; display: flex; align-items: center; justify-content: center; border: 1px solid var(--line); }
+  .ph-box img { max-width: 100%; max-height: 100%; width: auto; height: auto; display: block; }
+  .ph-alert .ph-box { border: 2px solid #d9822b; }
+  figcaption { margin-top: 5px; font-size: 7.9pt; color: var(--body); line-height: 1.35; }
+  .ph-n { font: 700 7pt 'Plus Jakarta Sans'; letter-spacing: .12em; text-transform: uppercase; color: var(--b700); margin-right: 6px; }
+  .ph-tag { display: inline-block; font: 700 6.6pt 'Plus Jakarta Sans'; letter-spacing: .1em; text-transform: uppercase; color: #8a4b0f; background: #fdf0e1; border: 1px solid #f3cfa4; border-radius: 99px; padding: 0 7px; margin-right: 6px; }
+  .ph-c { display: block; margin-top: 1px; }
+  .gx-side { display: grid; grid-template-columns: 98mm 1fr; gap: 7mm; margin-top: 3mm; align-items: start; }
+  .gx-notes { display: flex; flex-direction: column; gap: 4mm; }
+  .gx-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); gap: 5mm; margin-top: 5mm; }
+  .gx-b { border-radius: 10px; padding: 9px 12px; background: var(--mist); break-inside: avoid; }
+  .gx-b h4 { font: 700 6.8pt 'Plus Jakarta Sans'; letter-spacing: .18em; text-transform: uppercase; color: var(--b700); margin: 0 0 4px; }
+  .gx-b ul li { font-size: 8.3pt; margin: 2px 0; }
+  .gx-b.obs { background: #fdf6ec; } .gx-b.obs h4 { color: #a35d12; }
+  .gx-b.obs ul.si li::before { background: #d9822b url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M6 3v3.6M6 8.6v.1' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") center/9px no-repeat; }
+  .gx-b.lim { background: #f4f6f5; } .gx-b.lim h4 { color: #5b6b67; }
+
   /* ---------- Sign ---------- */
   .sign-wrap { break-inside: avoid; }
   .sign { border: 1px solid var(--line); border-radius: 12px; padding: 13px 16px 16px; }
@@ -388,7 +490,8 @@ export function render(d, img, empresa) {
 </head>
 <body>
 
-<header>
+${sPortada}
+${pt ? '' : `<header>
   <div class="hero">
     <div class="hero-in">
       <div class="logo">
@@ -411,7 +514,7 @@ export function render(d, img, empresa) {
     </div>
   </div>
   <div class="stripe"></div>
-</header>
+</header>`}
 
 <main class="wrap">
   <section class="parties">
@@ -453,6 +556,7 @@ export function render(d, img, empresa) {
       <b>${esc(empresa.name)}</b><br>${esc(empresa.phone)} · ${esc(empresa.email)}<br>${esc(empresa.web)}
     </div>
   </section>
+  ${sAnexo}
 </main>
 </body>
 </html>`
