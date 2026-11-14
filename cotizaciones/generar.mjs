@@ -56,5 +56,17 @@ try {
   rmSync(profile, { recursive: true, force: true })
 }
 
+// Adjuntos: PDFs que se agregan al final (ej. certificado de seguro). Rutas relativas a cotizaciones/
+if (data.adjuntos?.length) {
+  const { PDFDocument } = await import('pdf-lib')
+  const doc = await PDFDocument.load(readFileSync(pdfPath))
+  for (const a of data.adjuntos) {
+    const src = await PDFDocument.load(readFileSync(join(here, a)))
+    for (const p of await doc.copyPages(src, src.getPageIndices())) doc.addPage(p)
+  }
+  writeFileSync(pdfPath, await doc.save())
+  console.log(`  + adjuntos: ${data.adjuntos.join(', ')}`)
+}
+
 const { total } = calcular(data)
 console.log(`✔ PDF listo: ${pdfPath}\n  Link (después de publicar): ${SITE_URL}/cotizacion/${link}.pdf\n  Total: ${new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(total)}`)

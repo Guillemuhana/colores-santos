@@ -3,43 +3,68 @@
   "tituloDocumento": "Proposal",
   "subtituloDocumento": "Formal Project Proposal",
   "fecha": "2026-11-14",
-
   "empresa": {
     "name": "Colores Santos LLC",
     "email": "coloressantosgeneralpainting@gmail.com"
   },
-
   "cliente": {
     "nombre": "Surfside Palms Condo Association",
     "corto": "Surfside Palms",
     "atencion": "Angel Del Guercio"
   },
-
   "proyecto": {
     "titulo": "Metal Doors & Elevator-Front Floors",
     "direccion": "8888 Collins Avenue, Surfside, FL 33154"
   },
-
   "resumen": [
-    { "etiqueta": "Proposal total", "valor": "TOTAL", "nota": "Labor and materials" },
-    { "etiqueta": "Deposit (30%)", "valor": "$1,740.00", "nota": "Upon approval" },
-    { "etiqueta": "Est. duration", "valor": "~5 working days", "nota": "Mon–Fri · 8 a.m.–6 p.m." },
-    { "etiqueta": "Target", "valor": "Nov 24, 2026", "nota": "Before building inspection" }
+    {
+      "etiqueta": "Proposal total",
+      "valor": "TOTAL",
+      "nota": "Labor and materials"
+    },
+    {
+      "etiqueta": "Deposit (30%)",
+      "valor": "$1,740.00",
+      "nota": "Upon approval"
+    },
+    {
+      "etiqueta": "Est. duration",
+      "valor": "~5 working days",
+      "nota": "Mon–Fri · 8 a.m.–6 p.m."
+    },
+    {
+      "etiqueta": "Target",
+      "valor": "Nov 24, 2026",
+      "nota": "Before building inspection"
+    }
   ],
-
   "secciones": [
     {
       "titulo": "",
       "items": [
-        { "descripcion": "Standard metal doors, including frames", "detalle": "Preparation, filler where needed, rust-inhibiting spot-prime and finish coats", "cantidad": 8, "precio": 350 },
-        { "descripcion": "Louvered / ventilation metal doors", "detalle": "Treated on the agreed exposed surfaces", "cantidad": 3, "precio": 400 },
-        { "descripcion": "Elevator-front floor areas, including white perimeter curbs", "detalle": "Surface prep and two finish coats of floor coating; curbs repainted white", "cantidad": 2, "precio": 900 }
+        {
+          "descripcion": "Standard metal doors, including frames",
+          "detalle": "Preparation, filler where needed, rust-inhibiting spot-prime and finish coats",
+          "cantidad": 8,
+          "precio": 350
+        },
+        {
+          "descripcion": "Louvered / ventilation metal doors",
+          "detalle": "Treated on the agreed exposed surfaces",
+          "cantidad": 3,
+          "precio": 400
+        },
+        {
+          "descripcion": "Elevator-front floor areas, including white perimeter curbs",
+          "detalle": "Surface prep and two finish coats of floor coating; curbs repainted white",
+          "cantidad": 2,
+          "precio": 900
+        }
       ]
     }
   ],
   "etiquetaTotal": "Total",
   "notaPrecios": "Pricing includes all labor and materials for the scope described in this proposal. Any change in scope or unforeseen concealed condition will be quoted separately for written approval.",
-
   "alcance": [
     {
       "titulo": "Door Preparation and Painting",
@@ -78,32 +103,107 @@
       ]
     }
   ],
-
   "sistema": {
     "titulo": "Proposed Coating System",
     "productos": [
-      { "uso": "Metal primer", "producto": "Sherwin-Williams Pro Industrial Pro-Cryl Universal Metal Primer", "familia": "B66 family", "nota": "Exact SKU to be confirmed." },
-      { "uso": "Metal finish", "producto": "Sherwin-Williams Pro Industrial DTM Acrylic", "familia": "B66 family", "nota": "Exact SKU and sheen to be confirmed." },
-      { "uso": "Floor finish", "producto": "Sherwin-Williams ArmorSeal Tread-Plex", "familia": "B90 family", "nota": "Final system subject to substrate compatibility." }
+      {
+        "uso": "Metal primer",
+        "producto": "Sherwin-Williams Pro Industrial Pro-Cryl Universal Metal Primer",
+        "familia": "B66 family",
+        "nota": "Exact SKU to be confirmed."
+      },
+      {
+        "uso": "Metal finish",
+        "producto": "Sherwin-Williams Pro Industrial DTM Acrylic",
+        "familia": "B66 family",
+        "nota": "Exact SKU and sheen to be confirmed."
+      },
+      {
+        "uso": "Floor finish",
+        "producto": "Sherwin-Williams ArmorSeal Tread-Plex",
+        "familia": "B90 family",
+        "nota": "Final system subject to substrate compatibility."
+      }
     ],
     "colores": [
-      { "superficie": "Doors & frames", "color": "Match existing door color", "muestra": "repeating-linear-gradient(45deg,#d5e2de 0 3px,#ffffff 3px 6px)" },
-      { "superficie": "Floor areas", "color": "Gray, to match existing", "muestra": "#8f9694" },
-      { "superficie": "Perimeter curbs", "color": "White, to match existing", "muestra": "#ffffff" }
+      {
+        "superficie": "Doors & frames",
+        "color": "Match existing door color",
+        "muestra": "repeating-linear-gradient(45deg,#d5e2de 0 3px,#ffffff 3px 6px)"
+      },
+      {
+        "superficie": "Floor areas",
+        "color": "Gray, to match existing",
+        "muestra": "#8f9694"
+      },
+      {
+        "superficie": "Perimeter curbs",
+        "color": "White, to match existing",
+        "muestra": "#ffffff"
+      }
     ],
     "nota": "Exact manufacturer color codes will be documented after on-site color matching and before application. B66/B90 are product-family identifiers, not color codes."
   },
-
   "cronograma": [
-    { "etiqueta": "Start", "texto": "Within 24 hours after the 30% deposit has cleared, subject to authorized building access and permitted working hours (Monday–Friday, 8:00 a.m.–6:00 p.m.). If funds clear outside an allowable work window, mobilization begins in the next permitted work window." },
-    { "etiqueta": "Estimated duration", "texto": "Approximately 5 working days, subject to surface conditions, weather, coating cure/recoat times and access." },
-    { "etiqueta": "November 24, 2026 inspection", "texto": "Completion before the inspection depends on timely payment and uninterrupted access." }
+    {
+      "etiqueta": "Start",
+      "texto": "Within 24 hours after the 30% deposit has cleared, subject to authorized building access and permitted working hours (Monday–Friday, 8:00 a.m.–6:00 p.m.). If funds clear outside an allowable work window, mobilization begins in the next permitted work window."
+    },
+    {
+      "etiqueta": "Estimated duration",
+      "texto": "Approximately 5 working days, subject to surface conditions, weather, coating cure/recoat times and access."
+    },
+    {
+      "etiqueta": "November 24, 2026 inspection",
+      "texto": "Completion before the inspection depends on timely payment and uninterrupted access."
+    }
   ],
   "pagos": [
-    { "concepto": "Deposit", "detalle": "Upon approval", "porcentaje": 30 },
-    { "concepto": "Balance", "detalle": "Upon completion", "porcentaje": 70 }
+    {
+      "concepto": "Deposit",
+      "detalle": "Upon approval",
+      "porcentaje": 30
+    },
+    {
+      "concepto": "Balance",
+      "detalle": "Upon completion",
+      "porcentaje": 70
+    }
   ],
-
+  "seguro": {
+    "titulo": "Insurance",
+    "tipo": "Commercial General Liability",
+    "aseguradora": "Progressive Insurance Company Inc",
+    "poliza": "PGR973146701",
+    "vigencia": "09/17/2026 – 09/17/2027",
+    "limites": [
+      {
+        "etiqueta": "Each occurrence",
+        "monto": "$1,000,000"
+      },
+      {
+        "etiqueta": "General aggregate",
+        "monto": "$2,000,000"
+      },
+      {
+        "etiqueta": "Products – comp/op aggregate",
+        "monto": "$2,000,000"
+      },
+      {
+        "etiqueta": "Personal & advertising injury",
+        "monto": "$1,000,000"
+      },
+      {
+        "etiqueta": "Damage to rented premises",
+        "monto": "$100,000"
+      },
+      {
+        "etiqueta": "Medical expense (any one person)",
+        "monto": "$5,000"
+      }
+    ],
+    "nota": "Certificate of Liability Insurance (ACORD 25) issued 11/13/2026 to Surfside Palms Condo Association as certificate holder. A copy is attached at the end of this proposal."
+  },
   "garantia": {
     "titulo": "Limited One-Year Workmanship Warranty",
     "destacado": "12 months from completion",
@@ -119,10 +219,15 @@
     ],
     "nota": "No structural repair or replacement warranty is provided."
   },
-
   "aprobacion": {
     "titulo": "Approval",
     "texto": "Approval authorizes the above defined scope and pricing. Changes to scope or unforeseen concealed conditions requiring replacement or substantial restoration will be quoted separately for written approval before additional work.",
-    "firmas": ["Authorized representative · Surfside Palms Condo Association", "Colores Santos LLC"]
-  }
+    "firmas": [
+      "Authorized representative · Surfside Palms Condo Association",
+      "Colores Santos LLC"
+    ]
+  },
+  "adjuntos": [
+    "adjuntos/surfside-palms-coi-2026.pdf"
+  ]
 }

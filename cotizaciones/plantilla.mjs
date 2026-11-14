@@ -11,7 +11,7 @@ const T = {
     alcance: 'Alcance del trabajo', sistema: 'Sistema de recubrimiento', colores: 'Colores',
     cronograma: 'Cronograma y pagos', pagos: 'Forma de pago',
     incluye: 'Incluye', noIncluye: 'No incluye', condiciones: 'Condiciones',
-    garantia: 'Garantía', noCubre: 'La garantía no cubre', notas: 'Notas', aceptacion: 'Aprobación',
+    seguro: 'Seguro', garantia: 'Garantía', noCubre: 'La garantía no cubre', notas: 'Notas', aceptacion: 'Aprobación',
     aceptacionTxt: 'Al firmar, el cliente acepta el alcance, precios y condiciones descritos en esta cotización.',
     firmaCliente: 'Firma del cliente', fechaFirma: 'Fecha',
     gracias: '¡Gracias por confiar en nosotros!', licencia: 'Licenciados y asegurados', pagina: 'Página',
@@ -24,7 +24,7 @@ const T = {
     alcance: 'Scope of work', sistema: 'Proposed coating system', colores: 'Color identification',
     cronograma: 'Schedule & payment', pagos: 'Payment schedule',
     incluye: 'Included', noIncluye: 'Not included', condiciones: 'Conditions',
-    garantia: 'Warranty', noCubre: 'This warranty does not cover', notas: 'Notes', aceptacion: 'Approval',
+    seguro: 'Insurance', garantia: 'Warranty', noCubre: 'This warranty does not cover', notas: 'Notes', aceptacion: 'Approval',
     aceptacionTxt: 'By signing, the client accepts the scope, pricing and terms described in this document.',
     firmaCliente: 'Client signature', fechaFirma: 'Date',
     gracias: 'Thank you for your trust!', licencia: 'Licensed & insured', pagina: 'Page',
@@ -153,6 +153,20 @@ export function render(d, img, empresa) {
       ${d.incluye?.length ? `<div><h3 class="sub">${t.incluye}</h3>${lista(d.incluye, 'si')}</div>` : ''}
       ${d.noIncluye?.length ? `<div><h3 class="sub">${t.noIncluye}</h3>${lista(d.noIncluye, 'no')}</div>` : ''}
     </div>
+  </section>` : ''
+
+  const sg = d.seguro
+  const sSeguro = sg ? `<section class="sect">
+    ${h2(sg.titulo || t.seguro)}
+    <div class="ins">
+      <div class="ins-head">
+        <span class="shield">${ICON.shield}</span>
+        <div><b>${esc(sg.tipo)}</b><p>${esc(sg.aseguradora)}${sg.poliza ? ` · Policy ${esc(sg.poliza)}` : ''}</p></div>
+        ${sg.vigencia ? `<div class="ins-v"><span>${esc(sg.vigenciaEtiqueta || 'Policy period')}</span><b>${esc(sg.vigencia)}</b></div>` : ''}
+      </div>
+      <div class="ins-lim">${(sg.limites || []).map((l) => `<div><span>${esc(l.etiqueta)}</span><b>${esc(l.monto)}</b></div>`).join('')}</div>
+    </div>
+    ${sg.nota ? `<p class="small">${esc(sg.nota)}</p>` : ''}
   </section>` : ''
 
   const g = typeof d.garantia === 'string' ? { texto: d.garantia } : d.garantia
@@ -344,6 +358,18 @@ export function render(d, img, empresa) {
   .w-big { font: 700 11pt 'Outfit'; color: var(--f950); margin-bottom: 2px; }
   .warranty p { color: var(--body); }
 
+  /* ---------- Insurance ---------- */
+  .ins { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; break-inside: avoid; }
+  .ins-head { display: flex; align-items: center; gap: 12px; padding: 11px 15px; background: var(--mist); }
+  .ins-head > div:nth-child(2) { flex: 1; }
+  .ins-head b { font: 700 11pt 'Outfit'; color: var(--f950); } .ins-head p { color: var(--muted); font-size: 8.4pt; }
+  .ins-v { text-align: right; } .ins-v span { display: block; font: 700 6.6pt 'Plus Jakarta Sans'; letter-spacing: .18em; text-transform: uppercase; color: var(--b600); }
+  .ins-v b { font-size: 10pt; }
+  .ins-lim { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .ins-lim div { padding: 9px 15px; border-top: 1px solid var(--line); }
+  .ins-lim div:not(:nth-child(3n+1)) { border-left: 1px solid var(--line); }
+  .ins-lim span { display: block; font-size: 7.6pt; color: var(--muted); } .ins-lim b { font: 700 11.5pt 'Outfit'; color: var(--f950); }
+
   /* ---------- Sign ---------- */
   .sign-wrap { break-inside: avoid; }
   .sign { border: 1px solid var(--line); border-radius: 12px; padding: 13px 16px 16px; }
@@ -413,6 +439,7 @@ export function render(d, img, empresa) {
   ${sSistema}
   ${sCrono}
   ${sIncluye}
+  ${sSeguro}
   ${sGarantia}
   ${sNotas}
   ${sAprob}
