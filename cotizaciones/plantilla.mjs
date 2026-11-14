@@ -504,7 +504,7 @@ export function render(d, img, empresa) {
   .cl .ac-box { background: #fcfefd; border: 1.3px dashed #93cbb9; }
   .ac-sig { align-items: flex-end; padding-bottom: 2.5mm; }
   .ac-script { font-family: 'Mrs Saint Delafield', cursive; font-size: 40pt; font-weight: 400; color: #1d2f57; line-height: .8; transform: rotate(-3deg); transform-origin: left bottom; margin-left: 2mm; }
-  .ac-sig img { max-height: 26mm; max-width: 80mm; }
+  .ac-sig img { max-height: 27mm; max-width: 62mm; margin: 0 0 -1.5mm 4mm; }
   .ac-hint { font-size: 7.8pt; color: #9ab7ae; font-weight: 600; }
   .ac-thanks { position: absolute; left: 0; right: 0; bottom: 0; margin: 0; padding-top: 5mm; border-top: 1px solid var(--line); }
 
