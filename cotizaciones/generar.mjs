@@ -60,7 +60,7 @@ try {
     pathToFileURL(htmlPath).href,
   ], { stdio: 'ignore' })
 } finally {
-  rmSync(profile, { recursive: true, force: true })
+  try { rmSync(profile, { recursive: true, force: true, maxRetries: 5, retryDelay: 300 }) } catch {}
 }
 
 // Adjuntos: PDFs que se agregan al final (ej. certificado de seguro). Rutas relativas a cotizaciones/
