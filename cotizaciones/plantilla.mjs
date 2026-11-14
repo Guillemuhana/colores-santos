@@ -31,6 +31,11 @@ const T = {
   },
 }
 
+// Posición (mm) de las casillas de firma en la última página. generar.mjs usa los mismos
+// números para poner encima los campos rellenables del PDF, así quedan alineados.
+export const GEO = { pageH: 279.4, top: 14, left: 16, cardTop: 120, cardLeftClient: 95.9, cardW: 87.9,
+  boxes: { firma: [12, 30], nombre: [50, 9], cargo: [65, 9], fecha: [80, 9] } }
+
 const esc = (s = '') => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]))
 const money = (n) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(n || 0)
 const qty = (n) => new Intl.NumberFormat('en-US', { maximumFractionDigits: 2 }).format(n)
@@ -185,16 +190,53 @@ export function render(d, img, empresa) {
 
   const sNotas = d.notas ? `<section class="sect">${h2(t.notas)}<p class="lead" style="white-space:pre-line">${esc(d.notas)}</p></section>` : ''
 
+  // ---------- Página final de aceptación y firmas ----------
   const ap = d.aprobacion || {}
-  const firmas = ap.firmas || [`${t.firmaCliente}${cli.nombre ? ' · ' + cli.nombre : ''}`, empresa.name]
-  const sAprob = `<section class="sect sign-wrap">
-    ${h2(ap.titulo || t.aceptacion)}
-    <div class="sign">
-      <p>${esc(ap.texto || t.aceptacionTxt)}</p>
-      <div class="sig-grid">
-        ${firmas.map((f) => `<div class="sig">${esc(f)}</div>`).join('')}
-        <div class="sig">${t.fechaFirma}</div>
+  const fm = empresa.firmante || {}
+  const B = GEO.boxes
+  const lbl = (k, txt) => `<div class="ac-l" style="top:${B[k][0] - 4.4}mm">${esc(txt)}</div>`
+  const bx = (k, inner = '', cls = '') => `<div class="ac-box ${cls}" style="top:${B[k][0]}mm;height:${B[k][1]}mm">${inner}</div>`
+  const L = lang === 'en'
+    ? { firma: 'Signature', nombre: 'Name', cargo: 'Title', fecha: 'Date', cliente: 'Client acceptance', aqui: 'Sign here', resumen: ['Proposal date', 'Project', 'Total', 'Deposit due'], como: 'How to sign digitally' }
+    : { firma: 'Firma', nombre: 'Nombre', cargo: 'Cargo', fecha: 'Fecha', cliente: 'Aceptación del cliente', aqui: 'Firme aquí', resumen: ['Fecha', 'Proyecto', 'Total', 'Anticipo'], como: 'Cómo firmar digitalmente' }
+  const dep = (d.pagos || [])[0]
+  const sAccept = `<section class="accept">
+    <div class="ac-top">
+      <span class="ax-k">${esc(ap.kicker || t.aceptacion)}</span>
+      <h2>${esc(ap.titulo || t.aceptacion)}</h2>
+      <p class="ac-p">${esc(ap.texto || t.aceptacionTxt)}</p>
+      <div class="ac-sum">
+        <div><span>${L.resumen[0]}</span><b>${fmtFecha(d.fecha, lang)}</b></div>
+        <div><span>${L.resumen[1]}</span><b>${esc(pro.titulo || '')}</b></div>
+        <div><span>${L.resumen[2]}</span><b>${money(c.total)}</b></div>
+        ${dep ? `<div><span>${L.resumen[3]}${dep.porcentaje != null ? ` (${dep.porcentaje}%)` : ''}</span><b>${money(dep.monto ?? (c.total * (dep.porcentaje || 0)) / 100)}</b></div>` : ''}
       </div>
+      ${ap.puntos?.length ? lista(ap.puntos, 'si') : ''}
+      ${ap.instrucciones ? `<p class="ac-how"><b>${L.como}:</b> ${esc(ap.instrucciones)}</p>` : ''}
+    </div>
+
+    <div class="ac-card co" style="top:${GEO.cardTop}mm">
+      <div class="ac-h"><span>${esc(empresa.name)}</span></div>
+      ${lbl('firma', L.firma)}${bx('firma', fm.imagen ? `<img src="${fm.imagen}" alt="">` : `<span class="ac-script">${esc(fm.nombre || '')}</span>`, 'ac-sig')}
+      ${lbl('nombre', L.nombre)}${bx('nombre', esc(fm.nombre || ''))}
+      ${lbl('cargo', L.cargo)}${bx('cargo', esc(fm.cargo || ''))}
+      ${lbl('fecha', L.fecha)}${bx('fecha', fmtFecha(d.fecha, lang))}
+    </div>
+
+    <div class="ac-card cl" style="top:${GEO.cardTop}mm;left:${GEO.cardLeftClient}mm">
+      <div class="ac-h"><span>${L.cliente}</span><small>${esc(cli.nombre || '')}</small></div>
+      ${lbl('firma', L.firma)}${bx('firma', `<span class="ac-hint">✕ ${L.aqui}</span>`, 'ac-sig')}
+      ${lbl('nombre', L.nombre)}${bx('nombre')}
+      ${lbl('cargo', L.cargo)}${bx('cargo')}
+      ${lbl('fecha', L.fecha)}${bx('fecha')}
+    </div>
+
+    <div class="thanks ac-thanks">
+      <div>
+        <div class="display">${t.gracias.replace(/(\S+!?)$/, '<em>$1</em>')}</div>
+        <span class="badge">● ${t.licencia} · ${esc(empresa.area)}</span>
+      </div>
+      <div class="contact"><b>${esc(empresa.name)}</b><br>${esc(empresa.phone)} · ${esc(empresa.email)}<br>${esc(empresa.web)}</div>
     </div>
   </section>`
 
@@ -253,7 +295,7 @@ export function render(d, img, empresa) {
 <title>${esc(d.tituloDocumento || t.doc)} ${esc(d.numero || '')} · ${esc(cli.nombre || '')}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Mrs+Saint+Delafield&display=block" rel="stylesheet">
 <style>
   :root {
     --b50:#e9fbf5; --b100:#c9f5e6; --b200:#96ebd2; --b300:#5ddfba; --b400:#1fd8a6; --b500:#12c193; --b600:#0ea37c; --b700:#0c8566;
@@ -442,6 +484,30 @@ export function render(d, img, empresa) {
   .cv-foot { display: flex; justify-content: space-between; margin-top: 7mm; font-size: 7.6pt; color: rgb(201 245 230 / .7); }
   .cover + .wrap > .parties, .cover ~ .wrap > .parties { margin-top: 0; }
 
+  /* ---------- Acceptance page ---------- */
+  .accept { break-before: page; position: relative; height: 249mm; margin: 0; }
+  .ac-top h2 { font-size: 21pt; font-weight: 800; color: var(--f950); margin: 7px 0 6px; }
+  .ac-p { color: var(--body); max-width: 175mm; }
+  .ac-sum { display: grid; grid-template-columns: 1fr 1.6fr 1fr 1fr; margin: 6mm 0 5mm; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .ac-sum div { padding: 8px 12px; } .ac-sum div + div { border-left: 1px solid var(--line); }
+  .ac-sum span { display: block; font: 700 6.6pt 'Plus Jakarta Sans'; letter-spacing: .16em; text-transform: uppercase; color: var(--b600); }
+  .ac-sum b { font: 700 10.5pt 'Outfit'; color: var(--f950); line-height: 1.2; }
+  .ac-sum div:nth-child(3) { background: var(--f950); } .ac-sum div:nth-child(3) span { color: var(--b200); } .ac-sum div:nth-child(3) b { color: #fff; font-size: 13pt; }
+  .ac-how { margin-top: 4mm; font-size: 8.2pt; color: var(--muted); background: #f4f6f5; border-radius: 8px; padding: 7px 11px; }
+  .ac-how b { color: var(--f950); }
+  .ac-card { position: absolute; left: 0; width: 87.9mm; height: 89mm; }
+  .ac-h { position: absolute; top: 0; left: 0; right: 0; padding-bottom: 5px; border-bottom: 2px solid var(--b500); display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .ac-h span { font: 700 11pt 'Outfit'; color: var(--f950); white-space: nowrap; } .ac-h small { font-size: 7.6pt; color: var(--muted); text-align: right; line-height: 1.2; }
+  .ac-l { position: absolute; left: 0; font: 700 6.6pt 'Plus Jakarta Sans'; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+  .ac-box { position: absolute; left: 0; right: 0; border-radius: 6px; display: flex; align-items: center; padding: 0 3mm; font-weight: 600; color: var(--ink); }
+  .co .ac-box { background: var(--mist); border: 1px solid #cfeee3; }
+  .cl .ac-box { background: #fcfefd; border: 1.3px dashed #93cbb9; }
+  .ac-sig { align-items: flex-end; padding-bottom: 2.5mm; }
+  .ac-script { font-family: 'Mrs Saint Delafield', cursive; font-size: 40pt; font-weight: 400; color: #1d2f57; line-height: .8; transform: rotate(-3deg); transform-origin: left bottom; margin-left: 2mm; }
+  .ac-sig img { max-height: 26mm; max-width: 80mm; }
+  .ac-hint { font-size: 7.8pt; color: #9ab7ae; font-weight: 600; }
+  .ac-thanks { position: absolute; left: 0; right: 0; bottom: 0; margin: 0; padding-top: 5mm; border-top: 1px solid var(--line); }
+
   /* ---------- Photo annex ---------- */
   .annex { margin-top: 9mm; }
   .annex-new { break-before: page; margin-top: 0; }
@@ -547,18 +613,8 @@ ${pt ? '' : `<header>
   ${sSeguro}
   ${sGarantia}
   ${sNotas}
-  ${sAprob}
-
-  <section class="thanks">
-    <div>
-      <div class="display">${t.gracias.replace(/(\S+!?)$/, '<em>$1</em>')}</div>
-      <span class="badge">● ${t.licencia} · ${esc(empresa.area)}</span>
-    </div>
-    <div class="contact">
-      <b>${esc(empresa.name)}</b><br>${esc(empresa.phone)} · ${esc(empresa.email)}<br>${esc(empresa.web)}
-    </div>
-  </section>
   ${sAnexo}
+  ${sAccept}
 </main>
 </body>
 </html>`

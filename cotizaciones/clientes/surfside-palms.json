@@ -238,12 +238,17 @@
     "nota": "No structural repair or replacement warranty is provided."
   },
   "aprobacion": {
-    "titulo": "Approval",
-    "texto": "Approval authorizes the above defined scope and pricing. Changes to scope or unforeseen concealed conditions requiring replacement or substantial restoration will be quoted separately for written approval before additional work.",
-    "firmas": [
-      "Authorized representative · Surfside Palms Condo Association",
-      "Colores Santos LLC"
-    ]
+    "kicker": "Acceptance",
+    "titulo": "Proposal Acceptance",
+    "texto": "By signing below, Surfside Palms Condo Association accepts this proposal and authorizes Colores Santos LLC to perform the work for the total amount stated, under the scope, payment schedule, warranty and conditions described herein. Changes to scope or unforeseen concealed conditions requiring replacement or substantial restoration will be quoted separately for written approval before additional work.",
+    "puntos": [
+      "Scope, exclusions and limitations as described in this proposal",
+      "Existing conditions documented in Annex A (photographic record)",
+      "Payment: 30% deposit upon approval and 70% balance upon completion",
+      "Start within 24 hours after the deposit clears; approx. 5 working days",
+      "Limited one-year workmanship warranty, limited to application defects"
+    ],
+    "instrucciones": "open this PDF in Adobe Acrobat Reader (free) or Apple Preview / Markup, sign in the dashed box, fill in name, title and date, save, and send the signed copy to coloressantosgeneralpainting@gmail.com."
   },
   "anexo": {
     "kicker": "Annex A",

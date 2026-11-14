@@ -7,7 +7,7 @@ import { tmpdir } from 'node:os'
 import { join, resolve, dirname } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { BUSINESS, SITE_URL } from '../src/config.js'
-import { render, calcular } from './plantilla.mjs'
+import { render, calcular, GEO } from './plantilla.mjs'
 
 const here = dirname(fileURLToPath(import.meta.url))
 const arg = process.argv[2]
@@ -27,7 +27,13 @@ if (data.portada?.foto && !data.portada.foto.startsWith('data:')) data.portada.f
 const b64 = (f, mime) => `data:${mime};base64,${readFileSync(join(here, '..', 'public', 'img', 'brand', f)).toString('base64')}`
 const img = { roller: b64('roller-icon.webp', 'image/webp'), stroke: b64('stroke.webp', 'image/webp') }
 // Datos de la empresa desde src/config.js; el JSON puede pisar alguno con "empresa": { ... }
-const empresa = { ...BUSINESS, web: SITE_URL.replace(/^https?:\/\//, ''), ...(data.empresa || {}) }
+// Firmante fijo de la empresa (el dueño). Su firma sale ya puesta en todas las cotizaciones.
+// Para usar la firma real: guardar un PNG con fondo transparente en cotizaciones/firma-nicolas.png
+const FIRMANTE = { nombre: 'Nicolás Hercun', cargo: 'Owner', imagen: 'firma-nicolas.png' }
+const firmante = { ...FIRMANTE, ...(data.empresa?.firmante || {}) }
+firmante.imagen = firmante.imagen && existsSync(join(here, firmante.imagen))
+  ? `data:image/png;base64,${readFileSync(join(here, firmante.imagen)).toString('base64')}` : null
+const empresa = { ...BUSINESS, web: SITE_URL.replace(/^https?:\/\//, ''), ...(data.empresa || {}), firmante }
 
 const slug = (s = '') => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^\w]+/g, '-').replace(/^-|-$/g, '')
 // El link sale del nombre del cliente (o del campo "link" del JSON si querés otro).
@@ -63,16 +69,37 @@ try {
   try { rmSync(profile, { recursive: true, force: true, maxRetries: 5, retryDelay: 300 }) } catch {}
 }
 
-// Adjuntos: PDFs que se agregan al final (ej. certificado de seguro). Rutas relativas a cotizaciones/
-if (data.adjuntos?.length) {
-  const { PDFDocument } = await import('pdf-lib')
+// Campos rellenables para el cliente (firma, nombre, cargo, fecha) sobre la última página
+// de la propuesta; después se agregan los adjuntos (ej. certificado de seguro), rutas relativas a cotizaciones/
+{
+  const { PDFDocument, PDFString, rgb } = await import('pdf-lib')
   const doc = await PDFDocument.load(readFileSync(pdfPath))
-  for (const a of data.adjuntos) {
+  const page = doc.getPage(doc.getPageCount() - 1)
+  const k = 72 / 25.4
+  const rect = ([top, h]) => {
+    const yTop = GEO.top + GEO.cardTop + top + 0.6, hh = h - 1.2
+    return { x: (GEO.left + GEO.cardLeftClient + 0.7) * k, y: (GEO.pageH - yTop - hh) * k, width: (GEO.cardW - 1.4) * k, height: hh * k }
+  }
+  const form = doc.getForm()
+  // Campo de firma digital (Adobe Reader: clic para firmar; también sirve "Rellenar y firmar")
+  const r = rect(GEO.boxes.firma)
+  const sig = doc.context.register(doc.context.obj({
+    Type: 'Annot', Subtype: 'Widget', FT: 'Sig', T: PDFString.of('Client signature'), F: 4,
+    Rect: [r.x, r.y, r.x + r.width, r.y + r.height], P: page.ref,
+  }))
+  page.node.addAnnot(sig)
+  form.acroForm.addField(sig)
+  for (const [key, nombre] of [['nombre', 'Client name'], ['cargo', 'Client title'], ['fecha', 'Signature date']]) {
+    const f = form.createTextField(nombre)
+    f.addToPage(page, { ...rect(GEO.boxes[key]), borderWidth: 0, borderColor: undefined, backgroundColor: undefined, textColor: rgb(0.05, 0.08, 0.07) })
+    f.setFontSize(10)
+  }
+  for (const a of data.adjuntos || []) {
     const src = await PDFDocument.load(readFileSync(join(here, a)))
     for (const p of await doc.copyPages(src, src.getPageIndices())) doc.addPage(p)
   }
   writeFileSync(pdfPath, await doc.save())
-  console.log(`  + adjuntos: ${data.adjuntos.join(', ')}`)
+  if (data.adjuntos?.length) console.log(`  + adjuntos: ${data.adjuntos.join(', ')}`)
 }
 
 const { total } = calcular(data)
