@@ -187,6 +187,16 @@
       "porcentaje": 70
     }
   ],
+  "banco": {
+    "titulo": "Payment Instructions",
+    "datos": [
+      { "etiqueta": "Bank", "valor": "Wells Fargo" },
+      { "etiqueta": "Beneficiary", "valor": "Colores Santos LLC" },
+      { "etiqueta": "Account Number", "valor": "3743280251" },
+      { "etiqueta": "ACH Routing Number", "valor": "063107513" },
+      { "etiqueta": "Domestic Wire Routing Number", "valor": "121000248" }
+    ]
+  },
   "seguro": {
     "titulo": "Insurance",
     "tipo": "Commercial General Liability",
@@ -241,6 +251,8 @@
     "kicker": "Acceptance",
     "titulo": "Proposal Acceptance",
     "texto": "By signing below, Surfside Palms Condo Association accepts this proposal and authorizes Colores Santos LLC to perform the work for the total amount stated, under the scope, payment schedule, warranty and conditions described herein. Changes to scope or unforeseen concealed conditions requiring replacement or substantial restoration will be quoted separately for written approval before additional work.",
+    "contratoTitulo": "Contract Formation",
+    "contrato": "Upon execution by authorized representatives of both parties, this proposal becomes a binding Service Agreement incorporating all stated terms, scope of work, pricing, payment conditions, exclusions, warranty, and attached exhibits. The 30% deposit is due upon execution. Work commencement is subject to receipt of cleared funds and authorized site access.",
     "puntos": [
       "Scope, exclusions and limitations as described in this proposal",
       "Existing conditions documented in Annex A (photographic record)",

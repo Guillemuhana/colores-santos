@@ -33,8 +33,8 @@ const T = {
 
 // Posición (mm) de las casillas de firma en la última página. generar.mjs usa los mismos
 // números para poner encima los campos rellenables del PDF, así quedan alineados.
-export const GEO = { pageH: 279.4, top: 14, left: 16, cardTop: 131, cardLeftClient: 95.9, cardW: 87.9,
-  boxes: { firma: [12, 30], nombre: [50, 9], cargo: [65, 9], fecha: [80, 9] } }
+export const GEO = { pageH: 279.4, top: 14, left: 16, cardTop: 144, cardLeftClient: 95.9, cardW: 87.9,
+  boxes: { firma: [12, 24], nombre: [44, 9], cargo: [58, 9], fecha: [72, 9] } }
 
 const esc = (s = '') => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]))
 const money = (n) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(n || 0)
@@ -148,7 +148,12 @@ export function render(d, img, empresa) {
     ${h2(d.titulosSeccion?.cronograma || t.cronograma)}
     <div class="crono">
       ${d.cronograma?.length ? `<div class="tl">${d.cronograma.map((x) => `<div class="tl-i"><span class="tl-d"></span><div><b>${esc(x.etiqueta)}</b><p>${esc(x.texto)}</p></div></div>`).join('')}</div>` : ''}
-      ${pagos ? `<div class="pagos"><h3>${t.pagos}</h3>${pagos}</div>` : ''}
+      ${pagos || d.banco ? `<div>${pagos ? `<div class="pagos"><h3>${t.pagos}</h3>${pagos}</div>` : ''}
+      ${d.banco ? `<div class="bank">
+        <h3>${esc(d.banco.titulo || 'Payment Instructions')}</h3>
+        <div class="bank-g">${(d.banco.datos || []).map((x) => `<div><span>${esc(x.etiqueta)}</span><b>${esc(x.valor)}</b></div>`).join('')}</div>
+        ${d.banco.nota ? `<p class="small">${esc(d.banco.nota)}</p>` : ''}
+      </div>` : ''}</div>` : ''}
     </div>
   </section>` : ''
 
@@ -205,6 +210,7 @@ export function render(d, img, empresa) {
       <span class="ax-k">${esc(ap.kicker || t.aceptacion)}</span>
       <h2>${esc(ap.titulo || t.aceptacion)}</h2>
       <p class="ac-p">${esc(ap.texto || t.aceptacionTxt)}</p>
+      ${ap.contrato ? `<p class="ac-contract">${ap.contratoTitulo ? `<b>${esc(ap.contratoTitulo)}.</b> ` : ''}${esc(ap.contrato)}</p>` : ''}
       <div class="ac-sum">
         <div><span>${L.resumen[0]}</span><b>${fmtFecha(d.fecha, lang)}</b></div>
         <div><span>${L.resumen[1]}</span><b>${esc(pro.titulo || '')}</b></div>
@@ -431,7 +437,7 @@ export function render(d, img, empresa) {
   .tl-d { flex: none; width: 12px; height: 12px; border-radius: 50%; background: #fff; border: 3px solid var(--b500); margin-top: 3px; }
   .tl-i b { display: block; font: 700 9.6pt 'Montserrat'; color: var(--f950); }
   .tl-i p { color: var(--body); font-size: 8.5pt; }
-  .pago { display: grid; grid-template-columns: 44px 1fr auto; align-items: center; gap: 9px; padding: 8px 0; border-bottom: 1px dashed var(--line); }
+  .pago { display: grid; grid-template-columns: 44px 1fr auto; align-items: center; gap: 9px; padding: 6px 0; border-bottom: 1px dashed var(--line); }
   .pago-pc { font: 800 10pt 'Montserrat'; color: var(--f950); background: var(--b50); border-radius: 6px; text-align: center; padding: 3px 0; }
   .pago-c b { display: block; font-weight: 600; color: var(--ink); } .pago-c small { color: var(--muted); font-size: 7.8pt; }
   .pago-m { font: 700 11pt 'Montserrat'; color: var(--f950); font-variant-numeric: tabular-nums; }
@@ -490,18 +496,26 @@ export function render(d, img, empresa) {
   .accept { break-before: page; position: relative; height: 249mm; margin: 0; }
   .ac-top h2 { font-size: 21pt; font-weight: 800; color: var(--f950); margin: 7px 0 6px; }
   .ac-p { color: var(--body); max-width: 175mm; }
-  .ac-sum { display: grid; grid-template-columns: 1.2fr 1.6fr 1fr 1fr; margin: 4.5mm 0 3.5mm; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .ac-sum { display: grid; grid-template-columns: 1.2fr 1.6fr 1fr 1fr; margin: 3mm 0 2.5mm; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
   .ac-sum div { padding: 8px 12px; } .ac-sum div + div { border-left: 1px solid var(--line); }
   .ac-sum span { display: block; font: 700 6.6pt 'Inter'; letter-spacing: .16em; text-transform: uppercase; color: var(--b600); }
   .ac-sum b { font: 700 9.8pt 'Montserrat'; color: var(--f950); line-height: 1.2; }
   .ac-sum div:nth-child(3) { background: var(--f950); } .ac-sum div:nth-child(3) span { color: var(--b200); } .ac-sum div:nth-child(3) b { color: #fff; font-size: 13pt; }
-  .ac-online { display: flex; align-items: center; justify-content: space-between; gap: 6mm; margin-top: 3.5mm; padding: 9px 10px 9px 14px; border-radius: 10px;
+  .ac-online { display: flex; align-items: center; justify-content: space-between; gap: 6mm; margin-top: 2.5mm; padding: 9px 10px 9px 14px; border-radius: 10px;
     background: linear-gradient(110deg, #0b0b0b, #1d1f1e 60%, #2c6342); text-decoration: none; }
   .ac-o-t b { display: block; font: 700 10.5pt 'Montserrat'; color: #fff; } .ac-o-t small { display: block; font-size: 7.8pt; color: #cfe9d7; line-height: 1.35; }
   .ac-btn { flex: none; font: 800 10.5pt 'Montserrat'; color: #0b0b0b; background: #9acda8; border-radius: 8px; padding: 8px 16px; white-space: nowrap; }
-  .ac-how { margin-top: 2.5mm; font-size: 7.6pt; color: var(--muted); background: #f4f6f5; border-radius: 8px; padding: 7px 11px; }
+  .ac-how { margin-top: 2mm; font-size: 7.6pt; color: var(--muted); background: #f4f6f5; border-radius: 8px; padding: 7px 11px; }
   .ac-how b { color: var(--f950); }
-  .ac-card { position: absolute; left: 0; width: 87.9mm; height: 89mm; }
+  .ac-contract { margin-top: 2.2mm; max-width: 175mm; font-size: 8pt; color: var(--body); border-left: 3px solid var(--b500); padding: 1px 0 1px 9px; }
+  .ac-contract b { font-weight: 700; color: var(--f950); }
+  .bank { break-inside: avoid; margin-top: 3mm; background: #f4f6f5; border-radius: 10px; padding: 7px 12px 3px; }
+  .bank h3 { font: 700 7pt 'Inter'; letter-spacing: .2em; text-transform: uppercase; color: var(--b600); margin: 0 0 2px; }
+  .bank-g div { display: flex; justify-content: space-between; align-items: baseline; gap: 4mm; padding: 2.5px 0; border-bottom: 1px dashed var(--line); } .bank-g div:last-child { border-bottom: 0; }
+  .bank-g span { font-size: 8pt; color: var(--muted); }
+  .bank-g b { font: 700 9pt 'Montserrat'; color: var(--f950); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .bank .small { margin-top: 5px; }
+  .ac-card { position: absolute; left: 0; width: 87.9mm; height: 81mm; }
   .ac-h { position: absolute; top: 0; left: 0; right: 0; padding-bottom: 5px; border-bottom: 2px solid var(--b500); display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
   .ac-h span { font: 700 11pt 'Montserrat'; color: var(--f950); white-space: nowrap; } .ac-h small { font-size: 7.6pt; color: var(--muted); text-align: right; line-height: 1.2; }
   .ac-l { position: absolute; left: 0; font: 700 6.6pt 'Inter'; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
@@ -510,7 +524,7 @@ export function render(d, img, empresa) {
   .cl .ac-box { background: #fcfdfc; border: 1.3px dashed #a9d3b6; }
   .ac-sig { align-items: flex-end; padding-bottom: 2.5mm; }
   .ac-script { font-family: 'Mrs Saint Delafield', cursive; font-size: 40pt; font-weight: 400; color: #1d2f57; line-height: .8; transform: rotate(-3deg); transform-origin: left bottom; margin-left: 2mm; }
-  .ac-sig img { max-height: 27mm; max-width: 62mm; margin: 0 0 -1.5mm 4mm; }
+  .ac-sig img { max-height: 21mm; max-width: 62mm; margin: 0 0 -1.5mm 4mm; }
   .ac-hint { font-size: 7.8pt; color: #a3b8aa; font-weight: 600; }
   .ac-thanks { position: absolute; left: 0; right: 0; bottom: 0; margin: 0; padding-top: 5mm; border-top: 1px solid var(--line); }
 
