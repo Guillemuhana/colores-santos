@@ -5,3 +5,6 @@ dist-ssr
 
 .vercel
 .env*.local
+
+# vista previa HTML de cotizaciones
+cotizaciones/pdf

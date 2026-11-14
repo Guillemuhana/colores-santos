@@ -1,0 +1,70 @@
+{
+  "idioma": "es",
+  "numero": "CS-2026-001",
+  "fecha": "2026-11-14",
+  "validezDias": 30,
+
+  "cliente": {
+    "nombre": "María González",
+    "empresa": "",
+    "direccion": "1234 SW 8th St, Miami, FL 33135",
+    "telefono": "+1 (305) 555-0123",
+    "email": "maria@ejemplo.com"
+  },
+
+  "proyecto": {
+    "titulo": "Pintura interior completa",
+    "direccion": "1234 SW 8th St, Miami, FL 33135",
+    "inicioEstimado": "1 de diciembre de 2026",
+    "duracion": "5 a 6 días hábiles",
+    "descripcion": "Preparación y pintura de sala, comedor, 3 habitaciones y pasillo. Incluye reparación de pequeñas fisuras, lijado, primer en zonas reparadas y dos manos de pintura de primera calidad en paredes y techos."
+  },
+
+  "secciones": [
+    {
+      "titulo": "Preparación",
+      "items": [
+        { "descripcion": "Protección de pisos y muebles", "detalle": "Cubrimiento con plástico y cinta, retiro de placas de enchufes", "cantidad": 1, "unidad": "global", "precio": 250 },
+        { "descripcion": "Reparación de fisuras y agujeros", "detalle": "Masilla, lijado y primer en zonas reparadas", "cantidad": 1, "unidad": "global", "precio": 380 }
+      ]
+    },
+    {
+      "titulo": "Pintura de paredes y techos",
+      "items": [
+        { "descripcion": "Paredes – sala y comedor", "detalle": "2 manos · Sherwin-Williams Duration, acabado mate", "cantidad": 620, "unidad": "ft²", "precio": 1.85 },
+        { "descripcion": "Paredes – 3 habitaciones y pasillo", "detalle": "2 manos · acabado eggshell", "cantidad": 980, "unidad": "ft²", "precio": 1.75 },
+        { "descripcion": "Techos", "detalle": "2 manos · blanco techo flat", "cantidad": 850, "unidad": "ft²", "precio": 1.2 }
+      ]
+    },
+    {
+      "titulo": "Carpintería y detalles",
+      "items": [
+        { "descripcion": "Marcos de puertas y zócalos", "detalle": "Esmalte semi-gloss", "cantidad": 9, "unidad": "puertas", "precio": 65 }
+      ]
+    }
+  ],
+
+  "descuento": { "tipo": "porcentaje", "valor": 5, "concepto": "Cliente referido" },
+  "impuesto": { "porcentaje": 0, "nombre": "Sales tax" },
+
+  "pagos": [
+    { "concepto": "Depósito al aceptar la cotización", "porcentaje": 30 },
+    { "concepto": "Al 50% de avance", "porcentaje": 40 },
+    { "concepto": "Al finalizar y aprobar el trabajo", "porcentaje": 30 }
+  ],
+
+  "incluye": [
+    "Mano de obra calificada y supervisión",
+    "Pintura y materiales de primera calidad",
+    "Protección de pisos y muebles",
+    "Limpieza diaria y final del área de trabajo"
+  ],
+  "noIncluye": [
+    "Movimiento de muebles pesados",
+    "Reparaciones estructurales o de drywall mayores",
+    "Cambios de color solicitados después de iniciado el trabajo"
+  ],
+
+  "garantia": "2 años de garantía en mano de obra contra descascarado y desprendimiento de la pintura.",
+  "notas": "Los colores se confirman con el cliente antes de iniciar.\nPrecios válidos por 30 días a partir de la fecha de esta cotización."
+}

@@ -1,0 +1,128 @@
+{
+  "idioma": "en",
+  "tituloDocumento": "Proposal",
+  "subtituloDocumento": "Formal Project Proposal",
+  "fecha": "2026-11-14",
+
+  "empresa": {
+    "name": "Colores Santos LLC",
+    "email": "coloressantosgeneralpainting@gmail.com"
+  },
+
+  "cliente": {
+    "nombre": "Surfside Palms Condo Association",
+    "corto": "Surfside Palms",
+    "atencion": "Angel Del Guercio"
+  },
+
+  "proyecto": {
+    "titulo": "Metal Doors & Elevator-Front Floors",
+    "direccion": "8888 Collins Avenue, Surfside, FL 33154"
+  },
+
+  "resumen": [
+    { "etiqueta": "Proposal total", "valor": "TOTAL", "nota": "Labor and materials" },
+    { "etiqueta": "Deposit (30%)", "valor": "$1,740.00", "nota": "Upon approval" },
+    { "etiqueta": "Est. duration", "valor": "~5 working days", "nota": "Mon–Fri · 8 a.m.–6 p.m." },
+    { "etiqueta": "Target", "valor": "Nov 24, 2026", "nota": "Before building inspection" }
+  ],
+
+  "secciones": [
+    {
+      "titulo": "",
+      "items": [
+        { "descripcion": "Standard metal doors, including frames", "detalle": "Preparation, filler where needed, rust-inhibiting spot-prime and finish coats", "cantidad": 8, "precio": 350 },
+        { "descripcion": "Louvered / ventilation metal doors", "detalle": "Treated on the agreed exposed surfaces", "cantidad": 3, "precio": 400 },
+        { "descripcion": "Elevator-front floor areas, including white perimeter curbs", "detalle": "Surface prep and two finish coats of floor coating; curbs repainted white", "cantidad": 2, "precio": 900 }
+      ]
+    }
+  ],
+  "etiquetaTotal": "Total",
+  "notaPrecios": "Pricing includes all labor and materials for the scope described in this proposal. Any change in scope or unforeseen concealed condition will be quoted separately for written approval.",
+
+  "alcance": [
+    {
+      "titulo": "Door Preparation and Painting",
+      "texto": "Clean and prepare 8 standard metal doors and their frames, plus 3 louvered / ventilation doors. Standard doors and frames are included; ventilation doors are treated on the agreed exposed surfaces.",
+      "pasos": [
+        "Clean and prepare all door surfaces",
+        "Remove loose paint and accessible surface rust",
+        "Sand and feather edges",
+        "Apply compatible metal filler/putty and additional sanding to localized damaged areas where appropriate",
+        "Spot-prime exposed metal with rust-inhibiting primer",
+        "Apply compatible finish coats"
+      ],
+      "notas": [
+        "More deteriorated doors may require additional localized cosmetic preparation, included in the quoted price."
+      ],
+      "aviso": {
+        "titulo": "Important limitation:",
+        "texto": "Metal filler, sanding, patching, and any agreed cosmetic lower-panel treatment improve surface appearance but do not replace damaged metal, restore structural strength, or stop corrosion originating inside severely compromised sections. Replacement of door leaves, frames, or structural components is not included."
+      }
+    },
+    {
+      "titulo": "Elevator-Front Floor Areas",
+      "texto": "Prepare two existing coated floor areas and repaint the associated perimeter curbs white.",
+      "pasos": [
+        "Clean and degrease",
+        "Remove loose or failing coating",
+        "Mechanically abrade sound existing coating to promote adhesion",
+        "Repair minor surface imperfections as practical",
+        "Apply compatible primer if required by the selected system",
+        "Apply two finish coats of a suitable floor coating, subject to product instructions and substrate condition"
+      ],
+      "excluye": [
+        "Full removal of sound existing coating",
+        "Extensive concrete restoration",
+        "Moisture remediation"
+      ]
+    }
+  ],
+
+  "sistema": {
+    "titulo": "Proposed Coating System",
+    "productos": [
+      { "uso": "Metal primer", "producto": "Sherwin-Williams Pro Industrial Pro-Cryl Universal Metal Primer", "familia": "B66 family", "nota": "Exact SKU to be confirmed." },
+      { "uso": "Metal finish", "producto": "Sherwin-Williams Pro Industrial DTM Acrylic", "familia": "B66 family", "nota": "Exact SKU and sheen to be confirmed." },
+      { "uso": "Floor finish", "producto": "Sherwin-Williams ArmorSeal Tread-Plex", "familia": "B90 family", "nota": "Final system subject to substrate compatibility." }
+    ],
+    "colores": [
+      { "superficie": "Doors & frames", "color": "Match existing door color", "muestra": "repeating-linear-gradient(45deg,#d5e2de 0 3px,#ffffff 3px 6px)" },
+      { "superficie": "Floor areas", "color": "Gray, to match existing", "muestra": "#8f9694" },
+      { "superficie": "Perimeter curbs", "color": "White, to match existing", "muestra": "#ffffff" }
+    ],
+    "nota": "Exact manufacturer color codes will be documented after on-site color matching and before application. B66/B90 are product-family identifiers, not color codes."
+  },
+
+  "cronograma": [
+    { "etiqueta": "Start", "texto": "Within 24 hours after the 30% deposit has cleared, subject to authorized building access and permitted working hours (Monday–Friday, 8:00 a.m.–6:00 p.m.). If funds clear outside an allowable work window, mobilization begins in the next permitted work window." },
+    { "etiqueta": "Estimated duration", "texto": "Approximately 5 working days, subject to surface conditions, weather, coating cure/recoat times and access." },
+    { "etiqueta": "November 24, 2026 inspection", "texto": "Completion before the inspection depends on timely payment and uninterrupted access." }
+  ],
+  "pagos": [
+    { "concepto": "Deposit", "detalle": "Upon approval", "porcentaje": 30 },
+    { "concepto": "Balance", "detalle": "Upon completion", "porcentaje": 70 }
+  ],
+
+  "garantia": {
+    "titulo": "Limited One-Year Workmanship Warranty",
+    "destacado": "12 months from completion",
+    "texto": "Colores Santos LLC warrants its workmanship for 12 months from completion against paint peeling, lifting, or premature adhesion failure directly caused by deficient preparation or application by Colores Santos. At its discretion, Colores Santos will inspect and correct verified covered workmanship defects in the affected area.",
+    "noCubre": [
+      "Ongoing or concealed corrosion",
+      "Perforated or structurally unsound metal",
+      "Pre-existing coating failure outside the prepared scope",
+      "Moisture intrusion",
+      "Substrate movement",
+      "Impact, abuse or ordinary wear",
+      "Damage by third parties"
+    ],
+    "nota": "No structural repair or replacement warranty is provided."
+  },
+
+  "aprobacion": {
+    "titulo": "Approval",
+    "texto": "Approval authorizes the above defined scope and pricing. Changes to scope or unforeseen concealed conditions requiring replacement or substantial restoration will be quoted separately for written approval before additional work.",
+    "firmas": ["Authorized representative · Surfside Palms Condo Association", "Colores Santos LLC"]
+  }
+}
