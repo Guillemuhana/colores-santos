@@ -174,7 +174,7 @@ export function Process({ steps, title = ['Our', 'Process'], text = 'A simple an
                 <Stagger.Item key={t} className="group text-center">
                   <div className="relative mx-auto grid size-14 place-items-center rounded-2xl bg-white text-brand-500 shadow-lg shadow-forest-900/10 ring-1 ring-brand-100 transition-all duration-500 group-hover:-translate-y-1 group-hover:bg-brand-400 group-hover:text-forest-950">
                     <Icon className="size-7" />
-                    <span className="absolute -left-2 -top-2 grid size-6 place-items-center rounded-full bg-brand-500 text-xs font-bold text-white">{i + 1}</span>
+                    <span className="absolute -left-2 -top-2 grid size-6 place-items-center rounded-full bg-ink text-xs font-bold text-brand-400">{i + 1}</span>
                   </div>
                   <h3 className="mt-4 text-lg font-bold">{t}</h3>
                   <p className="mx-auto mt-1.5 max-w-[15rem] text-sm leading-relaxed text-ink/70">{d}</p>

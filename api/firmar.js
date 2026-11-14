@@ -88,17 +88,17 @@ export async function POST(request) {
 
   // ---------- Email de aviso ----------
   const subject = `Proposal accepted: ${meta.cliente} · ${money(meta.total)}`
-  const row = (k, v) => `<tr><td style="padding:7px 0;color:#6b7a76;font-size:13px;width:150px">${k}</td><td style="padding:7px 0;color:#0d1412;font-size:14px;font-weight:700">${v}</td></tr>`
-  const html = `<!doctype html><html><body style="margin:0;background:#e6f2ee;font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#e6f2ee"><tr><td align="center" style="padding:28px 12px">
+  const row = (k, v) => `<tr><td style="padding:7px 0;color:#6b7770;font-size:13px;width:150px">${k}</td><td style="padding:7px 0;color:#0b0b0b;font-size:14px;font-weight:700">${v}</td></tr>`
+  const html = `<!doctype html><html><body style="margin:0;background:#edf3ef;font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#edf3ef"><tr><td align="center" style="padding:28px 12px">
 <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#fff;border-radius:20px;overflow:hidden">
-  <tr><td style="background:#0b3a32;padding:26px 30px">
+  <tr><td style="background:#141514;padding:26px 30px">
     <img src="${SITE}/img/brand/email-logo.png" width="170" alt="Colores Santos" style="display:block;width:170px;height:auto;border:0">
-    <div style="margin-top:20px;display:inline-block;padding:6px 13px;border-radius:999px;background:#1fd8a6;color:#072822;font-size:11px;font-weight:800;letter-spacing:2px">&#10003; PROPOSAL SIGNED</div>
+    <div style="margin-top:20px;display:inline-block;padding:6px 13px;border-radius:999px;background:#9acda8;color:#0b0b0b;font-size:11px;font-weight:800;letter-spacing:2px">&#10003; PROPOSAL SIGNED</div>
     <div style="color:#fff;font-size:26px;font-weight:800;margin-top:10px;line-height:1.2">${esc(meta.cliente)}</div>
-    <div style="color:#b5d6cd;font-size:14px;margin-top:6px">${esc(meta.proyecto)} · ${esc(meta.direccion || '')}</div>
+    <div style="color:#c4d6ca;font-size:14px;margin-top:6px">${esc(meta.proyecto)} · ${esc(meta.direccion || '')}</div>
   </td></tr>
-  <tr><td style="height:5px;background:#1fd8a6;font-size:0">&nbsp;</td></tr>
+  <tr><td style="height:5px;background:#9acda8;font-size:0">&nbsp;</td></tr>
   <tr><td style="padding:24px 30px 6px">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
       ${row('Total', money(meta.total))}
@@ -109,8 +109,8 @@ export async function POST(request) {
     </table>
   </td></tr>
   <tr><td style="padding:16px 30px 28px">
-    ${url ? `<a href="${esc(url)}" target="_blank" style="display:inline-block;padding:14px 26px;border-radius:12px;background:#0b3a32;color:#fff;font-size:15px;font-weight:800;text-decoration:none">Open signed proposal (PDF) &rarr;</a>` : ''}
-    <div style="color:#6b7a76;font-size:13px;margin-top:14px">The signed PDF is attached to this email.</div>
+    ${url ? `<a href="${esc(url)}" target="_blank" style="display:inline-block;padding:14px 26px;border-radius:12px;background:#141514;color:#fff;font-size:15px;font-weight:800;text-decoration:none">Open signed proposal (PDF) &rarr;</a>` : ''}
+    <div style="color:#6b7770;font-size:13px;margin-top:14px">The signed PDF is attached to this email.</div>
   </td></tr>
 </table></td></tr></table></body></html>`
 

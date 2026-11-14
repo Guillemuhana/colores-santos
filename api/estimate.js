@@ -46,12 +46,12 @@ function waNumber(phone) {
 /* in Gmail, Outlook and Apple Mail.                                   */
 /* ------------------------------------------------------------------ */
 function html(d, when) {
-  const brand = '#1fd8a6'
-  const brandDark = '#0c8566'
-  const forest = '#0b3a32'
-  const forestDeep = '#072822'
-  const ink = '#0d1412'
-  const muted = '#6b7a76'
+  const brand = '#9acda8'
+  const brandDark = '#2c6342'
+  const forest = '#141514'
+  const forestDeep = '#0b0b0b'
+  const ink = '#0b0b0b'
+  const muted = '#6b7770'
   const font = "'Segoe UI',Roboto,Helvetica,Arial,sans-serif"
   const first = d.name.split(/\s+/)[0]
   const initials = d.name.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0].toUpperCase()).join('')
@@ -65,24 +65,24 @@ function html(d, when) {
   const label = (t) => `<div style="font-family:${font};font-size:11px;letter-spacing:2.5px;font-weight:800;color:${brandDark};text-transform:uppercase;margin:0 0 12px">${t}</div>`
   const section = (title, inner, pad = '28px 32px 0') => `<tr><td style="padding:${pad}">${label(title)}${inner}</td></tr>`
 
-  const stat = (value, name) => `<td width="33.33%" style="padding:0 5px"><div style="background:#124a40;border:1px solid #1d5c50;border-radius:14px;padding:14px 8px;text-align:center">
+  const stat = (value, name) => `<td width="33.33%" style="padding:0 5px"><div style="background:#2b2e2c;border:1px solid #3a3d3b;border-radius:14px;padding:14px 8px;text-align:center">
     <div style="font-family:${font};font-size:22px;font-weight:800;color:#ffffff;line-height:1.15">${value}</div>
-    <div style="font-family:${font};font-size:10px;letter-spacing:1.5px;color:#9cc9bd;text-transform:uppercase;margin-top:4px">${name}</div></div></td>`
+    <div style="font-family:${font};font-size:10px;letter-spacing:1.5px;color:#a9c4b2;text-transform:uppercase;margin-top:4px">${name}</div></div></td>`
 
   const action = (href, text, bg, color, border = bg) => `<td style="padding:0 5px" width="33.33%"><a href="${href}" target="_blank" style="display:block;text-align:center;padding:14px 6px;border-radius:12px;background:${bg};border:1px solid ${border};color:${color};font-family:${font};font-size:14px;font-weight:800;text-decoration:none">${text}</a></td>`
 
-  const field = (name, value) => `<td width="50%" style="padding:6px;vertical-align:top"><div style="background:#f6faf9;border:1px solid #e3ebe8;border-radius:12px;padding:12px 14px">
+  const field = (name, value) => `<td width="50%" style="padding:6px;vertical-align:top"><div style="background:#f6f9f7;border:1px solid #e5ece7;border-radius:12px;padding:12px 14px">
     <div style="font-family:${font};font-size:10px;letter-spacing:1.5px;color:${muted};text-transform:uppercase">${name}</div>
     <div style="font-family:${font};font-size:15px;font-weight:700;color:${ink};margin-top:3px;word-break:break-word">${value || '<span style="color:#a3b1ad;font-weight:500">Not provided</span>'}</div></div></td>`
 
   const pills = d.services.length
-    ? d.services.map((x) => `<span style="display:inline-block;margin:0 8px 8px 0;padding:9px 14px;border-radius:999px;background:#e9fbf5;border:1px solid #96ebd2;color:${brandDark};font-family:${font};font-size:13px;font-weight:700">&#10003;&nbsp; ${esc(x)}</span>`).join('')
+    ? d.services.map((x) => `<span style="display:inline-block;margin:0 8px 8px 0;padding:9px 14px;border-radius:999px;background:#eef7f1;border:1px solid #bfe2ca;color:${brandDark};font-family:${font};font-size:13px;font-weight:700">&#10003;&nbsp; ${esc(x)}</span>`).join('')
     : `<span style="font-family:${font};color:${muted};font-size:14px">Not specified</span>`
 
   const img = (u, i, h) => `<a href="${esc(u)}" target="_blank" style="text-decoration:none;display:block"><img src="${esc(u)}" alt="Photo ${i + 1}" width="100%" height="${h}" style="display:block;width:100%;height:${h}px;object-fit:cover;border-radius:14px;border:0"></a>
     <div style="font-family:${font};font-size:12px;color:${muted};padding:6px 2px 0">Photo ${i + 1} &nbsp;·&nbsp; <a href="${esc(u)}" target="_blank" style="color:${brandDark};font-weight:700;text-decoration:none">View full size &rarr;</a></div>`
 
-  let gallery = `<div style="font-family:${font};color:${muted};font-size:14px;background:#f6faf9;border:1px dashed #cfdcd8;border-radius:14px;padding:18px;text-align:center">No photos attached</div>`
+  let gallery = `<div style="font-family:${font};color:${muted};font-size:14px;background:#f6f9f7;border:1px dashed #d3ddd6;border-radius:14px;padding:18px;text-align:center">No photos attached</div>`
   if (d.photos.length) {
     const [lead, ...rest] = d.photos
     gallery = `<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td style="padding:0 5px 12px">${img(lead, 0, 300)}</td></tr></table>`
@@ -102,34 +102,34 @@ function html(d, when) {
     <td style="vertical-align:top;padding:4px 0 14px;font-family:${font}"><div style="font-size:15px;font-weight:700;color:${ink}">${title}</div><div style="font-size:13px;color:${muted};margin-top:2px;line-height:1.5">${desc}</div></td></tr>`
 
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light only"><meta name="supported-color-schemes" content="light"><title>New estimate request</title></head>
-<body style="margin:0;padding:0;background:#e6f2ee;-webkit-font-smoothing:antialiased">
+<body style="margin:0;padding:0;background:#edf3ef;-webkit-font-smoothing:antialiased">
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent">${esc(preheader)}&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;</div>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#e6f2ee"><tr><td align="center" style="padding:28px 12px">
-<table role="presentation" width="640" cellpadding="0" cellspacing="0" style="max-width:640px;width:100%;background:#ffffff;border-radius:22px;overflow:hidden;box-shadow:0 18px 50px rgba(7,40,34,.18)">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#edf3ef"><tr><td align="center" style="padding:28px 12px">
+<table role="presentation" width="640" cellpadding="0" cellspacing="0" style="max-width:640px;width:100%;background:#ffffff;border-radius:22px;overflow:hidden;box-shadow:0 18px 50px rgba(11,11,11,.18)">
 
   <!-- HERO -->
-  <tr><td bgcolor="${forest}" style="background:${forest};background-image:linear-gradient(135deg,#124a40 0%,${forest} 45%,${forestDeep} 100%);padding:28px 32px 26px">
+  <tr><td bgcolor="${forest}" style="background:${forest};background-image:linear-gradient(135deg,#2b2e2c 0%,${forest} 45%,${forestDeep} 100%);padding:28px 32px 26px">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
       <td style="vertical-align:middle"><a href="${SITE}" target="_blank"><img src="${SITE}/img/brand/email-logo.png" width="190" alt="Colores Santos Painting &amp; Finishes" style="display:block;width:190px;height:auto;border:0"></a></td>
       <td align="right" style="vertical-align:middle"><span style="display:inline-block;padding:7px 14px;border-radius:999px;background:${brand};color:${forestDeep};font-family:${font};font-size:11px;font-weight:800;letter-spacing:2px">NEW LEAD</span></td>
     </tr></table>
-    <div style="height:1px;line-height:1px;font-size:0;background:#1d5c50;margin:22px 0">&nbsp;</div>
+    <div style="height:1px;line-height:1px;font-size:0;background:#3a3d3b;margin:22px 0">&nbsp;</div>
     <div style="font-family:${font};font-size:12px;letter-spacing:2.5px;font-weight:800;color:${brand}">ESTIMATE REQUEST</div>
     <div style="font-family:${font};font-size:30px;line-height:1.15;font-weight:800;color:#ffffff;margin-top:6px">${esc(d.name)}</div>
-    <div style="font-family:${font};font-size:14px;color:#b5d6cd;margin-top:8px">&#128205; ${esc(d.city || 'Area not specified')} &nbsp;&nbsp;·&nbsp;&nbsp; &#128339; ${esc(when)}</div>
+    <div style="font-family:${font};font-size:14px;color:#c4d6ca;margin-top:8px">&#128205; ${esc(d.city || 'Area not specified')} &nbsp;&nbsp;·&nbsp;&nbsp; &#128339; ${esc(when)}</div>
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:22px"><tr>
       ${stat(d.services.length || '–', d.services.length === 1 ? 'Service' : 'Services')}
       ${stat(d.photos.length, d.photos.length === 1 ? 'Photo' : 'Photos')}
       ${stat(`<span style="font-size:15px">${esc(d.type || 'Residential')}</span>`, 'Property')}
     </tr></table>
   </td></tr>
-  <tr><td height="5" style="height:5px;background:${brand};background-image:linear-gradient(90deg,${brandDark},${brand},#5ddfba);font-size:0;line-height:0">&nbsp;</td></tr>
+  <tr><td height="5" style="height:5px;background:${brand};background-image:linear-gradient(90deg,${brandDark},${brand},#a8d9b7);font-size:0;line-height:0">&nbsp;</td></tr>
 
   <!-- QUICK ACTIONS -->
   <tr><td style="padding:24px 27px 0"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
     ${action(replyHref, '&#9993;&nbsp; Reply', brand, forestDeep)}
     ${action(`https://wa.me/${waNumber(d.phone)}?text=${greet}`, 'WhatsApp', '#25D366', '#ffffff')}
-    ${action(`tel:${esc(tel)}`, '&#9742;&nbsp; Call', '#ffffff', ink, '#d5e0dc')}
+    ${action(`tel:${esc(tel)}`, '&#9742;&nbsp; Call', '#ffffff', ink, '#d9e2dc')}
   </tr></table></td></tr>
 
   <!-- CLIENT -->
@@ -149,13 +149,13 @@ function html(d, when) {
   ${section('Services requested', pills, '22px 32px 0')}
 
   <!-- DETAILS -->
-  ${section('Project details', `<div style="border-left:4px solid ${brand};background:#f6faf9;border-radius:0 14px 14px 0;padding:16px 18px;font-family:${font};font-size:15px;line-height:1.65;color:${ink};white-space:pre-wrap">${d.message ? esc(d.message) : `<span style="color:${muted}">No details provided.</span>`}</div>`, '20px 32px 0')}
+  ${section('Project details', `<div style="border-left:4px solid ${brand};background:#f6f9f7;border-radius:0 14px 14px 0;padding:16px 18px;font-family:${font};font-size:15px;line-height:1.65;color:${ink};white-space:pre-wrap">${d.message ? esc(d.message) : `<span style="color:${muted}">No details provided.</span>`}</div>`, '20px 32px 0')}
 
   <!-- PHOTOS -->
   ${section(`Photos &nbsp;<span style="color:${muted};letter-spacing:0">(${d.photos.length})</span>`, gallery + failed, '26px 27px 0')}
 
   <!-- NEXT STEPS -->
-  <tr><td style="padding:26px 32px 0"><div style="background:#f0fbf7;border:1px solid #c9f5e6;border-radius:18px;padding:22px 22px 8px">
+  <tr><td style="padding:26px 32px 0"><div style="background:#f2f8f4;border:1px solid #d9eee0;border-radius:18px;padding:22px 22px 8px">
     ${label('Next steps')}
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
       ${step(1, 'Review the photos &amp; details', 'Contact the client if you need measurements or a site visit.')}
@@ -170,7 +170,7 @@ function html(d, when) {
   </td></tr>
 
   <!-- FOOTER -->
-  <tr><td bgcolor="${forestDeep}" style="background:${forestDeep};padding:20px 32px;font-family:${font};font-size:12px;color:#8fb3a9;line-height:1.6">
+  <tr><td bgcolor="${forestDeep}" style="background:${forestDeep};padding:20px 32px;font-family:${font};font-size:12px;color:#9db3a4;line-height:1.6">
     <b style="color:#ffffff">Colores Santos</b> · Painting &amp; Finishes · Miami, FL<br>
     Sent automatically from the estimate form at <a href="${SITE}/contact" target="_blank" style="color:${brand};text-decoration:none">${SITE.replace(/^https?:\/\//, '')}</a>
   </td></tr>

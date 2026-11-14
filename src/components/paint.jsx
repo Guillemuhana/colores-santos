@@ -12,7 +12,7 @@ const rand = (seed) => {
 /* ------------------------------------------------------------------
  * BrushStroke: dry-brush paint swipe painted behind a heading line
  * ------------------------------------------------------------------ */
-export function BrushStroke({ show = true, delay = 0, color = '#5ddfba', className = '' }) {
+export function BrushStroke({ show = true, delay = 0, color = '#a8d9b7', className = '' }) {
   const id = useId().replace(/:/g, '')
   return (
     <svg
@@ -50,7 +50,7 @@ export function BrushStroke({ show = true, delay = 0, color = '#5ddfba', classNa
  * PaintDrips: liquid drips that run down from the section above.
  * Place it right after a section, passing that section's color.
  * ------------------------------------------------------------------ */
-export function PaintDrips({ color = '#0b3a32', seed = 7, count = 16, max = 52 }) {
+export function PaintDrips({ color = '#141514', seed = 7, count = 16, max = 52 }) {
   const id = useId().replace(/:/g, '')
   const r = rand(seed)
   const drips = Array.from({ length: count }, (_, i) => ({
@@ -100,10 +100,10 @@ export function RollerSVG({ className = '', vertical = false }) {
     <svg viewBox="0 0 520 150" className={className} style={vertical ? { transform: 'rotate(90deg)' } : undefined} aria-hidden="true">
       <defs>
         <linearGradient id={`cyl-${id}`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#b8f3e1" />
-          <stop offset=".25" stopColor="#3ee4b6" />
-          <stop offset=".6" stopColor="#12c193" />
-          <stop offset="1" stopColor="#0a7a5d" />
+          <stop offset="0" stopColor="#cfe9d7" />
+          <stop offset=".25" stopColor="#9fd5b0" />
+          <stop offset=".6" stopColor="#4f9a69" />
+          <stop offset="1" stopColor="#285b3c" />
         </linearGradient>
         <filter id={`nap-${id}`}>
           <feTurbulence type="fractalNoise" baseFrequency=".55" numOctaves="2" seed="3" />
@@ -117,15 +117,15 @@ export function RollerSVG({ className = '', vertical = false }) {
       {/* frame wire */}
       <path d="M470 60 h24 v-40 H300 v-14" fill="none" stroke={`url(#metal-${id})`} strokeWidth="9" strokeLinecap="round" strokeLinejoin="round" />
       {/* handle */}
-      <rect x="282" y="-60" width="36" height="74" rx="14" fill="#141a19" />
+      <rect x="282" y="-60" width="36" height="74" rx="14" fill="#161716" />
       <rect x="288" y="-56" width="8" height="64" rx="4" fill="#ffffff" opacity=".12" />
       {/* cylinder */}
       <rect x="20" y="38" width="460" height="88" rx="22" fill={`url(#cyl-${id})`} />
       <rect x="20" y="38" width="460" height="88" rx="22" fill="#000" filter={`url(#nap-${id})`} />
       <rect x="30" y="46" width="440" height="10" rx="5" fill="#fff" opacity=".35" />
       {/* end caps */}
-      <ellipse cx="22" cy="82" rx="8" ry="44" fill="#0a7a5d" />
-      <ellipse cx="478" cy="82" rx="8" ry="44" fill="#0d8f6d" />
+      <ellipse cx="22" cy="82" rx="8" ry="44" fill="#285b3c" />
+      <ellipse cx="478" cy="82" rx="8" ry="44" fill="#3a7d53" />
     </svg>
   )
 }
@@ -133,7 +133,7 @@ export function RollerSVG({ className = '', vertical = false }) {
 /* ------------------------------------------------------------------
  * PaintSplat: organic splatter blob, scales in when visible
  * ------------------------------------------------------------------ */
-export function PaintSplat({ className = '', color = '#1fd8a6', delay = 0 }) {
+export function PaintSplat({ className = '', color = '#9acda8', delay = 0 }) {
   return (
     <motion.svg
       viewBox="0 0 200 200"
