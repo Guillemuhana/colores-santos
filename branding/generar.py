@@ -1,14 +1,15 @@
 # Genera las versiones del isotipo de Colores Santos (rodillo) en SVG + PNG
 # y una lámina de revisión en PDF.
 #   python branding/generar.py
-# Sale en branding/isotipo/ (SVG, PNG 2048 px) y branding/isotipo-revision.pdf
+# Sale en public/branding/isotipo/ (SVG, PNG 2048 px) y public/branding/isotipo-revision.pdf
+# (se publica en Vercel: colores-santos.vercel.app/branding/...)
 # Requiere PyMuPDF (pip install pymupdf) y Edge o Chrome para la lámina.
 import os, subprocess, tempfile, shutil, pathlib
 import pymupdf as fitz
 
-HERE = pathlib.Path(__file__).parent
+HERE = pathlib.Path(__file__).parent.parent / 'public' / 'branding'
 OUT = HERE / 'isotipo'
-OUT.mkdir(exist_ok=True)
+OUT.mkdir(parents=True, exist_ok=True)
 
 SALVIA, GRAFITO, BLANCO, GRIS = '#9ACDA8', '#0B0B0B', '#FFFFFF', '#E9EDEB'
 
