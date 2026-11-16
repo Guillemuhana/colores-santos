@@ -113,6 +113,7 @@ export function BenefitsStrip({ items }) {
 /* ---------- Dark service detail with checklist + gallery ---------- */
 export function DetailSection({ title, text, includes, gallery, name = '' }) {
   const g = gallery
+  const fullPhotos = ['Interior Painting', 'Stucco', 'Carpentry'].includes(name)
   return (
     <>
     <section className="grain relative overflow-hidden bg-forest-900 py-16 text-white lg:py-20">
@@ -132,13 +133,13 @@ export function DetailSection({ title, text, includes, gallery, name = '' }) {
           </Stagger>
           <Reveal delay={0.3} className="mt-8"><EstimateButton /></Reveal>
         </div>
-        <Stagger className={`grid gap-4 ${g.length === 4 ? 'grid-cols-2 sm:grid-cols-[1.3fr_1fr_1fr] sm:grid-rows-2' : 'grid-cols-2 sm:grid-cols-[1.45fr_1fr] sm:grid-rows-2'}`}>
+        <Stagger className={`grid gap-4 ${fullPhotos ? `items-start self-start ${g.length === 4 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1 sm:grid-cols-3'}` : g.length === 4 ? 'grid-cols-2 sm:grid-cols-[1.3fr_1fr_1fr] sm:grid-rows-2' : 'grid-cols-2 sm:grid-cols-[1.45fr_1fr] sm:grid-rows-2'}`}>
           {g.map((src, i) => (
             <Stagger.Item
               key={src}
-              className={`group relative overflow-hidden rounded-2xl border-4 border-white/90 shadow-2xl ${i === 0 ? 'col-span-2 aspect-[4/3] sm:col-span-1 sm:row-span-2 sm:aspect-auto' : 'aspect-[4/3]'} ${g.length === 4 && i === 1 ? 'sm:col-span-2' : ''}`}
+              className={`group relative overflow-hidden rounded-2xl border-4 border-white/90 shadow-2xl ${fullPhotos ? '' : `${i === 0 ? 'col-span-2 aspect-[4/3] sm:col-span-1 sm:row-span-2 sm:aspect-auto' : 'aspect-[4/3]'} ${g.length === 4 && i === 1 ? 'sm:col-span-2' : ''}`}`}
             >
-              <img src={src} alt={`${name} project in Miami, FL – photo ${i + 1}`} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-110" />
+              <img src={src} alt={`${name} project in Miami, FL – photo ${i + 1}`} loading="lazy" className={fullPhotos ? 'block h-auto w-full' : 'h-full w-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-110'} />
             </Stagger.Item>
           ))}
         </Stagger>
