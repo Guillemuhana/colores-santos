@@ -25,7 +25,7 @@ export const SERVICES = [
     detailTitle: ['Our Interior', 'Painting Service'],
     detail: 'High-quality interior painting for a fresh, modern and durable look throughout your home.',
     includes: ['Walls & Ceilings', 'Trim, Baseboards & Crown Molding', 'Doors & Frames', 'Living Areas & Bedrooms', 'Kitchens, Hallways & More'],
-    gallery: [img('interior-g1'), img('interior-g2'), img('interior-g3'), img('interior-g4'), img('interior-g5'), img('interior-g6')],
+    gallery: [img('interior-g4'), img('interior-g5'), img('interior-g6')],
     process: [
       ['Estimate', 'We assess your space and provide a clear, detailed quote.'],
       ['Plan', 'We help you choose colors, finishes and the right solutions.'],
@@ -121,7 +121,7 @@ export const SERVICES = [
     detailTitle: ['Our Stucco', 'Services'],
     detail: "Professional stucco solutions to repair, resurface or apply new finishes that are durable, weather-resistant and built for Florida's climate.",
     includes: ['Stucco Repairs (Cracks & Damage)', 'Resurfacing & Recoating', 'New Stucco Installation', 'Texture Options (Smooth, Sand, Lace)', 'Paint & Protective Finishes'],
-    gallery: [img('stucco-g1'), img('stucco-g2'), img('stucco-g3'), img('stucco-g4'), img('stucco-g5'), img('stucco-g6'), img('stucco-g7')],
+    gallery: [img('stucco-g4'), img('stucco-g5'), img('stucco-g6'), img('stucco-g7')],
     process: [
       ['Evaluate & Quote', 'We inspect the area, assess the condition and provide a detailed quote.'],
       ['Prepare', 'We clean, repair and prepare the surface for a strong, durable finish.'],
@@ -187,7 +187,7 @@ export const SERVICES = [
     detailTitle: ['Our Carpentry', 'Services'],
     detail: 'From decorative trim to custom built-ins, we deliver precise carpentry solutions that elevate the look and functionality of your home.',
     includes: ['Trim, Baseboards & Crown Molding', 'Custom Built-Ins & Shelving', 'Door Installation & Adjustments', 'Wainscoting & Accent Walls', 'Decks, Pergolas & Outdoor Structures', 'Repairs, Framing & More'],
-    gallery: [img('carpentry-g1'), img('carpentry-g2'), img('carpentry-g3'), img('carpentry-g4'), img('carpentry-g5'), img('carpentry-g6'), img('carpentry-g7')],
+    gallery: [img('carpentry-g5'), img('carpentry-g6'), img('carpentry-g7')],
     process: [
       ['Consult & Estimate', 'We review your ideas, measure the area and provide a clear quote.'],
       ['Plan & Prepare', 'We confirm the design, materials and schedule the work.'],
