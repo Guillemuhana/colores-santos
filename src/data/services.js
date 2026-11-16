@@ -57,7 +57,7 @@ export const SERVICES = [
     detailTitle: ['Our Exterior', 'Painting Service'],
     detail: 'High-quality, long-lasting exterior painting that protects your home and gives it a fresh, modern look.',
     includes: ['Exterior Walls & Facades', 'Stucco, Siding & Wood Surfaces', 'Trim, Fascia & Soffits', 'Doors, Shutters & Accents', 'Preparation, Repair & Caulking'],
-    gallery: [img('exterior-g1'), img('exterior-g2'), img('exterior-g3')],
+    gallery: [img('exterior-g1'), img('exterior-g2'), img('exterior-g3'), img('exterior-g4'), img('exterior-g5')],
     process: [
       ['Estimate', 'We assess your exterior, identify any repairs and provide a detailed quote.'],
       ['Plan', 'We schedule the work, select the right products and prepare the area.'],
@@ -187,7 +187,7 @@ export const SERVICES = [
     detailTitle: ['Our Carpentry', 'Services'],
     detail: 'From decorative trim to custom built-ins, we deliver precise carpentry solutions that elevate the look and functionality of your home.',
     includes: ['Trim, Baseboards & Crown Molding', 'Custom Built-Ins & Shelving', 'Door Installation & Adjustments', 'Wainscoting & Accent Walls', 'Decks, Pergolas & Outdoor Structures', 'Repairs, Framing & More'],
-    gallery: [img('carpentry-g5'), img('carpentry-g6'), img('carpentry-g7')],
+    gallery: [img('carpentry-g5'), img('carpentry-g6'), img('carpentry-g7'), img('carpentry-g8')],
     process: [
       ['Consult & Estimate', 'We review your ideas, measure the area and provide a clear quote.'],
       ['Plan & Prepare', 'We confirm the design, materials and schedule the work.'],
