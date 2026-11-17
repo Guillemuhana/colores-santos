@@ -172,3 +172,7 @@ h1, h2, h3, h4 { @apply font-display tracking-tight; }
 @media (max-width: 1023px) {
   .photo-hero--mirror .photo-hero__image { object-position: right top; }
 }
+
+@media (min-width: 1024px) {
+  .photo-hero--cabinet .photo-hero__layout { grid-template-columns: 1.65fr 1fr; }
+}
