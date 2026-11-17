@@ -13,7 +13,7 @@ export const SERVICES = [
     icon: PaintRoller,
     title: ['Interior', 'Painting'],
     intro: "Refresh, protect and transform your home's interior with professional, clean and long-lasting finishes.",
-    hero: img('interior-hero'),
+    hero: '/img/interior-hero.webp',
     benefits: [
       [House, 'Clean & Professional'],
       [ShieldCheck, 'Attention to Detail'],
