@@ -189,3 +189,9 @@ h1, h2, h3, h4 { @apply font-display tracking-tight; }
   .photo-hero--cabinet .photo-hero__image { object-position: 55% top; }
   .photo-hero--stucco .photo-hero__image { object-position: 72% top; }
 }
+
+.photo-hero--drywall .photo-hero__title { font-size: clamp(2rem, 3vw, 3.5rem); }
+.photo-hero--drywall .photo-hero__intro { font-size: clamp(1.05rem, 1.25vw, 1.25rem); }
+@media (min-width: 1024px) {
+  .photo-hero--drywall .photo-hero__layout { grid-template-columns: 1.65fr 1fr; }
+}

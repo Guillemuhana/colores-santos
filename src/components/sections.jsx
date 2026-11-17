@@ -11,7 +11,7 @@ const wrap = 'mx-auto max-w-[1760px] px-5 md:px-8 xl:px-12 2xl:px-16'
 /* ---------- Full-width photographic hero ---------- */
 export function PageHero({ eyebrow, title, green, intro, image, alt, children, tall = false, compact = false, mirror = false }) {
   return (
-    <section className={`photo-hero ${tall ? 'photo-hero--home' : ''} ${compact ? 'photo-hero--compact' : ''} ${mirror ? 'photo-hero--mirror' : ''} ${image === '/img/cabinet-hero.webp' ? 'photo-hero--cabinet' : ''} ${image === '/img/pressure-hero.webp' ? 'photo-hero--pressure' : ''} ${image === '/img/stucco-hero.webp' ? 'photo-hero--stucco' : ''}`}>
+    <section className={`photo-hero ${tall ? 'photo-hero--home' : ''} ${compact ? 'photo-hero--compact' : ''} ${mirror ? 'photo-hero--mirror' : ''} ${image === '/img/cabinet-hero.webp' ? 'photo-hero--cabinet' : ''} ${image === '/img/pressure-hero.webp' ? 'photo-hero--pressure' : ''} ${image === '/img/stucco-hero.webp' ? 'photo-hero--stucco' : ''} ${image === '/img/drywall-hero.webp' ? 'photo-hero--drywall' : ''}`}>
       <img src={image} alt={alt || `${title.join(' ')} in Miami, FL`} className="photo-hero__image" fetchPriority="high" />
       <div className="photo-hero__shade" />
       <div className={`${wrap} photo-hero__layout`}>
