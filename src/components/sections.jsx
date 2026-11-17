@@ -12,7 +12,7 @@ const wrap = 'mx-auto max-w-[1760px] px-5 md:px-8 xl:px-12 2xl:px-16'
 export function PageHero({ crumbs, eyebrow, title, green, intro, image, alt, children, tall = false }) {
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-white to-mist/60 pt-[92px] md:pt-[108px]">
-      <div className={`${wrap} grid items-start gap-8 py-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] lg:gap-12 lg:py-14 ${tall ? 'lg:min-h-[640px]' : 'lg:min-h-[560px]'}`}>
+      <div className={`${wrap} grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] lg:gap-12 ${tall ? 'pt-4 pb-10 lg:min-h-[640px] lg:pt-4 lg:pb-14' : 'py-10 lg:min-h-[560px] lg:py-14'}`}>
         <div className="relative z-10 min-w-0">
           {crumbs && (
             <motion.nav aria-label="Breadcrumb" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-6 flex flex-wrap items-center gap-1 text-sm font-semibold">
