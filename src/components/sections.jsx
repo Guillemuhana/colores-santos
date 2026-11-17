@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from 'motion/react'
 import { ArrowRight, ChevronRight, CircleCheck, MoveHorizontal } from 'lucide-react'
 import { Bar, EstimateButton, Eyebrow, Reveal, SplitTitle, Stagger, WhatsAppButton, ease } from './ui'
 import { PROCESS_ICONS } from '../data/services'
-import { PaintSplat, RollerSVG } from './paint'
+import { RollerSVG } from './paint'
 
 const wrap = 'mx-auto max-w-[1760px] px-5 md:px-8 xl:px-12 2xl:px-16'
 
@@ -25,7 +25,7 @@ export function PageHero({ crumbs, eyebrow, title, green, intro, image, alt, chi
             </motion.nav>
           )}
           {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-          <SplitTitle lines={title} green={green} brush={!tall} className="text-[clamp(2.4rem,5.2vw,4.4rem)] font-extrabold leading-[0.98]" />
+          <SplitTitle lines={title} green={green} className="text-[clamp(2.4rem,5.2vw,4.4rem)] font-extrabold leading-[0.98]" />
           <Reveal delay={0.35}><p className="mt-6 max-w-[34rem] text-lg leading-relaxed text-ink/75">{intro}</p></Reveal>
           <Reveal delay={0.5} className="mt-8 flex flex-wrap gap-3"><EstimateButton /><WhatsAppButton /></Reveal>
           {children}
@@ -105,7 +105,6 @@ export function Process({ steps, title = ['Our', 'Process'], text = 'A simple an
     <section className={`${tone === 'mist' ? 'bg-mist' : 'bg-white'} overflow-hidden pb-16 pt-24 lg:pb-20 lg:pt-28`}>
       <div className={`${wrap} grid gap-10 lg:grid-cols-[0.7fr_2fr] lg:items-center`}>
         <div className="relative">
-          <PaintSplat className="-left-10 -top-12 size-28 opacity-15" />
           <h2 className="relative text-4xl font-bold sm:text-5xl">{title[0]} <span className="text-gradient">{title[1]}</span></h2>
           <Reveal delay={0.1}><p className="mt-3 text-lg text-ink/70">{text}</p></Reveal>
         </div>
@@ -190,7 +189,6 @@ export function CtaBanner({ title, text, flip = false }) {
   const rot = useTransform(scrollYProgress, [0, 1], [-8, 4])
   return (
     <section ref={ref} className={`relative overflow-hidden ${flip ? 'bg-forest-900 text-white' : 'bg-white'}`}>
-      <PaintSplat className="-right-10 -top-10 size-44 opacity-20" delay={0.2} />
       <div className={`${wrap} grid items-center gap-8 py-16 lg:grid-cols-2 lg:py-20`}>
         <div className={`relative h-56 sm:h-72 ${flip ? 'lg:order-2' : ''}`}>
           <motion.div className="absolute inset-0 overflow-hidden rounded-3xl" style={{ x }}>

@@ -1,7 +1,6 @@
 import { useRef } from 'react'
 import { Link } from 'react-router'
 import { motion, useInView, useMotionValue, useSpring } from 'motion/react'
-import { BrushStroke } from './paint'
 import { CalendarCheck, ArrowRight } from 'lucide-react'
 import { waLink } from '../config'
 
@@ -56,8 +55,8 @@ Stagger.Item = function StaggerItem({ children, className = '' }) {
   )
 }
 
-/** Animates a heading word by word. Green lines get a painted brush stroke behind them. */
-export function SplitTitle({ lines, className = '', as = 'h1', greenFirst = false, green, brush = true }) {
+/** Animates a heading word by word, with optional green text. */
+export function SplitTitle({ lines, className = '', as = 'h1', greenFirst = false, green }) {
   const H = motion[as]
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-40px' })
@@ -67,10 +66,8 @@ export function SplitTitle({ lines, className = '', as = 'h1', greenFirst = fals
       {lines.map((line, li) => {
         const isGreen = green ? green.includes(li) : greenFirst ? li === 0 : li > 0
         const words = line.split(' ')
-        const start = i
         return (
           <span key={li} className="relative isolate block w-fit">
-            {brush && isGreen && <BrushStroke show={inView} delay={0.35 + start * 0.06} />}
             {words.map((w) => {
               const d = i++ * 0.06
               return (
