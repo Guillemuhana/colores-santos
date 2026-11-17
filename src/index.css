@@ -174,7 +174,7 @@ h1, h2, h3, h4 { @apply font-display tracking-tight; }
 }
 
 @media (min-width: 1024px) {
-  .photo-hero--cabinet .photo-hero__layout { grid-template-columns: 1.65fr 1fr; }
+  .photo-hero--cabinet .photo-hero__layout { grid-template-columns: 1.85fr 1fr; }
 }
 
 .photo-hero--pressure .photo-hero__shade { background: linear-gradient(90deg, transparent 40%, rgb(5 28 10 / .16) 55%, rgb(5 28 10 / .48) 78%, rgb(5 28 10 / .64) 100%), linear-gradient(180deg, rgb(0 0 0 / .24), transparent 24%); }
