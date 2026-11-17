@@ -8,36 +8,19 @@ import { RollerSVG } from './paint'
 
 const wrap = 'mx-auto max-w-[1760px] px-5 md:px-8 xl:px-12 2xl:px-16'
 
-/* ---------- Hero with uncropped, naturally sized photography ---------- */
-export function PageHero({ crumbs, eyebrow, title, green, intro, image, alt, children, tall = false }) {
+/* ---------- Full-width photographic hero ---------- */
+export function PageHero({ eyebrow, title, green, intro, image, alt, children, tall = false }) {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-white to-mist/60 pt-[92px] md:pt-[108px]">
-      <div className={`${wrap} grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] lg:gap-12 ${tall ? 'pt-4 pb-10 lg:min-h-[640px] lg:pt-4 lg:pb-14' : 'py-10 lg:min-h-[560px] lg:py-14'}`}>
-        <div className="relative z-10 min-w-0">
-          {crumbs && (
-            <motion.nav aria-label="Breadcrumb" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-6 flex flex-wrap items-center gap-1 text-sm font-semibold">
-              {crumbs.map(([label, to], i) => (
-                <span key={label} className="flex items-center gap-1">
-                  {to ? <Link to={to} className="hover:text-brand-600">{label}</Link> : <span className="text-brand-600">{label}</span>}
-                  {i < crumbs.length - 1 && <ChevronRight className="size-3.5 opacity-50" />}
-                </span>
-              ))}
-            </motion.nav>
-          )}
-          {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-          <SplitTitle lines={title} green={green} className="text-[clamp(2.4rem,5.2vw,4.4rem)] font-extrabold leading-[0.98]" />
-          <Reveal delay={0.35}><p className="mt-6 max-w-[34rem] text-lg leading-relaxed text-ink/75">{intro}</p></Reveal>
-          <Reveal delay={0.5} className="mt-8 flex flex-wrap gap-3"><EstimateButton /><WhatsAppButton /></Reveal>
+    <section className={`photo-hero ${tall ? 'photo-hero--home' : ''}`}>
+      <img src={image} alt={alt || `${title.join(' ')} in Miami, FL`} className="photo-hero__image" fetchPriority="high" />
+      <div className="photo-hero__shade" />
+      <div className={`${wrap} photo-hero__layout`}>
+        <div className="photo-hero__content">
+          {eyebrow && <Eyebrow light>{eyebrow}</Eyebrow>}
+          <SplitTitle lines={title} green={green} className="photo-hero__title font-extrabold" />
+          <p className="photo-hero__intro">{intro}</p>
+          <div className="mt-9 flex flex-wrap gap-4"><EstimateButton size="lg" /><WhatsAppButton size="lg" dark /></div>
           {children}
-        </div>
-
-        <div className={`relative flex min-w-0 items-start justify-center self-start shadow-xl ${tall ? 'rounded-[56px_24px_24px_24px] bg-gradient-to-br from-brand-400 via-brand-300 to-brand-500 p-2.5 sm:rounded-[100px_28px_28px_28px] sm:p-3 lg:-mr-8 xl:-mr-12' : 'rounded-3xl border-2 border-brand-300 bg-white p-2 sm:p-3'}`}>
-          <img
-            src={image}
-            alt={alt || `${title.join(' ')} in Miami, FL`}
-            className={`block h-auto max-w-full object-contain ${tall ? 'w-full rounded-[46px_16px_16px_16px] sm:rounded-[88px_18px_18px_18px] lg:max-h-[760px]' : 'max-h-[70svh] w-auto rounded-2xl lg:max-h-[680px]'}`}
-            fetchPriority="high"
-          />
         </div>
       </div>
     </section>

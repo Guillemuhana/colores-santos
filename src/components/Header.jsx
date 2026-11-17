@@ -18,13 +18,13 @@ const NAV = [
   { to: '/contact', label: 'Contact' },
 ]
 
-function NavItem({ item }) {
+function NavItem({ item, light = false }) {
   const [open, setOpen] = useState(false)
   const { pathname } = useLocation()
   const active = item.to === '/' ? pathname === '/' : pathname.startsWith(item.to)
   return (
     <div className="relative" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
-      <NavLink to={item.to} className="relative flex items-center gap-1 whitespace-nowrap py-2 text-[13.5px] font-semibold text-ink/85 transition-colors hover:text-brand-600">
+      <NavLink to={item.to} className={`relative flex items-center gap-1 whitespace-nowrap py-2 text-[13.5px] font-semibold transition-colors ${light ? 'text-white hover:text-brand-300' : 'text-ink/85 hover:text-brand-600'}`}>
         {item.label}
         {item.menu && <ChevronDown className={`size-3.5 transition-transform ${open ? 'rotate-180' : ''}`} />}
         {active && <motion.span layoutId="nav-underline" className="absolute -bottom-0.5 left-0 right-0 h-[3px] rounded bg-brand-400" />}
@@ -38,7 +38,7 @@ function NavItem({ item }) {
             transition={{ duration: 0.25, ease }}
             className="absolute left-1/2 top-full w-[560px] -translate-x-1/2 pt-3"
           >
-            <div className="grid grid-cols-2 gap-1 rounded-2xl border border-black/5 bg-white p-3 shadow-2xl shadow-forest-900/15">
+            <div className="grid grid-cols-2 gap-1 rounded-2xl border border-black/5 bg-white p-3 text-ink shadow-2xl shadow-forest-900/15">
               {SERVICES.map((s) => (
                 <Link key={s.slug} to={`/residential/${s.slug}`} className="group flex items-center gap-3 rounded-xl p-2.5 transition-colors hover:bg-brand-50">
                   <span className="grid size-10 shrink-0 place-items-center rounded-lg bg-brand-50 text-brand-600 transition-colors group-hover:bg-brand-400 group-hover:text-forest-950">
@@ -59,6 +59,8 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [mobile, setMobile] = useState(false)
   const { pathname } = useLocation()
+  const hasHero = pathname === '/' || pathname === '/residential' || SERVICES.some(s => pathname === `/residential/${s.slug}`) || ['/commercial', '/hoa-condominiums', '/property-management', '/about'].includes(pathname)
+  const overlay = hasHero && !scrolled
   const { scrollYProgress } = useScroll()
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 25 })
 
@@ -71,14 +73,14 @@ export default function Header() {
   useEffect(() => setMobile(false), [pathname])
 
   return (
-    <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled ? 'bg-white/85 py-2 shadow-[0_8px_30px_-12px_rgb(11_58_50/0.25)] backdrop-blur-xl' : 'bg-white py-3.5'}`}>
+    <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled ? 'bg-white/85 py-2 shadow-[0_8px_30px_-12px_rgb(11_58_50/0.25)] backdrop-blur-xl' : overlay ? 'bg-transparent py-5' : 'bg-white py-3.5'}`}>
       <div className="mx-auto flex max-w-[1760px] items-center justify-between gap-6 px-5 md:px-8 xl:px-12 2xl:px-16">
-        <Logo className={`transition-[font-size] duration-500 ${scrolled ? 'text-[7.5px] md:text-[8px]' : 'text-[8px] md:text-[10px]'}`} />
+        <Logo light={overlay} className={`transition-[font-size] duration-500 ${scrolled ? 'text-[7.5px] md:text-[8px]' : overlay ? 'text-[8px] md:text-[12px]' : 'text-[8px] md:text-[10px]'}`} />
         <nav className="hidden items-center gap-5 xl:flex 2xl:gap-7">
-          {NAV.map((n) => <NavItem key={n.to} item={n} />)}
+          {NAV.map((n) => <NavItem key={n.to} item={n} light={overlay} />)}
         </nav>
-        <div className="hidden xl:block"><EstimateButton size="sm" /></div>
-        <button className="grid size-11 place-items-center rounded-xl bg-forest-900 text-white xl:hidden" onClick={() => setMobile((v) => !v)} aria-label="Menu">
+        {!overlay && <div className="hidden xl:block"><EstimateButton size="sm" /></div>}
+        <button className="grid size-11 place-items-center rounded-xl bg-forest-900 text-white xl:hidden" onClick={() => setMobile((v) => !v)} aria-expanded={mobile} aria-label="Menu">
           {mobile ? <X /> : <Menu />}
         </button>
       </div>

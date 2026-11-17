@@ -99,7 +99,7 @@ function EstimateTab() {
       initial={{ x: -60, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ delay: 1.6, duration: 0.8, ease }}
-      className="fixed left-0 top-1/2 z-40 -translate-y-1/2"
+      className="fixed left-0 top-1/2 z-40 hidden -translate-y-1/2 lg:block"
     >
       <Link
         to="/contact"
