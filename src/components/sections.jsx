@@ -12,8 +12,8 @@ const wrap = 'mx-auto max-w-[1760px] px-5 md:px-8 xl:px-12 2xl:px-16'
 export function PageHero({ crumbs, eyebrow, title, green, intro, image, alt, children, tall = false }) {
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-white to-mist/60 pt-[92px] md:pt-[108px]">
-      <div className={`${wrap} grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] ${tall ? 'lg:min-h-[max(640px,calc(100svh-108px))]' : 'lg:min-h-[max(560px,calc(100svh-108px))]'}`}>
-        <div className="relative z-10 py-10 lg:py-16">
+      <div className={`${wrap} grid items-start gap-8 py-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] lg:gap-12 lg:py-14 ${tall ? 'lg:min-h-[640px]' : 'lg:min-h-[560px]'}`}>
+        <div className="relative z-10 min-w-0">
           {crumbs && (
             <motion.nav aria-label="Breadcrumb" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-6 flex flex-wrap items-center gap-1 text-sm font-semibold">
               {crumbs.map(([label, to], i) => (
@@ -31,11 +31,11 @@ export function PageHero({ crumbs, eyebrow, title, green, intro, image, alt, chi
           {children}
         </div>
 
-        <div className="relative -mx-5 flex items-center justify-center bg-mist p-5 sm:p-8 md:-mx-8 lg:absolute lg:bottom-0 lg:right-0 lg:top-[108px] lg:mx-0 lg:w-[56%] lg:p-8 xl:p-12">
+        <div className="relative flex min-w-0 items-start justify-center self-start rounded-3xl border-2 border-brand-300 bg-white p-2 shadow-xl sm:p-3">
           <img
             src={image}
             alt={alt || `${title.join(' ')} in Miami, FL`}
-            className="block h-auto max-h-[70svh] w-auto max-w-full rounded-2xl object-contain shadow-xl lg:max-h-[calc(100svh-172px)]"
+            className="block h-auto max-h-[70svh] w-auto max-w-full rounded-2xl object-contain lg:max-h-[680px]"
             fetchPriority="high"
           />
         </div>
