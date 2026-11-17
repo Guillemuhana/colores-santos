@@ -31,11 +31,11 @@ export function PageHero({ crumbs, eyebrow, title, green, intro, image, alt, chi
           {children}
         </div>
 
-        <div className="relative flex min-w-0 items-start justify-center self-start rounded-3xl border-2 border-brand-300 bg-white p-2 shadow-xl sm:p-3">
+        <div className={`relative flex min-w-0 items-start justify-center self-start shadow-xl ${tall ? 'rounded-[56px_24px_24px_24px] bg-gradient-to-br from-brand-400 via-brand-300 to-brand-500 p-2.5 sm:rounded-[100px_28px_28px_28px] sm:p-3 lg:-mr-8 xl:-mr-12' : 'rounded-3xl border-2 border-brand-300 bg-white p-2 sm:p-3'}`}>
           <img
             src={image}
             alt={alt || `${title.join(' ')} in Miami, FL`}
-            className="block h-auto max-h-[70svh] w-auto max-w-full rounded-2xl object-contain lg:max-h-[680px]"
+            className={`block h-auto max-w-full object-contain ${tall ? 'w-full rounded-[46px_16px_16px_16px] sm:rounded-[88px_18px_18px_18px] lg:max-h-[760px]' : 'max-h-[70svh] w-auto rounded-2xl lg:max-h-[680px]'}`}
             fetchPriority="high"
           />
         </div>
