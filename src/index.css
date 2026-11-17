@@ -135,8 +135,8 @@ h1, h2, h3, h4 { @apply font-display tracking-tight; }
 .photo-hero__layout { display: grid; grid-template-columns: 1.05fr 1fr; align-items: center; min-height: max(760px, 100svh); padding-top: 150px; padding-bottom: 70px; }
 .photo-hero__content { grid-column: 2; min-width: 0; }
 .photo-hero__content > div:first-child { color: white; }
-.photo-hero__title { font-size: clamp(3rem, 6.4vw, 7rem); line-height: 1.02; letter-spacing: -.035em; }
-.photo-hero--home .photo-hero__title { font-size: clamp(2.8rem, 4.7vw, 5.3rem); }
+.photo-hero__title { font-size: clamp(2.2rem, 3.5vw, 4rem); line-height: 1.08; letter-spacing: -.035em; }
+.photo-hero--home .photo-hero__title { font-size: clamp(2.2rem, 3.5vw, 4rem); }
 .photo-hero .text-gradient { color: #8de997; background: none; -webkit-text-fill-color: currentColor; }
 .photo-hero__intro { margin-top: 28px; max-width: 42rem; font-size: clamp(1.1rem, 1.55vw, 1.5rem); line-height: 1.55; color: rgb(255 255 255 / .92); }
 .photo-hero__content a.bg-brand-400 { background: #95efa2; }
@@ -147,7 +147,7 @@ h1, h2, h3, h4 { @apply font-display tracking-tight; }
   .photo-hero__content { grid-column: 1; }
   .photo-hero__image { height: 65%; object-position: left top; }
   .photo-hero__shade { background: linear-gradient(180deg, rgb(0 0 0 / .45) 0%, transparent 22%, rgb(5 28 10 / .25) 36%, #051c0a 62%); }
-  .photo-hero__title { font-size: clamp(3rem, 9vw, 5rem); }
+  .photo-hero__title { font-size: clamp(2.2rem, 3.5vw, 4rem); }
 }
 
 /* Keep the cabinet project visible beside its longer service title. */
