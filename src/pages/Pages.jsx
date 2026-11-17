@@ -16,7 +16,7 @@ export function ServicePage() {
   if (!s) return <Navigate to="/services" replace />
   return (
     <>
-      <PageHero crumbs={[['Home', '/'], ['Residential', '/residential'], [s.name]]} eyebrow="Residential Services · Miami, FL" title={s.title} intro={s.intro} image={s.hero} alt={`${s.name} in Miami, FL`} />
+      <PageHero crumbs={[['Home', '/'], ['Residential', '/residential'], [s.name]]} eyebrow="Residential Services · Miami, FL" title={s.title} intro={s.intro} image={s.hero} compact={s.slug === 'cabinet-painting-refinishing'} alt={`${s.name} in Miami, FL`} />
       <BenefitsStrip items={s.benefits} />
       <DetailSection name={s.name} title={s.detailTitle} text={s.detail} includes={s.includes} gallery={s.gallery} />
       <Process steps={s.process} />

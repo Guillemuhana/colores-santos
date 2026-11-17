@@ -9,9 +9,9 @@ import { RollerSVG } from './paint'
 const wrap = 'mx-auto max-w-[1760px] px-5 md:px-8 xl:px-12 2xl:px-16'
 
 /* ---------- Full-width photographic hero ---------- */
-export function PageHero({ eyebrow, title, green, intro, image, alt, children, tall = false }) {
+export function PageHero({ eyebrow, title, green, intro, image, alt, children, tall = false, compact = false }) {
   return (
-    <section className={`photo-hero ${tall ? 'photo-hero--home' : ''}`}>
+    <section className={`photo-hero ${tall ? 'photo-hero--home' : ''} ${compact ? 'photo-hero--compact' : ''}`}>
       <img src={image} alt={alt || `${title.join(' ')} in Miami, FL`} className="photo-hero__image" fetchPriority="high" />
       <div className="photo-hero__shade" />
       <div className={`${wrap} photo-hero__layout`}>

@@ -149,3 +149,10 @@ h1, h2, h3, h4 { @apply font-display tracking-tight; }
   .photo-hero__shade { background: linear-gradient(180deg, rgb(0 0 0 / .45) 0%, transparent 22%, rgb(5 28 10 / .25) 36%, #051c0a 62%); }
   .photo-hero__title { font-size: clamp(3rem, 9vw, 5rem); }
 }
+
+/* Keep the cabinet project visible beside its longer service title. */
+.photo-hero--compact .photo-hero__title { font-size: clamp(2.2rem, 3.5vw, 4rem); line-height: 1.08; }
+.photo-hero--compact .photo-hero__intro { font-size: clamp(1.05rem, 1.25vw, 1.25rem); }
+@media (min-width: 1024px) {
+  .photo-hero--compact .photo-hero__layout { grid-template-columns: 1.45fr 1fr; }
+}
