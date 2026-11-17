@@ -176,3 +176,10 @@ h1, h2, h3, h4 { @apply font-display tracking-tight; }
 @media (min-width: 1024px) {
   .photo-hero--cabinet .photo-hero__layout { grid-template-columns: 1.65fr 1fr; }
 }
+
+.photo-hero--pressure .photo-hero__shade { background: linear-gradient(90deg, transparent 35%, rgb(5 28 10 / .12) 50%, rgb(5 28 10 / .45) 72%, rgb(5 28 10 / .64) 100%), linear-gradient(180deg, rgb(0 0 0 / .32), transparent 28%); }
+.photo-hero--pressure .photo-hero__content { text-shadow: 0 2px 12px rgb(0 0 0 / .65); }
+.photo-hero--pressure .photo-hero__content a { text-shadow: none; }
+@media (max-width: 1023px) {
+  .photo-hero--pressure .photo-hero__shade { background: linear-gradient(180deg, rgb(0 0 0 / .32), transparent 25%, rgb(5 28 10 / .25) 40%, #051c0a 67%); }
+}
