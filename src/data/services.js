@@ -11,7 +11,6 @@ export const SERVICES = [
     name: 'Interior Painting',
     short: 'Refresh and transform your living spaces with clean, professional finishes.',
     icon: PaintRoller,
-    tile: img('t-interior'),
     title: ['Interior', 'Painting'],
     intro: "Refresh, protect and transform your home's interior with professional, clean and long-lasting finishes.",
     hero: img('interior-hero'),
@@ -43,7 +42,6 @@ export const SERVICES = [
     name: 'Exterior Painting',
     short: "Protect your home from Florida's weather while giving it a beautiful, long-lasting look.",
     icon: House,
-    tile: img('t-exterior'),
     title: ['Exterior', 'Painting'],
     intro: "Protect, beautify and increase the value of your home with professional exterior painting built for Florida's climate.",
     hero: '/img/exterior-hero.webp',
@@ -75,7 +73,6 @@ export const SERVICES = [
     name: 'Cabinet Painting & Refinishing',
     short: 'A cost-effective way to modernize your kitchen, bathrooms and built-ins.',
     icon: DoorOpen,
-    tile: img('t-cabinet'),
     title: ['Cabinet Painting', '& Refinishing'],
     intro: 'Give your kitchen, bathroom or built-ins a fresh, modern look with professional cabinet painting and refinishing.',
     hero: '/img/cabinet-hero.webp',
@@ -107,7 +104,6 @@ export const SERVICES = [
     name: 'Stucco',
     short: "Repair, resurfacing and painting to restore and protect your home's exterior.",
     icon: Layers,
-    tile: img('t-stucco'),
     title: ['Stucco', 'Application, Repair & Finish'],
     intro: 'Restore, protect and enhance your home with professional stucco services, from repairs to new finishes.',
     hero: '/img/stucco-hero.webp',
@@ -139,7 +135,6 @@ export const SERVICES = [
     name: 'Drywall',
     short: 'Installation, repair and finishing with a smooth, paint-ready surface.',
     icon: Grid3x3,
-    tile: img('t-drywall'),
     title: ['Drywall', 'Installation, Repair & Finish'],
     intro: 'Professional drywall services to build, repair and restore your interior spaces with smooth, paint-ready results.',
     hero: '/img/drywall-hero.webp',
@@ -172,7 +167,6 @@ export const SERVICES = [
     name: 'Carpentry',
     short: 'Custom trim, repairs and finishing work to complement and enhance your home.',
     icon: Hammer,
-    tile: img('t-carpentry'),
     title: ['Carpentry', 'Installation, Repair & Custom Finishes'],
     intro: 'Quality carpentry services to enhance, repair and add value to your home with precise, durable and detailed work.',
     hero: '/img/carpentry-hero.webp',
@@ -205,7 +199,6 @@ export const SERVICES = [
     name: 'Custom Finishes',
     short: 'Decorative coatings, textures and specialty finishes.',
     icon: Sparkles,
-    tile: img('t-custom'),
     title: ['Custom', 'Finishes'],
     intro: 'Add style, texture and personality to your home with high-quality, decorative and specialty finishes.',
     hero: img('custom-hero'),
@@ -235,7 +228,6 @@ export const SERVICES = [
     name: 'Pressure Washing & Exterior Cleaning',
     short: 'Remove dirt, mold and buildup to keep your property looking its best.',
     icon: Droplets,
-    tile: img('t-pressure'),
     title: ['Pressure Washing', '& Exterior Cleaning'],
     intro: 'Keep your home looking its best with professional cleaning that removes dirt, mold, mildew, and buildup.',
     hero: '/img/pressure-hero.webp',
@@ -263,7 +255,7 @@ export const SERVICES = [
     cta: ['Ready for a', 'Like-New Exterior?'],
     ctaText: "Get a free, no-obligation estimate and let's restore your property's curb appeal.",
   },
-]
+].map((service) => ({ ...service, tile: service.hero }))
 
 export const RESIDENTIAL_CORE = ['interior-painting', 'exterior-painting', 'cabinet-painting-refinishing', 'drywall', 'stucco', 'carpentry']
 

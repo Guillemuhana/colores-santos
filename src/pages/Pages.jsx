@@ -104,7 +104,7 @@ export function Residential() {
             {[['residential-h1', 'Exterior Painting', 'exterior-painting'], ['residential-h2', 'Cabinet Refinishing', 'cabinet-painting-refinishing'], ['residential-h3', 'Interior Painting', 'interior-painting']].map(([im, t, slug]) => (
               <Stagger.Item key={im}>
                 <Link to={`/residential/${slug}`} className="group relative block aspect-[4/3] overflow-hidden rounded-2xl shadow-lg">
-                  <img src={`/img/${im}.jpg`} alt={t} className="h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-110" />
+                  <img src={getService(slug).hero} alt={t} className="h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-110" />
                   <span className="absolute bottom-3 left-3 rounded-full bg-white/95 px-3.5 py-1.5 text-sm font-bold shadow">{t}</span>
                 </Link>
               </Stagger.Item>

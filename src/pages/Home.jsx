@@ -68,7 +68,7 @@ export default function Home() {
             {SERVICES.map((s) => (
               <Stagger.Item key={s.slug}>
                 <Link to={`/residential/${s.slug}`} className="group block overflow-hidden rounded-2xl bg-white text-ink transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-brand-400/30">
-                  <div className="aspect-[3/2] overflow-hidden"><img src={s.tile} alt={`${s.name} in Miami, FL`} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-110" /></div>
+                  <div className="aspect-[16/9] overflow-hidden"><img src={s.tile} alt={`${s.name} in Miami, FL`} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-110" /></div>
                   <div className="flex min-h-[72px] items-center gap-2.5 p-3.5">
                     <s.icon className="size-6 shrink-0 stroke-[1.6] text-brand-500" />
                     <span className="text-[15px] font-bold leading-tight">{s.name}</span>
