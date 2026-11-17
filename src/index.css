@@ -167,3 +167,8 @@ h1, h2, h3, h4 { @apply font-display tracking-tight; }
 @media (max-width: 1023px) {
   .photo-hero--home .photo-hero__layout { row-gap: 14px; }
 }
+
+.photo-hero--mirror .photo-hero__image { transform: scaleX(-1); object-position: 72% center; }
+@media (max-width: 1023px) {
+  .photo-hero--mirror .photo-hero__image { object-position: right top; }
+}
