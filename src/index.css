@@ -103,20 +103,10 @@ h1, h2, h3, h4 { @apply font-display tracking-tight; }
   font-size: 2.95em; font-weight: 800; letter-spacing: -0.02em; color: var(--cs-ink); line-height: 0.92;
   clip-path: inset(0 0 -10% 0); animation: cs-rise 0.9s var(--cs-ease) 0.25s both;
 }
-.cs-logo__santos { position: relative; display: inline-block; margin-top: 0.12em; padding: 0.1em 0.42em 0.06em 0.3em; }
-.cs-logo__stroke {
-  position: absolute; left: -0.3em; top: -0.2em; width: calc(100% + 0.9em); height: calc(100% + 0.5em); max-width: none;
-  object-fit: fill; z-index: 0;
-  filter: drop-shadow(0 0.15em 0.25em rgb(11 11 11 / 0.18));
-  -webkit-mask-image: linear-gradient(90deg, #000 44%, transparent 56%); mask-image: linear-gradient(90deg, #000 44%, transparent 56%);
-  -webkit-mask-size: 300% 100%; mask-size: 300% 100%; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
-  -webkit-mask-position: 100% 0; mask-position: 100% 0;
-  animation: cs-paint-right 0.9s var(--cs-paint) 0.75s both;
-}
-.cs-logo:hover .cs-logo__stroke { animation-name: cs-paint-right-h; animation-delay: 0s; }
+.cs-logo__santos { position: relative; display: inline-block; margin-top: 0.12em; padding: 0.1em 0 0.06em; }
 .cs-logo__santos-text {
   position: relative; z-index: 1; display: block;
-  font-size: 2.95em; font-weight: 900; letter-spacing: -0.01em; line-height: 0.95; color: #0b0b0b;
+  font-size: 2.95em; font-weight: 900; letter-spacing: -0.01em; line-height: 0.95; color: var(--cs-ink);
   animation: cs-ink 0.7s var(--cs-ease) 1.15s both;
 }
 .cs-logo__tag {

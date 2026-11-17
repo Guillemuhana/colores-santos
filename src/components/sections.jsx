@@ -1,40 +1,17 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { Link } from 'react-router'
-import { animate, motion, useInView, useMotionValue, useScroll, useTransform } from 'motion/react'
+import { motion, useScroll, useTransform } from 'motion/react'
 import { ArrowRight, ChevronRight, CircleCheck, MoveHorizontal } from 'lucide-react'
 import { Bar, EstimateButton, Eyebrow, Reveal, SplitTitle, Stagger, WhatsAppButton, ease } from './ui'
 import { PROCESS_ICONS } from '../data/services'
-import { PaintDrips, PaintSplat, RollerSVG } from './paint'
+import { PaintSplat, RollerSVG } from './paint'
 
 const wrap = 'mx-auto max-w-[1760px] px-5 md:px-8 xl:px-12 2xl:px-16'
 
-/* ---------- Hero with curved image and parallax ---------- */
+/* ---------- Hero with uncropped, naturally sized photography ---------- */
 export function PageHero({ crumbs, eyebrow, title, green, intro, image, alt, children, tall = false }) {
-  const ref = useRef(null)
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '18%'])
-  const scale = useTransform(scrollYProgress, [0, 1], [1.05, 1.15])
-
-  // one progress value drives the roller AND the painted area so they stay glued together
-  // on phones the photo sits below the text, so wait until it is actually on screen before rolling
-  const media = useRef(null)
-  const inView = useInView(media, { once: true, amount: 0.6 })
-  const p = useMotionValue(0)
-  useEffect(() => {
-    if (!inView) return
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduce) { p.set(1.3); return }
-    const c = animate(p, [0, 1, 1.3], { duration: 2.6, times: [0, 0.78, 1], ease: [[0.5, 0, 0.3, 1], [0.4, 0, 1, 1]], delay: 0.35 })
-    return () => c.stop()
-  }, [p, inView])
-  const edge = useTransform(p, (v) => `${Math.min(v, 1.3) * 100}%`)
-  const reveal = useTransform(p, (v) => `inset(0 0 ${Math.max(0, 100 - v * 100)}% 0)`)
-  const rollerOpacity = useTransform(p, [0, 0.03, 1.05, 1.3], [0, 1, 1, 0])
-  const sheen = useTransform(p, [0, 0.1, 1, 1.3], [0, 1, 1, 0])
-  const wobble = useTransform(p, [0, 0.25, 0.5, 0.75, 1], [-1.2, 0.8, -0.6, 0.5, 0])
-
   return (
-    <section ref={ref} className="relative overflow-hidden bg-gradient-to-b from-white to-mist/60 pt-[92px] md:pt-[108px]">
+    <section className="relative overflow-hidden bg-gradient-to-b from-white to-mist/60 pt-[92px] md:pt-[108px]">
       <div className={`${wrap} grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] ${tall ? 'lg:min-h-[max(640px,calc(100svh-108px))]' : 'lg:min-h-[max(560px,calc(100svh-108px))]'}`}>
         <div className="relative z-10 py-10 lg:py-16">
           {crumbs && (
@@ -54,40 +31,13 @@ export function PageHero({ crumbs, eyebrow, title, green, intro, image, alt, chi
           {children}
         </div>
 
-        <div ref={media} className="relative -mx-5 h-[360px] sm:h-[440px] md:-mx-8 lg:absolute lg:bottom-0 lg:right-0 lg:top-[108px] lg:mx-0 lg:h-auto lg:w-[56%]">
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-br from-brand-300 to-brand-500"
-            style={{ borderTopLeftRadius: '55% 100%' }}
-            initial={{ clipPath: 'inset(0 0 0 100%)' }}
-            animate={{ clipPath: 'inset(0 0 0 0%)' }}
-            transition={{ duration: 1.1, ease }}
+        <div className="relative -mx-5 flex items-center justify-center bg-mist p-5 sm:p-8 md:-mx-8 lg:absolute lg:bottom-0 lg:right-0 lg:top-[108px] lg:mx-0 lg:w-[56%] lg:p-8 xl:p-12">
+          <img
+            src={image}
+            alt={alt || `${title.join(' ')} in Miami, FL`}
+            className="block h-auto max-h-[70svh] w-auto max-w-full rounded-2xl object-contain shadow-xl lg:max-h-[calc(100svh-172px)]"
+            fetchPriority="high"
           />
-          <motion.div
-            className="absolute inset-y-0 left-4 right-0 overflow-hidden lg:left-6"
-            style={{ borderTopLeftRadius: '55% 100%', clipPath: reveal }}
-          >
-            <motion.img src={image} alt={alt || `${title.join(' ')} in Miami, FL`} className="h-full w-full object-cover" style={{ y, scale }} fetchPriority="high" />
-            <div className="absolute inset-0 bg-gradient-to-t from-forest-950/20 via-transparent to-transparent" />
-            {/* fresh wet-paint sheen right behind the roller, dries as it goes */}
-            <motion.div
-              className="pointer-events-none absolute inset-x-0 h-[22%] -translate-y-full bg-gradient-to-b from-transparent via-white/25 to-white/40 mix-blend-soft-light"
-              style={{ top: edge, opacity: sheen }}
-            />
-          </motion.div>
-          {/* REAL photographed paint roller that rolls the photo onto the wall */}
-          <motion.div
-            className="pointer-events-none absolute -left-[3%] z-10 w-[106%]"
-            style={{ top: edge, opacity: rollerOpacity, rotate: wobble }}
-          >
-            <img
-              src="/img/brand/roller.webp"
-              alt=""
-              width="1000"
-              height="835"
-              className="block w-full -translate-y-[87%] drop-shadow-[0_28px_30px_rgb(7_40_34/0.45)]"
-              fetchPriority="high"
-            />
-          </motion.div>
         </div>
       </div>
     </section>
@@ -113,7 +63,7 @@ export function BenefitsStrip({ items }) {
 /* ---------- Dark service detail with checklist + gallery ---------- */
 export function DetailSection({ title, text, includes, gallery, name = '' }) {
   const g = gallery
-  const fullPhotos = ['Interior Painting', 'Stucco', 'Carpentry'].includes(name)
+  const fullPhotos = ['Interior Painting', 'Stucco', 'Carpentry', 'Drywall'].includes(name)
   return (
     <>
     <section className="grain relative overflow-hidden bg-forest-900 py-16 text-white lg:py-20">
@@ -145,7 +95,6 @@ export function DetailSection({ title, text, includes, gallery, name = '' }) {
         </Stagger>
       </div>
     </section>
-    <PaintDrips seed={11} />
     </>
   )
 }
@@ -316,4 +265,4 @@ export function WhyChoose({ items }) {
   )
 }
 
-export { wrap, PaintDrips }
+export { wrap }

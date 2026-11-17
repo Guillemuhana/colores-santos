@@ -1,12 +1,6 @@
 import { Link } from 'react-router'
 
-/*
- * Colores Santos logo: the brand roller icon (graphite on a sage tile, per the brand guide)
- * beside the wordmark. "SANTOS" sits on a real dry-brush stroke recolored to sage
- * (/img/brand/stroke.webp). Everything is sized in `em`, so set the size with font-size
- * (1em = 1/8 of the logo height). Animations live in index.css under `.cs-logo`.
- */
-
+/* Brand roller icon beside the plain wordmark. */
 export function Logo({ light = false, className = 'text-[10px]' }) {
   return (
     <Link
@@ -21,7 +15,6 @@ export function Logo({ light = false, className = 'text-[10px]' }) {
       <span className="cs-logo__text" aria-hidden="true">
         <span className="cs-logo__colores">COLORES</span>
         <span className="cs-logo__santos">
-          <img src="/img/brand/stroke.webp" alt="" width="640" height="181" className="cs-logo__stroke" draggable="false" />
           <span className="cs-logo__santos-text">SANTOS</span>
         </span>
         <span className="cs-logo__tag">PAINTING &amp; FINISHES</span>

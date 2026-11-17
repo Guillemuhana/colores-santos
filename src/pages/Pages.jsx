@@ -3,7 +3,7 @@ import { Link, Navigate, useParams } from 'react-router'
 import { motion } from 'motion/react'
 import { ArrowRight, Award, CalendarCheck, Clock, FileText, Handshake, House, HardHat, Images, LoaderCircle, Mail, CircleCheck, Send, MapPin, Palette, Phone, ShieldCheck, Sparkles, TrendingUp, Users, Leaf } from 'lucide-react'
 import { PhotoUpload } from '../components/PhotoUpload'
-import { BenefitsStrip, BeforeAfter, CtaBanner, DetailSection, PageHero, PaintDrips, Process, ServiceCard, WhyChoose, wrap } from '../components/sections'
+import { BenefitsStrip, BeforeAfter, CtaBanner, DetailSection, PageHero, Process, ServiceCard, WhyChoose, wrap } from '../components/sections'
 import { Bar, Reveal, SplitTitle, Stagger, WhatsAppIcon, ease } from '../components/ui'
 import { DEFAULT_PROCESS, RESIDENTIAL_CORE, SERVICES, getService } from '../data/services'
 import { INDUSTRIES, SEGMENT_PAGES } from '../data/segments'
@@ -85,7 +85,7 @@ export function Residential() {
           </div>
         </div>
       </section>
-      <PaintDrips seed={5} />
+
 
       <WhyChoose items={[
         [Award, 'Experienced Team', 'Skilled professionals with a detail-oriented approach.'],
@@ -162,7 +162,7 @@ export function Commercial() {
           </Stagger>
         </div>
       </section>
-      <PaintDrips seed={21} />
+
       <section className="bg-white pb-14 pt-28">
         <div className={`${wrap} grid gap-8 lg:grid-cols-[0.5fr_2fr] lg:items-center`}>
           <h2 className="text-4xl font-bold leading-tight">Industries <span className="text-gradient">We Serve</span></h2>
@@ -228,7 +228,7 @@ export function SegmentPage({ id }) {
           </Stagger>
         </div>
       </section>
-      <PaintDrips seed={33} />
+
       <Process steps={p.process} text="A clear and organized process designed for managers and boards." />
       <Gallery title={['Recent', 'Projects']} images={p.gallery} />
       <CtaBanner title={p.cta} text={p.ctaText} />
