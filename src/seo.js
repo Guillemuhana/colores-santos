@@ -88,7 +88,6 @@ function businessSchema() {
     email: BUSINESS.email,
     priceRange: '$$',
     address: { '@type': 'PostalAddress', addressLocality: 'Miami', addressRegion: 'FL', addressCountry: 'US' },
-    geo: { '@type': 'GeoCoordinates', latitude: 25.7617, longitude: -80.1918 },
     areaServed: [
       ...AREAS.map((name) => ({ '@type': 'City', name: `${name}, FL` })),
       { '@type': 'AdministrativeArea', name: 'Miami-Dade County, FL' },

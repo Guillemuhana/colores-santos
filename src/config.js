@@ -13,7 +13,7 @@ export const BUSINESS = {
 
 // URL pública del sitio (sin "/" final). Cambiar cuando tengan dominio propio:
 // se usa en canonical, Open Graph, sitemap.xml y robots.txt.
-export const SITE_URL = 'https://colores-santos.vercel.app'
+export const SITE_URL = 'https://www.coloressantos.com'
 
 // Ciudades/barrios donde trabajan (SEO local). Ajustar a la zona real.
 export const AREAS = [

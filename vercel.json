@@ -2,6 +2,22 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/firmar/:slug", "destination": "/firmar" }
+    {
+      "source": "/firmar/:slug",
+      "destination": "/firmar"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "colores-santos.vercel.app"
+        }
+      ],
+      "destination": "https://www.coloressantos.com/:path*",
+      "permanent": true
+    }
   ]
 }
