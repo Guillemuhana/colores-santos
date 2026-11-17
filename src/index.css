@@ -156,3 +156,14 @@ h1, h2, h3, h4 { @apply font-display tracking-tight; }
 @media (min-width: 1024px) {
   .photo-hero--compact .photo-hero__layout { grid-template-columns: 1.45fr 1fr; }
 }
+
+.photo-hero__eyebrow { min-width: 0; }
+.photo-hero__eyebrow > div { font-size: 12px; }
+@media (min-width: 1024px) {
+  .photo-hero--home .photo-hero__layout { grid-template-columns: 1.2fr 1fr; align-items: start; padding-top: 140px; }
+  .photo-hero--home .photo-hero__eyebrow { grid-column: 1; grid-row: 1; padding-top: 10px; }
+  .photo-hero--home .photo-hero__content { grid-column: 2; grid-row: 1; }
+}
+@media (max-width: 1023px) {
+  .photo-hero--home .photo-hero__layout { row-gap: 14px; }
+}

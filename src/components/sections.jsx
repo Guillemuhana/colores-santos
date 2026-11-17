@@ -15,8 +15,9 @@ export function PageHero({ eyebrow, title, green, intro, image, alt, children, t
       <img src={image} alt={alt || `${title.join(' ')} in Miami, FL`} className="photo-hero__image" fetchPriority="high" />
       <div className="photo-hero__shade" />
       <div className={`${wrap} photo-hero__layout`}>
+        {tall && eyebrow && <div className="photo-hero__eyebrow"><Eyebrow light>{eyebrow}</Eyebrow></div>}
         <div className="photo-hero__content">
-          {eyebrow && <Eyebrow light>{eyebrow}</Eyebrow>}
+          {!tall && eyebrow && <Eyebrow light>{eyebrow}</Eyebrow>}
           <SplitTitle lines={title} green={green} className="photo-hero__title font-extrabold" />
           <p className="photo-hero__intro">{intro}</p>
           <div className="mt-9 flex flex-wrap gap-4"><EstimateButton size="lg" /><WhatsAppButton size="lg" dark /></div>
