@@ -183,3 +183,9 @@ h1, h2, h3, h4 { @apply font-display tracking-tight; }
 @media (max-width: 1023px) {
   .photo-hero--pressure .photo-hero__shade { background: linear-gradient(180deg, rgb(0 0 0 / .32), transparent 25%, rgb(5 28 10 / .25) 40%, #051c0a 67%); }
 }
+
+/* Mobile crops keep the workers visible without changing desktop framing. */
+@media (max-width: 1023px) {
+  .photo-hero--cabinet .photo-hero__image { object-position: 55% top; }
+  .photo-hero--stucco .photo-hero__image { object-position: 72% top; }
+}
