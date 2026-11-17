@@ -201,7 +201,7 @@ export const SERVICES = [
     icon: Sparkles,
     title: ['Custom', 'Finishes'],
     intro: 'Add style, texture and personality to your home with high-quality, decorative and specialty finishes.',
-    hero: img('custom-hero'),
+    hero: '/img/custom-hero.webp',
     benefits: [
       [Layers, 'Decorative Finishes'],
       [Grid3x3, 'Accent Walls'],
