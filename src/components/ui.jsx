@@ -57,7 +57,7 @@ Stagger.Item = function StaggerItem({ children, className = '' }) {
 }
 
 /** Animates a heading word by word. Green lines get a painted brush stroke behind them. */
-export function SplitTitle({ lines, className = '', as = 'h1', greenFirst = false, green }) {
+export function SplitTitle({ lines, className = '', as = 'h1', greenFirst = false, green, brush = true }) {
   const H = motion[as]
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-40px' })
@@ -70,7 +70,7 @@ export function SplitTitle({ lines, className = '', as = 'h1', greenFirst = fals
         const start = i
         return (
           <span key={li} className="relative isolate block w-fit">
-            {isGreen && <BrushStroke show={inView} delay={0.35 + start * 0.06} />}
+            {brush && isGreen && <BrushStroke show={inView} delay={0.35 + start * 0.06} />}
             {words.map((w) => {
               const d = i++ * 0.06
               return (

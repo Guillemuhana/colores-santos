@@ -25,7 +25,7 @@ export function PageHero({ crumbs, eyebrow, title, green, intro, image, alt, chi
             </motion.nav>
           )}
           {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-          <SplitTitle lines={title} green={green} className="text-[clamp(2.4rem,5.2vw,4.4rem)] font-extrabold leading-[0.98]" />
+          <SplitTitle lines={title} green={green} brush={!tall} className="text-[clamp(2.4rem,5.2vw,4.4rem)] font-extrabold leading-[0.98]" />
           <Reveal delay={0.35}><p className="mt-6 max-w-[34rem] text-lg leading-relaxed text-ink/75">{intro}</p></Reveal>
           <Reveal delay={0.5} className="mt-8 flex flex-wrap gap-3"><EstimateButton /><WhatsAppButton /></Reveal>
           {children}
