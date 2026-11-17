@@ -46,7 +46,7 @@ export const SERVICES = [
     tile: img('t-exterior'),
     title: ['Exterior', 'Painting'],
     intro: "Protect, beautify and increase the value of your home with professional exterior painting built for Florida's climate.",
-    hero: img('exterior-hero'),
+    hero: '/img/exterior-hero.webp',
     benefits: [
       [House, 'Weather Protection'],
       [ShieldCheck, 'Long-Lasting Durability'],
@@ -78,7 +78,7 @@ export const SERVICES = [
     tile: img('t-cabinet'),
     title: ['Cabinet Painting', '& Refinishing'],
     intro: 'Give your kitchen, bathroom or built-ins a fresh, modern look with professional cabinet painting and refinishing.',
-    hero: img('cabinet-hero'),
+    hero: '/img/cabinet-hero.webp',
     benefits: [
       [PaintRoller, 'Modern Look at Lower Cost'],
       [ShieldCheck, 'Durable & Long-Lasting Finish'],
@@ -110,7 +110,7 @@ export const SERVICES = [
     tile: img('t-stucco'),
     title: ['Stucco', 'Application, Repair & Finish'],
     intro: 'Restore, protect and enhance your home with professional stucco services, from repairs to new finishes.',
-    hero: img('stucco-hero'),
+    hero: '/img/stucco-hero.webp',
     benefits: [
       [Layers, 'Stucco Repair & Restoration'],
       [Brush, 'New Stucco Application'],
@@ -142,7 +142,7 @@ export const SERVICES = [
     tile: img('t-drywall'),
     title: ['Drywall', 'Installation, Repair & Finish'],
     intro: 'Professional drywall services to build, repair and restore your interior spaces with smooth, paint-ready results.',
-    hero: img('drywall-hero'),
+    hero: '/img/drywall-hero.webp',
     benefits: [
       [Layers, 'New Drywall Installation'],
       [Wrench, 'Drywall Repair'],
@@ -175,7 +175,7 @@ export const SERVICES = [
     tile: img('t-carpentry'),
     title: ['Carpentry', 'Installation, Repair & Custom Finishes'],
     intro: 'Quality carpentry services to enhance, repair and add value to your home with precise, durable and detailed work.',
-    hero: img('carpentry-hero'),
+    hero: '/img/carpentry-hero.webp',
     benefits: [
       [Hammer, 'Trim & Molding'],
       [Ruler, 'Built-Ins & Shelving'],
@@ -238,7 +238,7 @@ export const SERVICES = [
     tile: img('t-pressure'),
     title: ['Pressure Washing', '& Exterior Cleaning'],
     intro: 'Keep your home looking its best with professional cleaning that removes dirt, mold, mildew, and buildup.',
-    hero: img('pressure-hero'),
+    hero: '/img/pressure-hero.webp',
     benefits: [
       [House, 'Driveways & Walkways'],
       [Fence, 'Patios & Decks'],
