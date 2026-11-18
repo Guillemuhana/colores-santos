@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
-import { ArrowRight, MessageCircle, Send, X, RotateCcw, LoaderCircle } from 'lucide-react'
+import { ArrowRight, Send, X, RotateCcw, LoaderCircle } from 'lucide-react'
 import { CHAT_SERVICES } from '../data/assistant'
 import { waLink } from '../config'
+import { Logo } from './Logo'
 
 const STORAGE = 'colores-chat-v1'
 export const HANDOFF = 'colores-chat-project'
@@ -76,11 +77,10 @@ export default function CompanyChat() {
     }
   }
   return <>
-    {!open && <button ref={trigger} onClick={() => setOpen(true)} aria-label={t.open} aria-expanded={open} aria-controls="company-chat" className="fixed bottom-5 right-5 z-50 flex h-15 items-center gap-2 rounded-full bg-forest-900 px-5 font-semibold text-white shadow-xl ring-2 ring-brand-300 transition hover:bg-forest-800 focus-visible:outline-4 focus-visible:outline-brand-400"><MessageCircle className="size-6 text-brand-300" /><span>{lang === 'es' ? 'Conversemos' : 'Let\u2019s talk'}</span></button>}
+    {!open && <button ref={trigger} onClick={() => setOpen(true)} aria-label={t.open} aria-expanded={open} aria-controls="company-chat" className="fixed bottom-5 right-5 z-50 flex h-15 items-center gap-2 rounded-full bg-forest-900 px-5 font-semibold text-white shadow-xl ring-2 ring-brand-300 transition hover:bg-forest-800 focus-visible:outline-4 focus-visible:outline-brand-400"><img src="/favicon.svg" alt="" width="36" height="36" className="size-9 rounded-xl" /><span>{lang === 'es' ? 'Conversemos' : 'Let\u2019s talk'}</span></button>}
     {open && <section ref={panel} id="company-chat" role="dialog" aria-label={t.title} onKeyDown={onKeyDown} data-lenis-prevent className="company-chat fixed bottom-4 right-4 z-[60] flex w-[400px] max-w-[calc(100vw-24px)] flex-col overflow-hidden rounded-3xl border border-brand-200 bg-white text-ink shadow-2xl">
-      <header className="flex items-center gap-3 bg-forest-900 px-5 py-4 text-white">
-        <span className="grid size-10 shrink-0 place-items-center rounded-2xl bg-brand-300 text-forest-900"><MessageCircle className="size-6" /></span>
-        <div className="min-w-0 flex-1"><h2 className="text-base font-bold">{t.title}</h2><p className="mt-0.5 text-[11px] text-brand-200">{guideMode ? (lang === 'es' ? 'Colores Santos · Guía de servicios' : 'Colores Santos · Service guide') : t.sub}</p></div>
+      <header className="flex items-center gap-2 bg-forest-900 px-4 py-4 text-white">
+        <div className="min-w-0 flex-1"><h2 className="sr-only">{t.title}</h2><Logo light className="text-[5.5px]" /><p className="mt-2 text-[10px] text-brand-200">{guideMode ? (lang === 'es' ? 'Colores Santos · Guía de servicios' : 'Colores Santos · Service guide') : t.sub}</p></div>
         <button onClick={() => setLang(lang === 'en' ? 'es' : 'en')} className="rounded-lg p-2 text-xs font-bold hover:bg-white/10" aria-label={lang === 'en' ? 'Cambiar a español' : 'Switch to English'}>{lang === 'en' ? 'ES' : 'EN'}</button>
         <button onClick={close} className="rounded-lg p-2 hover:bg-white/10" aria-label={t.close}><X className="size-5" /></button>
       </header>
