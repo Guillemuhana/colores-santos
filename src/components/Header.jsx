@@ -84,11 +84,13 @@ export default function Header() {
         </nav>
         {!overlay && <div className="hidden min-[1800px]:block"><EstimateButton size="sm" /></div>}
         <div className="ml-auto flex shrink-0 items-center gap-2 2xl:ml-0">
-          <label className="sr-only" htmlFor="site-language">Idioma / Language</label>
-          <select id="site-language" value={language} onChange={event => setLanguage(event.target.value)} className={`min-h-11 w-[92px] cursor-pointer rounded-xl border px-2 text-xs font-semibold outline-none focus-visible:ring-2 focus-visible:ring-brand-400 md:w-[108px] md:text-sm ${overlay ? 'border-white/40 bg-forest-950/65 text-white' : 'border-brand-300 bg-white text-forest-950'}`}>
-            <option value="en" lang="en">English</option>
-            <option value="es" lang="es">Español</option>
-          </select>
+          <div id="site-language" role="group" aria-label="Idioma / Language" className={`inline-flex items-center gap-0.5 rounded-full p-0.5 ring-1 transition-colors ${overlay ? 'bg-white/10 ring-white/20 backdrop-blur-sm' : 'bg-brand-50/70 ring-brand-200/80'}`}>
+            {[['en', 'EN', 'English'], ['es', 'ES', 'Español']].map(([value, label, name]) => (
+              <button key={value} type="button" lang={value} aria-label={name} title={name} aria-pressed={language === value} onClick={() => setLanguage(value)} className={`grid h-7 w-8 place-items-center rounded-full text-[10px] font-bold tracking-wide transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-400 ${language === value ? 'bg-brand-300 text-forest-950 shadow-sm' : overlay ? 'text-white/75 hover:bg-white/10 hover:text-white' : 'text-forest-800/65 hover:bg-brand-100 hover:text-forest-950'}`}>
+                {label}
+              </button>
+            ))}
+          </div>
         <button className="grid size-11 place-items-center rounded-xl bg-forest-900 text-white 2xl:hidden" onClick={() => setMobile((v) => !v)} aria-expanded={mobile} aria-label={translate("Menu")}>
           {mobile ? <X /> : <Menu />}
         </button>
