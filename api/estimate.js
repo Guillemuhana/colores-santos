@@ -5,13 +5,13 @@
  *
  * Env vars (Vercel → Project → Settings → Environment Variables):
  *   RESEND_API_KEY   required
- *   ESTIMATE_TO      optional, defaults to ninitgroup@gmail.com (comma-separated for several)
+ *   Requests are sent to contact@coloressantos.com
  *   ESTIMATE_FROM    optional, defaults to "Colores Santos <onboarding@resend.dev>"
  *                    (use an address on your own verified domain once you have one)
  *   SITE_URL         optional, defaults to https://colores-santos.vercel.app
  */
 
-const TO = (process.env.ESTIMATE_TO || 'ninitgroup@gmail.com').split(',').map((s) => s.trim()).filter(Boolean)
+const TO = ['contact@coloressantos.com']
 const FROM = process.env.ESTIMATE_FROM || 'Colores Santos <onboarding@resend.dev>'
 const SITE = process.env.SITE_URL || 'https://colores-santos.vercel.app'
 const PHOTO_HOST = /^https:\/\/[a-z0-9]+\.public\.blob\.vercel-storage\.com\/estimates\//i

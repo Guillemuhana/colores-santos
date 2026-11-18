@@ -5,7 +5,7 @@
  *
  * Env vars (las mismas que usa api/estimate.js):
  *   RESEND_API_KEY        requerida
- *   SIGNED_TO             opcional, a quién avisar (por defecto ESTIMATE_TO o ninitgroup@gmail.com)
+ *   Avisos enviados a contact@coloressantos.com
  *   ESTIMATE_FROM         opcional, remitente
  *   SITE_URL              opcional, por defecto https://colores-santos.vercel.app
  *   BLOB_READ_WRITE_TOKEN para guardar la copia firmada (ya está si el Blob store está conectado)
@@ -13,7 +13,7 @@
 import { PDFDocument, PDFName, StandardFonts, rgb } from 'pdf-lib'
 import { put } from '@vercel/blob'
 
-const TO = (process.env.SIGNED_TO || process.env.ESTIMATE_TO || 'ninitgroup@gmail.com').split(',').map((s) => s.trim()).filter(Boolean)
+const TO = ['contact@coloressantos.com']
 const FROM = process.env.ESTIMATE_FROM || 'Colores Santos <onboarding@resend.dev>'
 const SITE = (process.env.SITE_URL || 'https://colores-santos.vercel.app').replace(/\/$/, '')
 

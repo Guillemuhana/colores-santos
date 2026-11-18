@@ -98,12 +98,13 @@ export default function CompanyChat() {
       </div>
       <footer className="border-t border-black/5 bg-white p-4">
         <Link to="/contact" onClick={handoff} className="mb-2 flex items-center justify-between rounded-xl bg-brand-300 px-3 py-2.5 text-xs font-bold">{t.contact}<ArrowRight className="size-4" /></Link>
+        <a href={summary() ? waLink(summary()) : waLink()} target="_blank" rel="noreferrer" className="mb-2 flex items-center justify-between rounded-xl border border-brand-300 px-3 py-2.5 text-xs font-bold text-brand-700 hover:bg-brand-50">{t.human}<ArrowRight className="size-4" /></a>
         <form onSubmit={e => { e.preventDefault(); send(input) }} className="flex items-end gap-2">
           <label className="sr-only" htmlFor="company-chat-input">{t.placeholder}</label>
           <textarea id="company-chat-input" ref={field} rows={2} maxLength={1200} value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) { e.preventDefault(); send(input) } }} placeholder={t.placeholder} className="min-w-0 flex-1 resize-none rounded-xl border border-black/15 p-3 text-base outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-200" />
           <button type="submit" disabled={pending || !input.trim()} aria-label={t.send} className="grid size-11 shrink-0 place-items-center rounded-xl bg-forest-900 text-white disabled:opacity-40"><Send className="size-5" /></button>
         </form>
-        <div className="mt-2 flex items-center justify-between gap-2"><a href={summary() ? waLink(summary()) : waLink()} target="_blank" rel="noreferrer" className="text-[11px] font-semibold text-brand-700 underline">{t.human}</a><button disabled={pending} aria-label={t.reset} onClick={() => { setMessages([]); setError(false); setInput(''); field.current?.focus() }} className="rounded-lg p-2 text-ink/50 hover:bg-mist"><RotateCcw className="size-3.5" /></button></div>
+        <div className="mt-2 flex justify-end"><button disabled={pending} aria-label={t.reset} onClick={() => { setMessages([]); setError(false); setInput(''); field.current?.focus() }} className="rounded-lg p-2 text-ink/50 hover:bg-mist"><RotateCcw className="size-3.5" /></button></div>
         <p className="text-[10px] leading-relaxed text-ink/50">{t.note}</p>
       </footer>
     </section>}
