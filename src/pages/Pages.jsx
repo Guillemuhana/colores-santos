@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router'
 import { motion } from 'motion/react'
 import { ArrowRight, Award, CalendarCheck, Clock, FileText, Handshake, House, HardHat, Images, LoaderCircle, Mail, CircleCheck, Send, MapPin, Palette, Phone, ShieldCheck, Sparkles, TrendingUp, Users, Leaf } from 'lucide-react'
@@ -282,6 +282,20 @@ const TYPES = ['Residential', 'Commercial', 'HOA / Condominium', 'Property Manag
 
 export function Contact() {
   const [f, setF] = useState({ name: '', phone: '', email: '', city: '', type: 'Residential', services: [], message: '' })
+  useEffect(() => {
+    const readProject = () => {
+      try {
+        const project = sessionStorage.getItem('colores-chat-project')
+        if (project) {
+          setF(current => ({ ...current, message: [current.message, project].filter(Boolean).join('\n\n') }))
+          sessionStorage.removeItem('colores-chat-project')
+        }
+      } catch { /* The form works even when browser storage is disabled. */ }
+    }
+    readProject()
+    window.addEventListener('colores-chat-handoff', readProject)
+    return () => window.removeEventListener('colores-chat-handoff', readProject)
+  }, [])
   const [photos, setPhotos] = useState([])
   const uploading = photos.some((p) => p.status === 'uploading')
   const photoLinks = photos.filter((p) => p.status === 'done').map((p) => p.url)

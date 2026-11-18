@@ -8,3 +8,6 @@ dist-ssr
 
 # vista previa HTML de cotizaciones
 cotizaciones/pdf
+
+# Local CLI diagnostics
+debug.log

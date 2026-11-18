@@ -195,3 +195,8 @@ h1, h2, h3, h4 { @apply font-display tracking-tight; }
 @media (min-width: 1024px) {
   .photo-hero--drywall .photo-hero__layout { grid-template-columns: 1.65fr 1fr; }
 }
+
+.company-chat { height: min(740px, calc(100dvh - 32px)); }
+@media (max-width: 639px) {
+  .company-chat { right: 8px; bottom: max(8px, env(safe-area-inset-bottom)); width: calc(100vw - 16px); max-width: none; height: calc(100dvh - 16px - env(safe-area-inset-bottom)); }
+}

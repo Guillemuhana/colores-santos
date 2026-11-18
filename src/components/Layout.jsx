@@ -4,7 +4,8 @@ import { motion } from 'motion/react'
 import Lenis from 'lenis'
 import { Camera, Clock, FileText, Mail, MapPin, Phone } from 'lucide-react'
 import Header, { Logo } from './Header'
-import { WhatsAppIcon, ease } from './ui'
+import CompanyChat from './CompanyChat'
+import { ease } from './ui'
 import { AREAS, BUSINESS, waLink } from '../config'
 import { applySeo } from '../seo'
 import { SERVICES } from '../data/services'
@@ -71,25 +72,6 @@ function Footer() {
   )
 }
 
-function FloatingWhatsApp() {
-  return (
-    <motion.a
-      href={waLink()}
-      target="_blank"
-      rel="noreferrer"
-      aria-label="Chat on WhatsApp"
-      initial={{ scale: 0, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      transition={{ delay: 1.2, type: 'spring', stiffness: 260, damping: 18 }}
-      whileHover={{ scale: 1.08 }}
-      className="fixed bottom-5 right-5 z-40 grid size-15 place-items-center rounded-full bg-[#25D366] text-white shadow-xl shadow-black/25"
-    >
-      <span className="absolute inset-0 animate-pulse-ring rounded-full bg-[#25D366]" />
-      <WhatsAppIcon className="relative size-8" />
-    </motion.a>
-  )
-}
-
 /* Slim vertical "Free Estimate" tab pinned to the left edge of the screen */
 function EstimateTab() {
   const { pathname } = useLocation()
@@ -140,7 +122,7 @@ export default function Layout() {
       </motion.main>
       <Footer />
       <EstimateTab />
-      <FloatingWhatsApp />
+      <CompanyChat />
     </>
   )
 }
