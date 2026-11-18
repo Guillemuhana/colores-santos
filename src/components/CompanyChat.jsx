@@ -4,7 +4,7 @@ import { ArrowRight, Send, X, RotateCcw, LoaderCircle } from 'lucide-react'
 import { CHAT_SERVICES } from '../data/assistant'
 import { waLink } from '../config'
 import { Logo } from './Logo'
-import { useLanguage, setLanguage as setLang, translate } from '../i18n'
+import { useLanguage, translate } from '../i18n'
 
 const STORAGE = 'colores-chat-v1'
 export const HANDOFF = 'colores-chat-project'
@@ -81,7 +81,6 @@ export default function CompanyChat() {
     {open && <section ref={panel} id="company-chat" role="dialog" aria-label={t.title} onKeyDown={onKeyDown} data-lenis-prevent className="company-chat fixed bottom-4 right-4 z-[60] flex w-[400px] max-w-[calc(100vw-24px)] flex-col overflow-hidden rounded-3xl border border-brand-200 bg-white text-ink shadow-2xl">
       <header className="flex items-center gap-2 bg-forest-900 px-4 py-4 text-white">
         <div className="min-w-0 flex-1"><h2 className="sr-only">{t.title}</h2><Logo light className="text-[5.5px]" /><p className="mt-2 text-[10px] text-brand-200">{guideMode ? (lang === 'es' ? 'Colores Santos · Guía de servicios' : 'Colores Santos · Service guide') : t.sub}</p></div>
-        <button onClick={() => setLang(lang === 'en' ? 'es' : 'en')} className="rounded-lg p-2 text-xs font-bold hover:bg-white/10" aria-label={lang === 'en' ? 'Cambiar a español' : 'Switch to English'}>{lang === 'en' ? 'ES' : 'EN'}</button>
         <button onClick={close} className="rounded-lg p-2 hover:bg-white/10" aria-label={t.close}><X className="size-5" /></button>
       </header>
       <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain bg-mist/35 p-4" role="log" aria-live="polite" aria-relevant="additions" aria-busy={pending}>

@@ -2,8 +2,9 @@
 
 The header selector offers English and Spanish on desktop and mobile. It changes
 navigation, page copy, service descriptions, estimate form, footer and chat UI.
-The chat language button uses the same preference. Existing conversation text and
-customer form input are preserved when switching.
+The website header is the only language selector; the chat follows that preference
+automatically. Existing conversation text and customer form input are preserved
+when switching.
 
 English is the default and the prerendered SEO language. The visitor's selection
 is saved in `localStorage` as `colores-language-v1`; the document `lang` attribute
