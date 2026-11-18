@@ -1,3 +1,4 @@
+import { translate, translateLines, useLanguage } from '../i18n'
 import { useRef } from 'react'
 import { Link } from 'react-router'
 import { motion, useInView, useMotionValue, useSpring } from 'motion/react'
@@ -57,13 +58,14 @@ Stagger.Item = function StaggerItem({ children, className = '' }) {
 
 /** Animates a heading word by word, with optional green text. */
 export function SplitTitle({ lines, className = '', as = 'h1', greenFirst = false, green }) {
+  useLanguage()
   const H = motion[as]
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-40px' })
   let i = 0
   return (
     <H ref={ref} className={className}>
-      {lines.map((line, li) => {
+      {translateLines(lines).map((line, li) => {
         const isGreen = green ? green.includes(li) : greenFirst ? li === 0 : li > 0
         const words = line.split(' ')
         return (
@@ -114,6 +116,7 @@ function Magnetic({ children, className = '' }) {
 }
 
 export function EstimateButton({ size = 'md', className = '', label = 'Get a Free Estimate' }) {
+  useLanguage()
   const s = size === 'lg' ? 'px-7 py-4 text-base' : size === 'sm' ? 'px-4 py-2.5 text-sm' : 'px-6 py-3.5 text-[15px]'
   return (
     <Magnetic>
@@ -123,7 +126,7 @@ export function EstimateButton({ size = 'md', className = '', label = 'Get a Fre
       >
         <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/50 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
         <CalendarCheck className="size-[1.1em]" />
-        <span className="relative">{label}</span>
+        <span className="relative">{translate(label)}</span>
         <ArrowRight className="size-[1.1em] transition-transform group-hover:translate-x-1" />
       </Link>
     </Magnetic>
@@ -150,9 +153,10 @@ export function WhatsAppButton({ size = 'md', dark = false, text, className = ''
 }
 
 export function Eyebrow({ children, light = false }) {
+  useLanguage()
   return (
     <div className={`mb-3 flex items-center gap-3 text-sm font-bold uppercase tracking-[0.14em] ${light ? 'text-brand-300' : 'text-ink'}`}>
-      {children}
+      {translate(children)}
       <motion.span
         className="h-[3px] w-12 origin-left rounded bg-brand-400"
         initial={{ scaleX: 0 }}

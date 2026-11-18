@@ -1,3 +1,4 @@
+import { translate, useLanguage } from '../i18n'
 import { useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { upload } from '@vercel/blob/client'
@@ -33,6 +34,7 @@ const slug = (s) => s.toLowerCase().replace(/\.\w+$/, '').replace(/[^a-z0-9]+/g,
  * are picked; `onChange` receives the list of items ({ id, preview, status, url }).
  */
 export function PhotoUpload({ items, onChange }) {
+  useLanguage()
   const inputRef = useRef(null)
   const [drag, setDrag] = useState(false)
   const latest = useRef(items)
@@ -87,8 +89,8 @@ export function PhotoUpload({ items, onChange }) {
   return (
     <div>
       <p className="mb-2 mt-6 flex items-baseline justify-between text-sm font-bold">
-        <span>Photos of the house / area to paint</span>
-        <span className="text-xs font-semibold text-ink/45">{items.length}/{MAX_PHOTOS} · optional</span>
+        <span>{translate("Photos of the house / area to paint")}</span>
+        <span className="text-xs font-semibold text-ink/45">{translate(items.length)}{translate("/")}{translate(MAX_PHOTOS)}{translate(" · optional")}</span>
       </p>
 
       {!full && (
@@ -104,11 +106,10 @@ export function PhotoUpload({ items, onChange }) {
             <ImagePlus className="size-6" />
           </span>
           <span className="font-semibold">
-            <span className="hidden sm:inline">Drag &amp; drop photos or </span><span className="text-brand-600 underline decoration-brand-300 underline-offset-4">choose photos</span>
+            <span className="hidden sm:inline">{translate("Drag & drop photos or ")}</span><span className="text-brand-600 underline decoration-brand-300 underline-offset-4">{translate("choose photos")}</span>
           </span>
           <span className="flex items-center gap-1.5 text-xs text-ink/55">
-            <Camera className="size-3.5" /> Walls, rooms, exterior, damage… they help us quote faster
-          </span>
+            <Camera className="size-3.5" />{translate(" Walls, rooms, exterior, damage… they help us quote faster")}</span>
         </button>
       )}
       <input
@@ -132,11 +133,10 @@ export function PhotoUpload({ items, onChange }) {
                 exit={{ opacity: 0, scale: 0.85 }}
                 className="relative aspect-square overflow-hidden rounded-xl bg-mist ring-1 ring-black/5"
               >
-                <img src={p.preview} alt={p.name} className="h-full w-full object-cover" />
+                <img src={p.preview} alt={translate(p.name)} className="h-full w-full object-cover" />
                 {p.status === 'uploading' && (
                   <div className="absolute inset-0 grid place-items-center bg-forest-950/45 text-xs font-bold text-white">
-                    {Math.round(p.progress)}%
-                    <span className="absolute inset-x-2 bottom-2 h-1 overflow-hidden rounded-full bg-white/30">
+                    {Math.round(p.progress)}{translate("%")}<span className="absolute inset-x-2 bottom-2 h-1 overflow-hidden rounded-full bg-white/30">
                       <span className="block h-full rounded-full bg-brand-400 transition-[width]" style={{ width: `${p.progress}%` }} />
                     </span>
                   </div>
@@ -146,13 +146,13 @@ export function PhotoUpload({ items, onChange }) {
                 )}
                 {p.status === 'error' && (
                   <div className="absolute inset-0 grid place-items-center bg-red-900/55 p-1 text-center text-[10px] font-bold leading-tight text-white">
-                    <span><CircleAlert className="mx-auto mb-0.5 size-4" />Couldn't upload</span>
+                    <span><CircleAlert className="mx-auto mb-0.5 size-4" />{translate("Couldn't upload")}</span>
                   </div>
                 )}
                 <button
                   type="button"
                   onClick={() => remove(p.id)}
-                  aria-label={`Remove ${p.name}`}
+                  aria-label={translate(`Remove ${p.name}`)}
                   className="absolute right-1.5 top-1.5 grid size-6 place-items-center rounded-full bg-white/90 text-ink shadow transition hover:bg-white"
                 >
                   <X className="size-3.5" />

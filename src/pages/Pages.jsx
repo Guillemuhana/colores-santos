@@ -1,3 +1,4 @@
+import { translate, translateLines, useLanguage } from '../i18n'
 import { useEffect, useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router'
 import { motion } from 'motion/react'
@@ -11,12 +12,13 @@ import { BUSINESS, SHOW_BEFORE_AFTER, waLink } from '../config'
 
 /* ---------------- Service detail ---------------- */
 export function ServicePage() {
+  useLanguage()
   const { slug } = useParams()
   const s = getService(slug)
   if (!s) return <Navigate to="/services" replace />
   return (
     <>
-      <PageHero crumbs={[['Home', '/'], ['Residential', '/residential'], [s.name]]} eyebrow="Residential Services · Miami, FL" title={s.title} intro={s.intro} image={s.hero} compact={['cabinet-painting-refinishing', 'stucco', 'carpentry'].includes(s.slug)} mirror={['stucco', 'pressure-washing'].includes(s.slug)} alt={`${s.name} in Miami, FL`} />
+      <PageHero crumbs={[['Home', '/'], ['Residential', '/residential'], [s.name]]} eyebrow="Residential Services · Miami, FL" title={s.title} intro={s.intro} image={s.hero} compact={['cabinet-painting-refinishing', 'stucco', 'carpentry'].includes(s.slug)} mirror={['stucco', 'pressure-washing'].includes(s.slug)} alt={translate(`${s.name} in Miami, FL`)} />
       <BenefitsStrip items={s.benefits} />
       <DetailSection name={s.name} title={s.detailTitle} text={s.detail} includes={s.includes} gallery={s.gallery} />
       <Process steps={s.process} />
@@ -28,13 +30,14 @@ export function ServicePage() {
 }
 
 function MoreServices({ current }) {
+  useLanguage()
   const list = SERVICES.filter((x) => x.slug !== current).slice(0, 3)
   return (
     <section className="bg-mist py-16">
       <div className={wrap}>
         <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
-          <h2 className="text-4xl font-bold">More <span className="text-gradient">Services</span></h2>
-          <Link to="/services" className="group inline-flex items-center gap-2 font-semibold text-brand-700">View all <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" /></Link>
+          <h2 className="text-4xl font-bold">{translate("More ")}<span className="text-gradient">{translate("Services")}</span></h2>
+          <Link to="/services" className="group inline-flex items-center gap-2 font-semibold text-brand-700">{translate("View all ")}<ArrowRight className="size-4 transition-transform group-hover:translate-x-1" /></Link>
         </div>
         <Stagger className="grid gap-5 md:grid-cols-3">
           {list.map((x) => <ServiceCard key={x.slug} s={x} i={SERVICES.indexOf(x)} />)}
@@ -46,6 +49,7 @@ function MoreServices({ current }) {
 
 /* ---------------- Residential ---------------- */
 export function Residential() {
+  useLanguage()
   const core = RESIDENTIAL_CORE.map(getService)
   const extra = SERVICES.filter((s) => !RESIDENTIAL_CORE.includes(s.slug))
   return (
@@ -59,7 +63,7 @@ export function Residential() {
       >
         <Reveal delay={0.65} className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium">
           {[[TrendingUp, 'Increase Home Value'], [ShieldCheck, 'Protect & Maintain'], [Sparkles, 'Beautiful, Long-Lasting Results']].map(([I, t]) => (
-            <span key={t} className="flex items-center gap-2"><I className="size-6 stroke-[1.6] text-brand-500" />{t}</span>
+            <span key={t} className="flex items-center gap-2"><I className="size-6 stroke-[1.6] text-brand-500" />{translate(t)}</span>
           ))}
         </Reveal>
       </PageHero>
@@ -67,8 +71,8 @@ export function Residential() {
       <section className="grain relative overflow-hidden bg-forest-900 py-16 lg:py-20">
         <div className={wrap}>
           <Bar />
-          <h2 className="text-4xl font-bold text-white sm:text-5xl">Our <span className="text-gradient">Residential Services</span></h2>
-          <Reveal><p className="mt-3 text-lg text-white/80">Complete solutions for the interior and exterior of your home.</p></Reveal>
+          <h2 className="text-4xl font-bold text-white sm:text-5xl">{translate("Our Residential Services")}</h2>
+          <Reveal><p className="mt-3 text-lg text-white/80">{translate("Complete solutions for the interior and exterior of your home.")}</p></Reveal>
           <Stagger className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {core.map((s) => <ServiceCard key={s.slug} s={s} i={SERVICES.indexOf(s)} />)}
           </Stagger>
@@ -76,8 +80,8 @@ export function Residential() {
             {extra.map((s) => (
               <Reveal key={s.slug}>
                 <Link to={`/residential/${s.slug}`} className="group flex items-center gap-4 rounded-2xl border border-white/15 bg-white/5 p-4 text-white backdrop-blur transition-colors hover:bg-white/10">
-                  <img src={s.tile} alt={`${s.name} in Miami`} loading="lazy" className="size-16 rounded-xl object-cover" />
-                  <div className="flex-1"><h3 className="font-bold">{s.name}</h3><p className="text-sm text-white/65">{s.short}</p></div>
+                  <img src={s.tile} alt={translate(`${s.name} in Miami`)} loading="lazy" className="size-16 rounded-xl object-cover" />
+                  <div className="flex-1"><h3 className="font-bold">{translate(s.name)}</h3><p className="text-sm text-white/65">{translate(s.short)}</p></div>
                   <ArrowRight className="size-5 text-brand-400 transition-transform group-hover:translate-x-1" />
                 </Link>
               </Reveal>
@@ -97,15 +101,15 @@ export function Residential() {
       <section className="bg-mist py-16">
         <div className={`${wrap} grid gap-8 lg:grid-cols-[0.7fr_2fr] lg:items-center`}>
           <div>
-            <h2 className="text-4xl font-bold leading-tight">Residential <span className="block text-gradient">Project Highlights</span></h2>
-            <Reveal><p className="mt-3 text-lg text-ink/70">Real examples of home transformations.</p></Reveal>
+            <h2 className="text-4xl font-bold leading-tight">{translate("Residential ")}<span className="block text-gradient">{translate("Project Highlights")}</span></h2>
+            <Reveal><p className="mt-3 text-lg text-ink/70">{translate("Real examples of home transformations.")}</p></Reveal>
           </div>
           <Stagger className="grid gap-5 sm:grid-cols-3">
             {[['residential-h1', 'Exterior Painting', 'exterior-painting'], ['residential-h2', 'Cabinet Refinishing', 'cabinet-painting-refinishing'], ['residential-h3', 'Interior Painting', 'interior-painting']].map(([im, t, slug]) => (
               <Stagger.Item key={im}>
                 <Link to={`/residential/${slug}`} className="group relative block aspect-[4/3] overflow-hidden rounded-2xl shadow-lg">
-                  <img src={getService(slug).hero} alt={t} className="h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-110" />
-                  <span className="absolute bottom-3 left-3 rounded-full bg-white/95 px-3.5 py-1.5 text-sm font-bold shadow">{t}</span>
+                  <img src={getService(slug).hero} alt={translate(t)} className="h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-110" />
+                  <span className="absolute bottom-3 left-3 rounded-full bg-white/95 px-3.5 py-1.5 text-sm font-bold shadow">{translate(t)}</span>
                 </Link>
               </Stagger.Item>
             ))}
@@ -126,12 +130,13 @@ export function Residential() {
 
 /* ---------------- All services ---------------- */
 export function Services() {
+  useLanguage()
   return (
     <>
       <section className="bg-gradient-to-b from-mist to-white pb-10 pt-36">
         <div className={wrap}>
           <SplitTitle lines={['Painting Services', 'in Miami, FL']} className="text-[clamp(2.6rem,6vw,4.6rem)] font-extrabold leading-none" />
-          <Reveal delay={0.2}><p className="mt-4 max-w-xl text-lg text-ink/70">Comprehensive painting and finish solutions to enhance, protect and add value to your property.</p></Reveal>
+          <Reveal delay={0.2}><p className="mt-4 max-w-xl text-lg text-ink/70">{translate("Comprehensive painting and finish solutions to enhance, protect and add value to your property.")}</p></Reveal>
         </div>
       </section>
       <section className="bg-white pb-20">
@@ -146,6 +151,7 @@ export function Services() {
 
 /* ---------------- Commercial ---------------- */
 export function Commercial() {
+  useLanguage()
   return (
     <>
       <PageHero crumbs={[['Home', '/'], ['Commercial']]} eyebrow="Commercial Services · Miami, FL" title={['Commercial', 'Painting & Finishes']}
@@ -155,7 +161,7 @@ export function Commercial() {
         <div className={wrap}>
           <div className="mb-10 grid gap-4 lg:grid-cols-[1.4fr_1fr] lg:items-center">
             <SplitTitle as="h2" lines={['Our Commercial', 'Services']} className="text-4xl font-bold text-white sm:text-5xl" />
-            <Reveal><p className="text-lg text-white/80 lg:border-l lg:border-white/20 lg:pl-8">Complete painting and finishing solutions for commercial spaces, tailored to your business needs.</p></Reveal>
+            <Reveal><p className="text-lg text-white/80 lg:border-l lg:border-white/20 lg:pl-8">{translate("Complete painting and finishing solutions for commercial spaces, tailored to your business needs.")}</p></Reveal>
           </div>
           <Stagger className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4" gap={0.06}>
             {SERVICES.map((s, i) => <ServiceCard key={s.slug} s={s} i={i} />)}
@@ -165,12 +171,12 @@ export function Commercial() {
 
       <section className="bg-white pb-14 pt-28">
         <div className={`${wrap} grid gap-8 lg:grid-cols-[0.5fr_2fr] lg:items-center`}>
-          <h2 className="text-4xl font-bold leading-tight">Industries <span className="text-gradient">We Serve</span></h2>
+          <h2 className="text-4xl font-bold leading-tight">{translate("Industries ")}<span className="text-gradient">{translate("We Serve")}</span></h2>
           <Stagger className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
             {INDUSTRIES.map(([I, t]) => (
               <Stagger.Item key={t} className="group rounded-2xl border border-black/5 p-4 text-center transition-all hover:-translate-y-1 hover:border-brand-300 hover:shadow-lg">
                 <I className="mx-auto size-10 stroke-[1.5] text-brand-500 transition-transform group-hover:scale-110" />
-                <p className="mt-2 text-sm font-semibold leading-tight">{t}</p>
+                <p className="mt-2 text-sm font-semibold leading-tight">{translate(t)}</p>
               </Stagger.Item>
             ))}
           </Stagger>
@@ -189,14 +195,16 @@ export function Commercial() {
 }
 
 function Gallery({ title, images }) {
+  useLanguage()
+  const heading = translateLines(title)
   return (
     <section className="bg-white py-16">
       <div className={`${wrap} grid gap-8 lg:grid-cols-[0.6fr_2fr] lg:items-center`}>
-        <h2 className="text-4xl font-bold leading-tight">{title[0]} <span className="block text-gradient">{title[1]}</span></h2>
+        <h2 className="text-4xl font-bold leading-tight">{heading[0]} <span className="block text-gradient">{heading[1]}</span></h2>
         <Stagger className="grid gap-5 sm:grid-cols-3">
           {images.map((im) => (
             <Stagger.Item key={im} className="group aspect-[4/3] overflow-hidden rounded-2xl shadow-lg">
-              <img src={im} alt={`${title.join(' ')} – Miami, FL`} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-110" />
+              <img src={im} alt={translate(`${title.join(' ')} – Miami, FL`)} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-110" />
             </Stagger.Item>
           ))}
         </Stagger>
@@ -207,6 +215,7 @@ function Gallery({ title, images }) {
 
 /* ---------------- HOA / Property management ---------------- */
 export function SegmentPage({ id }) {
+  useLanguage()
   const p = SEGMENT_PAGES[id]
   return (
     <>
@@ -216,13 +225,13 @@ export function SegmentPage({ id }) {
         <div className={wrap}>
           <Bar />
           <SplitTitle as="h2" lines={p.servicesTitle} className="text-4xl font-bold text-white sm:text-5xl" />
-          <Reveal><p className="mt-3 max-w-xl text-lg text-white/80">{p.servicesText}</p></Reveal>
+          <Reveal><p className="mt-3 max-w-xl text-lg text-white/80">{translate(p.servicesText)}</p></Reveal>
           <Stagger className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {p.services.map(([I, t, d]) => (
               <Stagger.Item key={t} className="group h-full rounded-2xl border border-white/10 bg-white/5 p-6 text-white backdrop-blur transition-all duration-500 hover:-translate-y-1 hover:border-brand-400/60 hover:bg-white/10">
                 <span className="grid size-12 place-items-center rounded-xl bg-brand-400 text-forest-950 transition-transform duration-500 group-hover:rotate-6"><I className="size-6" /></span>
-                <h3 className="mt-4 text-xl font-bold">{t}</h3>
-                <p className="mt-1.5 text-white/70">{d}</p>
+                <h3 className="mt-4 text-xl font-bold">{translate(t)}</h3>
+                <p className="mt-1.5 text-white/70">{translate(d)}</p>
               </Stagger.Item>
             ))}
           </Stagger>
@@ -238,6 +247,7 @@ export function SegmentPage({ id }) {
 
 /* ---------------- About ---------------- */
 export function About() {
+  useLanguage()
   return (
     <>
       <PageHero crumbs={[['Home', '/'], ['About']]} eyebrow="About Us" title={['Craftsmanship', 'You Can See']}
@@ -246,21 +256,16 @@ export function About() {
       <section className="bg-white py-16 lg:py-24">
         <div className={`${wrap} grid gap-12 lg:grid-cols-2 lg:items-center`}>
           <Reveal className="grid grid-cols-2 gap-4">
-            <img src="/img/carpentry-g1.jpg" alt="Custom carpentry by Colores Santos in Miami" loading="lazy" className="aspect-[3/4] w-full rounded-3xl object-cover shadow-xl" />
-            <img src="/img/cabinet-g1.jpg" alt="Cabinet refinishing in a Miami kitchen" loading="lazy" className="mt-12 aspect-[3/4] w-full rounded-3xl object-cover shadow-xl" />
+            <img src="/img/carpentry-g1.jpg" alt={translate("Custom carpentry by Colores Santos in Miami")} loading="lazy" className="aspect-[3/4] w-full rounded-3xl object-cover shadow-xl" />
+            <img src="/img/cabinet-g1.jpg" alt={translate("Cabinet refinishing in a Miami kitchen")} loading="lazy" className="mt-12 aspect-[3/4] w-full rounded-3xl object-cover shadow-xl" />
           </Reveal>
           <div>
             <Bar />
             <SplitTitle as="h2" lines={['Our', 'Story']} className="text-4xl font-bold sm:text-5xl" />
             <Reveal delay={0.15}>
               <p className="mt-5 text-lg leading-relaxed text-ink/75">
-                {/* TODO: reemplazar con la historia real del cliente */}
-                We started with a simple idea: treat every property as if it were our own. Today our team delivers complete interior and exterior solutions —
-                painting, stucco, drywall, carpentry and custom finishes — for homeowners, businesses, HOAs and property managers.
-              </p>
-              <p className="mt-4 text-lg leading-relaxed text-ink/75">
-                Every project follows the same clear process: an honest estimate, careful preparation, quality materials and a final walkthrough with you.
-              </p>
+                {/* TODO: reemplazar con la historia real del cliente */}{translate("We started with a simple idea: treat every property as if it were our own. Today our team delivers complete interior and exterior solutions — painting, stucco, drywall, carpentry and custom finishes — for homeowners, businesses, HOAs and property managers.")}</p>
+              <p className="mt-4 text-lg leading-relaxed text-ink/75">{translate("Every project follows the same clear process: an honest estimate, careful preparation, quality materials and a final walkthrough with you.")}</p>
             </Reveal>
           </div>
         </div>
@@ -281,6 +286,7 @@ export function About() {
 const TYPES = ['Residential', 'Commercial', 'HOA / Condominium', 'Property Management']
 
 export function Contact() {
+  useLanguage()
   const [f, setF] = useState({ name: '', phone: '', email: '', city: '', type: 'Residential', services: [], message: '' })
   useEffect(() => {
     const readProject = () => {
@@ -340,12 +346,12 @@ export function Contact() {
       <div className={`${wrap} relative grid gap-12 lg:grid-cols-[1fr_1.3fr]`}>
         <div>
           <SplitTitle lines={['Get a Free', 'Painting Estimate']} className="text-[clamp(2.6rem,5.5vw,4.4rem)] font-extrabold leading-none" />
-          <Reveal delay={0.2}><p className="mt-5 max-w-md text-lg text-ink/70">Tell us about your project anywhere in Miami-Dade. Add photos of the house or area to paint and we'll email you a personalized, no-obligation estimate with before &amp; after images.</p></Reveal>
+          <Reveal delay={0.2}><p className="mt-5 max-w-md text-lg text-ink/70">{translate("Tell us about your project anywhere in Miami-Dade. Add photos of the house or area to paint and we'll email you a personalized, no-obligation estimate with before & after images.")}</p></Reveal>
           <Stagger className="mt-10 space-y-4">
             {[[Phone, 'Call us', BUSINESS.phone, `tel:${BUSINESS.phone.replace(/[^\d+]/g, '')}`], [Mail, 'Email', BUSINESS.email, `mailto:${BUSINESS.email}`], [MapPin, 'Service area', BUSINESS.area], [Clock, 'Hours', BUSINESS.hours]].map(([I, l, v, href]) => (
               <Stagger.Item key={l} className="flex items-center gap-4">
                 <span className="grid size-12 place-items-center rounded-2xl bg-forest-900 text-brand-400"><I className="size-5" /></span>
-                <div><p className="text-sm text-ink/55">{l}</p>{href ? <a href={href} className="font-semibold hover:text-brand-600">{v}</a> : <p className="font-semibold">{v}</p>}</div>
+                <div><p className="text-sm text-ink/55">{translate(l)}</p>{href ? <a href={href} className="font-semibold hover:text-brand-600">{translate(v)}</a> : <p className="font-semibold">{translate(v)}</p>}</div>
               </Stagger.Item>
             ))}
           </Stagger>
@@ -362,50 +368,47 @@ export function Contact() {
           className="rounded-3xl bg-white p-6 shadow-2xl shadow-forest-900/15 ring-1 ring-black/5 sm:p-9"
         >
           <div className="grid gap-4 sm:grid-cols-2">
-            <input required placeholder="Full name *" className={input} value={f.name} onChange={set('name')} />
-            <input required type="tel" placeholder="Phone *" className={input} value={f.phone} onChange={set('phone')} />
-            <input required type="email" placeholder="Email * (we send your estimate here)" className={input} value={f.email} onChange={set('email')} />
-            <input placeholder="City / Area" className={input} value={f.city} onChange={set('city')} />
+            <input required placeholder={translate("Full name *")} className={input} value={f.name} onChange={set('name')} />
+            <input required type="tel" placeholder={translate("Phone *")} className={input} value={f.phone} onChange={set('phone')} />
+            <input required type="email" placeholder={translate("Email * (we send your estimate here)")} className={input} value={f.email} onChange={set('email')} />
+            <input placeholder={translate("City / Area")} className={input} value={f.city} onChange={set('city')} />
           </div>
-          <p className="mb-2 mt-6 text-sm font-bold">Property type</p>
+          <p className="mb-2 mt-6 text-sm font-bold">{translate("Property type")}</p>
           <div className="flex flex-wrap gap-2">
             {TYPES.map((t) => (
               <button type="button" key={t} onClick={() => setF({ ...f, type: t })}
                 className={`relative rounded-full px-4 py-2 text-sm font-semibold transition-colors ${f.type === t ? 'text-forest-950' : 'bg-mist text-ink/70 hover:bg-brand-50'}`}>
                 {f.type === t && <motion.span layoutId="type-pill" className="absolute inset-0 rounded-full bg-brand-400" transition={{ type: 'spring', stiffness: 400, damping: 30 }} />}
-                <span className="relative">{t}</span>
+                <span className="relative">{translate(t)}</span>
               </button>
             ))}
           </div>
-          <p className="mb-2 mt-6 text-sm font-bold">Services needed</p>
+          <p className="mb-2 mt-6 text-sm font-bold">{translate("Services needed")}</p>
           <div className="grid gap-2 sm:grid-cols-2">
             {SERVICES.map((s) => {
               const on = f.services.includes(s.name)
               return (
                 <button type="button" key={s.slug} onClick={() => toggle(s.name)}
                   className={`flex items-center gap-3 rounded-xl border px-3.5 py-3 text-left text-sm font-semibold transition-all ${on ? 'border-brand-400 bg-brand-50' : 'border-black/10 hover:border-brand-300'}`}>
-                  <s.icon className={`size-5 shrink-0 ${on ? 'text-brand-600' : 'text-ink/40'}`} />{s.name}
+                  <s.icon className={`size-5 shrink-0 ${on ? 'text-brand-600' : 'text-ink/40'}`} />{translate(s.name)}
                 </button>
               )
             })}
           </div>
-          <textarea rows={4} placeholder="Tell us about your project (size, timeline, details)…" className={`${input} mt-6 resize-none`} value={f.message} onChange={set('message')} />
+          <textarea rows={4} placeholder={translate("Tell us about your project (size, timeline, details)…")} className={`${input} mt-6 resize-none`} value={f.message} onChange={set('message')} />
           <PhotoUpload items={photos} onChange={setPhotos} />
 
           {/* what the customer gets */}
           <div className="mt-6 overflow-hidden rounded-2xl bg-gradient-to-br from-forest-900 to-forest-950 p-5 text-white sm:p-6">
             <p className="flex items-center gap-2 font-display text-lg font-bold">
-              <Mail className="size-5 text-brand-400" /> Your personalized estimate, by email
-            </p>
-            <p className="mt-1.5 text-sm leading-relaxed text-white/70">
-              We review your photos and details and email you a custom quote{f.email ? <> to <span className="font-semibold text-brand-300">{f.email}</span></> : null}, based exactly on what you asked us to price.
-            </p>
+              <Mail className="size-5 text-brand-400" />{translate(" Your personalized estimate, by email")}</p>
+            <p className="mt-1.5 text-sm leading-relaxed text-white/70">{translate("We review your photos and details and email you a custom quote")}{f.email ? <>{translate(" to ")}<span className="font-semibold text-brand-300">{f.email}</span></> : null}{translate(", based exactly on what you asked us to price.")}</p>
             <ul className="mt-4 grid gap-2.5 text-sm sm:grid-cols-3">
               {[[FileText, 'Itemized quote', 'Clear scope, materials & price'], [Images, 'Before & after', 'Images of how your space will look'], [Palette, 'Color advice', 'Finish & color recommendations']].map(([I, t, d]) => (
                 <li key={t} className="rounded-xl bg-white/[0.06] p-3 ring-1 ring-white/10">
                   <I className="size-5 text-brand-400" />
-                  <p className="mt-1.5 font-semibold">{t}</p>
-                  <p className="text-xs text-white/60">{d}</p>
+                  <p className="mt-1.5 font-semibold">{translate(t)}</p>
+                  <p className="text-xs text-white/60">{translate(d)}</p>
                 </li>
               ))}
             </ul>
@@ -413,20 +416,18 @@ export function Contact() {
 
           <button type="submit" disabled={uploading || status === 'sending'} className="group mt-6 flex w-full items-center justify-center gap-3 rounded-xl bg-brand-400 px-6 py-4 text-lg font-bold text-forest-950 shadow-lg shadow-brand-400/30 transition-transform enabled:hover:-translate-y-0.5 disabled:cursor-wait disabled:opacity-70">
             {uploading
-              ? <><LoaderCircle className="size-6 animate-spin" /> Uploading photos…</>
+              ? <><LoaderCircle className="size-6 animate-spin" />{translate(" Uploading photos…")}</>
               : status === 'sending'
-                ? <><LoaderCircle className="size-6 animate-spin" /> Sending your request…</>
-                : <><Send className="size-5" /> Request my estimate <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" /></>}
+                ? <><LoaderCircle className="size-6 animate-spin" />{translate(" Sending your request…")}</>
+                : <><Send className="size-5" />{translate(" Request my estimate ")}<ArrowRight className="size-5 transition-transform group-hover:translate-x-1" /></>}
           </button>
           {/* honeypot for bots */}
           <input type="text" name="company" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
           {status === 'error' && (
-            <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-800">
-              We couldn't send your request right now. Please try again, or send it to us on WhatsApp:
-              <a href={waLink(waMessage())} target="_blank" rel="noopener noreferrer" className="mt-3 flex items-center justify-center gap-2 rounded-lg bg-[#25D366] px-4 py-2.5 font-bold text-white"><WhatsAppIcon className="size-5" /> Send via WhatsApp</a>
+            <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-800">{translate("We couldn't send your request right now. Please try again, or send it to us on WhatsApp:")}<a href={waLink(waMessage())} target="_blank" rel="noopener noreferrer" className="mt-3 flex items-center justify-center gap-2 rounded-lg bg-[#25D366] px-4 py-2.5 font-bold text-white"><WhatsAppIcon className="size-5" />{translate(" Send via WhatsApp")}</a>
             </div>
           )}
-          <p className="mt-3 text-center text-xs text-ink/50">Free, no-obligation estimate · Your personalized quote arrives by email</p>
+          <p className="mt-3 text-center text-xs text-ink/50">{translate("Free, no-obligation estimate · Your personalized quote arrives by email")}</p>
         </motion.form>
         )}
       </div>
@@ -435,6 +436,7 @@ export function Contact() {
 }
 
 function EstimateSent({ email, name, photos, wa }) {
+  const language = useLanguage()
   return (
     <motion.div
       initial={{ opacity: 0, y: 30, scale: 0.97 }}
@@ -451,34 +453,32 @@ function EstimateSent({ email, name, photos, wa }) {
       >
         <CircleCheck className="size-10" />
       </motion.span>
-      <h2 className="mt-6 text-3xl font-extrabold sm:text-4xl">Request received{name ? `, ${name.split(' ')[0]}` : ''}!</h2>
-      <p className="mx-auto mt-3 max-w-md text-lg text-ink/70">
-        We're reviewing your details{photos ? ` and ${photos} photo${photos > 1 ? 's' : ''}` : ''}. Your personalized estimate will arrive at
-      </p>
+      <h2 className="mt-6 text-3xl font-extrabold sm:text-4xl">{translate("Request received")}{name ? `, ${name.split(' ')[0]}` : ''}{translate("!")}</h2>
+      <p className="mx-auto mt-3 max-w-md text-lg text-ink/70">{translate("We're reviewing your details")}{photos ? language === 'es' ? ` y ${photos} foto${photos > 1 ? 's' : ''}` : ` and ${photos} photo${photos > 1 ? 's' : ''}` : ''}{translate(". Your personalized estimate will arrive at")}</p>
       <p className="mt-2 inline-flex items-center gap-2 rounded-full bg-brand-50 px-4 py-2 font-bold text-brand-700"><Mail className="size-4" /> {email}</p>
       <ul className="mx-auto mt-8 grid max-w-lg gap-3 text-left text-sm sm:grid-cols-3">
         {[[FileText, 'Itemized quote'], [Images, 'Before & after images'], [Palette, 'Color advice']].map(([I, t]) => (
-          <li key={t} className="flex items-center gap-2 rounded-xl bg-mist px-3 py-3 font-semibold"><I className="size-5 shrink-0 text-brand-600" />{t}</li>
+          <li key={t} className="flex items-center gap-2 rounded-xl bg-mist px-3 py-3 font-semibold"><I className="size-5 shrink-0 text-brand-600" />{translate(t)}</li>
         ))}
       </ul>
       <div className="mt-8 flex flex-wrap justify-center gap-3">
         <a href={wa} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-xl bg-[#25D366] px-5 py-3 font-bold text-white shadow-lg shadow-[#25D366]/30 transition-transform hover:-translate-y-0.5">
-          <WhatsAppIcon className="size-5" /> Also message us on WhatsApp
-        </a>
-        <Link to="/" className="inline-flex items-center gap-2 rounded-xl border border-black/10 px-5 py-3 font-bold transition-colors hover:border-brand-400">Back to home</Link>
+          <WhatsAppIcon className="size-5" />{translate(" Also message us on WhatsApp")}</a>
+        <Link to="/" className="inline-flex items-center gap-2 rounded-xl border border-black/10 px-5 py-3 font-bold transition-colors hover:border-brand-400">{translate("Back to home")}</Link>
       </div>
-      <p className="mt-6 text-xs text-ink/50">Need it sooner? Call us at <a href={`tel:${BUSINESS.phone.replace(/[^\d+]/g, '')}`} className="font-semibold text-ink/70">{BUSINESS.phone}</a></p>
+      <p className="mt-6 text-xs text-ink/50">{translate("Need it sooner? Call us at ")}<a href={`tel:${BUSINESS.phone.replace(/[^\d+]/g, '')}`} className="font-semibold text-ink/70">{translate(BUSINESS.phone)}</a></p>
     </motion.div>
   )
 }
 
 export function NotFound() {
+  useLanguage()
   return (
     <section className="grid min-h-[70vh] place-items-center px-5 pt-24 text-center">
       <div>
-        <p className="font-display text-8xl font-black text-gradient">404</p>
-        <h1 className="mt-2 text-3xl font-bold">This wall is still unpainted</h1>
-        <Link to="/" className="mt-6 inline-flex items-center gap-2 rounded-xl bg-brand-400 px-6 py-3 font-semibold text-forest-950">Back home <ArrowRight className="size-4" /></Link>
+        <p className="font-display text-8xl font-black text-gradient">{translate("404")}</p>
+        <h1 className="mt-2 text-3xl font-bold">{translate("This wall is still unpainted")}</h1>
+        <Link to="/" className="mt-6 inline-flex items-center gap-2 rounded-xl bg-brand-400 px-6 py-3 font-semibold text-forest-950">{translate("Back home ")}<ArrowRight className="size-4" /></Link>
       </div>
     </section>
   )

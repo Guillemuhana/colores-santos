@@ -4,6 +4,7 @@ import { ArrowRight, Send, X, RotateCcw, LoaderCircle } from 'lucide-react'
 import { CHAT_SERVICES } from '../data/assistant'
 import { waLink } from '../config'
 import { Logo } from './Logo'
+import { useLanguage, setLanguage as setLang, translate } from '../i18n'
 
 const STORAGE = 'colores-chat-v1'
 export const HANDOFF = 'colores-chat-project'
@@ -14,7 +15,7 @@ const copy = {
 
 export default function CompanyChat() {
   const [open, setOpen] = useState(false)
-  const [lang, setLang] = useState('en')
+  const lang = useLanguage()
   const [messages, setMessages] = useState([])
   const [input, setInput] = useState('')
   const [pending, setPending] = useState(false)
@@ -32,7 +33,6 @@ export default function CompanyChat() {
   useEffect(() => {
     try {
       const saved = JSON.parse(sessionStorage.getItem(STORAGE))
-      if (saved && ['en', 'es'].includes(saved.lang)) setLang(saved.lang)
       if (Array.isArray(saved?.messages)) setMessages(saved.messages.filter(m => ['user', 'assistant'].includes(m.role) && typeof m.content === 'string').slice(-30))
     } catch { /* Storage may be disabled. */ }
     ready.current = true
@@ -90,7 +90,7 @@ export default function CompanyChat() {
         {messages.map((message, index) => <div key={index} className={`mt-4 ${message.role === 'user' ? 'ml-8' : 'mr-3'}`}>
           <p className={`whitespace-pre-wrap rounded-2xl p-3.5 text-sm leading-relaxed ${message.role === 'user' ? 'rounded-tr-sm bg-brand-200' : 'rounded-tl-sm border border-black/5 bg-white shadow-sm'}`}>{message.content}</p>
           {message.role === 'assistant' && message.ai === false && <p className="mt-1 px-1 text-[10px] text-ink/55">{t.guide}</p>}
-          {message.role === 'assistant' && (message.serviceSlugs || []).map(slug => CHAT_SERVICES.find(s => s.slug === slug)).filter(Boolean).slice(0, 2).map(s => <Link key={s.slug} to={s.href} onClick={close} className="mt-2 block overflow-hidden rounded-2xl border border-brand-200 bg-white"><img src={s.image} alt={`${s.name} project by Colores Santos`} className="aspect-video w-full object-cover" loading="lazy" /><span className="flex items-center justify-between gap-2 p-3 text-xs font-semibold">{s.name}<ArrowRight className="size-4 shrink-0" /></span></Link>)}
+          {message.role === 'assistant' && (message.serviceSlugs || []).map(slug => CHAT_SERVICES.find(s => s.slug === slug)).filter(Boolean).slice(0, 2).map(s => <Link key={s.slug} to={s.href} onClick={close} className="mt-2 block overflow-hidden rounded-2xl border border-brand-200 bg-white"><img src={s.image} alt={`${translate(s.name)} — Colores Santos`} className="aspect-video w-full object-cover" loading="lazy" /><span className="flex items-center justify-between gap-2 p-3 text-xs font-semibold">{translate(s.name)}<ArrowRight className="size-4 shrink-0" /></span></Link>)}
           {message.showContact && <Link to="/contact" onClick={handoff} className="mt-2 flex items-center justify-between rounded-xl bg-brand-300 p-3 text-sm font-bold">{t.contact}<ArrowRight className="size-4" /></Link>}
         </div>)}
         {pending && <p className="mt-4 flex items-center gap-2 text-xs text-ink/60"><LoaderCircle className="size-4 animate-spin" />{lang === 'es' ? 'Preparando una respuesta…' : 'Preparing a reply…'}</p>}
