@@ -8,11 +8,11 @@ The website assistant replaces the floating WhatsApp shortcut. Existing WhatsApp
 
 ## AI activation
 
-`api/chat.js` uses AI SDK 7 and Vercel AI Gateway. Authentication uses the deployment's Vercel OIDC token; no provider key is shipped to the browser. The team must enable Gateway billing/card verification in the Vercel dashboard before generation can work. The staged live test on November 17, 2026 returned: “AI Gateway requires a valid credit card on file to service requests.”
+`api/chat.js` uses AI SDK 7 and the direct Groq provider, as requested by the owner. Set `GROQ_API_KEY` as a Secret in the project's Vercel Environment Variables for Production (and Preview for staged tests). Never use a `VITE_` prefix, commit a credential, or send it through chat. No Vercel AI Gateway card is needed for this direct connection.
 
-Default model: `openai/gpt-4.1-mini`, verified in the live Gateway catalog during implementation. Set `AI_GATEWAY_MODEL` to another supported text/structured-output model if needed. Non-Vercel development can use `AI_GATEWAY_API_KEY` configured securely in the environment; never commit credentials. `vercel dev` supports local Vercel Function development; Vite alone does not serve `/api/chat`.
+Default model: `openai/gpt-oss-20b`, verified against Groq's structured-output documentation during implementation. Set `GROQ_MODEL` to another supported text/strict-structured-output model if needed. Groq's free tier has request and token limits; confirm the account's current quotas in Groq Console. `vercel dev` supports local Vercel Function development; Vite alone does not serve `/api/chat`.
 
-When Gateway is unavailable, the API returns an explicitly labelled service guide with approved photos, contact links and useful factual responses. This guide is not a substitute for the full AI conversation. It does not store or submit a lead.
+When Groq is unavailable, not configured, or rate limited, the API returns an explicitly labelled service guide with approved photos, contact links and useful factual responses. This guide is not a substitute for the full AI conversation. It does not store or submit a lead.
 
 ## Conversation and handoff
 
@@ -20,7 +20,7 @@ Conversation continuity uses browser session storage (up to 30 messages), with a
 
 The customer can choose “Get my free estimate” to transfer their own project messages to the contact form. The form remains editable and the customer must submit it. WhatsApp handoff likewise opens a draft message for the customer to send.
 
-The API rejects cross-origin requests, invalid roles and oversized input; generation has a 20-second deadline and 600-output-token cap. There is a best-effort per-instance rate limit. For higher public traffic, configure persistent/platform rate limiting and Gateway spend limits in Vercel. No automatic top-up or budget change is configured by this feature.
+The API rejects cross-origin requests, invalid roles and oversized input; generation has a 20-second deadline and 1,200-output-token cap (including model reasoning). There is a best-effort per-instance rate limit. For higher public traffic, configure persistent/platform rate limiting and review Groq account quotas. No paid plan, automatic top-up or budget change is configured by this feature.
 
 ## Checks
 
