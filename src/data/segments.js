@@ -4,7 +4,7 @@ import {
 } from 'lucide-react'
 
 export const SEGMENTS = [
-  { to: '/residential', name: 'Residential', icon: House, card: '/img/card-residential.jpg', short: 'Painting, finishes and property upgrades for your home.' },
+  { to: '/residential', name: 'Residential', icon: House, card: '/img/home-hero.jpg', short: 'Painting, finishes and property upgrades for your home.' },
   { to: '/commercial', name: 'Commercial', icon: Building2, card: '/img/card-commercial.jpg', short: 'Professional painting and finish solutions for offices, retail and commercial spaces.' },
   { to: '/hoa-condominiums', name: 'HOA & Condominiums', icon: Users, card: '/img/card-hoa.jpg', short: 'Reliable painting, stucco and maintenance solutions for HOAs and condominium communities.' },
   { to: '/property-management', name: 'Property Management', icon: Building, card: '/img/card-pm.jpg', short: 'Efficient, high-quality painting and maintenance for multi-unit and rental properties.' },
