@@ -32,6 +32,30 @@ const PAGES = {
     image: '/img/commercial-hero.jpg',
     crumbs: [['Commercial', '/commercial']],
   },
+  '/commercial/interior-painting': {
+    title: `Commercial Interior Painting in Miami, FL | ${BUSINESS.name}`,
+    description: 'Professional interior painting for commercial spaces in Miami. Request a free estimate.',
+    image: '/img/drive-int-entrance.webp',
+    crumbs: [['Commercial', '/commercial'], ['Interior Painting', '/commercial/interior-painting']],
+  },
+  '/commercial/exterior-painting': {
+    title: `Commercial Exterior Painting in Miami, FL | ${BUSINESS.name}`,
+    description: 'Professional exterior painting for commercial properties in Miami. Request a free estimate.',
+    image: '/img/drive-ext-facade.webp',
+    crumbs: [['Commercial', '/commercial'], ['Exterior Painting', '/commercial/exterior-painting']],
+  },
+  '/commercial/stucco': {
+    title: `Commercial Stucco in Miami, FL | ${BUSINESS.name}`,
+    description: 'Stucco finishes and repairs for commercial properties in Miami.',
+    image: '/img/drive-stucco-facade.webp',
+    crumbs: [['Commercial', '/commercial'], ['Stucco', '/commercial/stucco']],
+  },
+  '/commercial/pressure-washing': {
+    title: `Commercial Pressure Washing in Miami, FL | ${BUSINESS.name}`,
+    description: 'Professional exterior cleaning for commercial properties in Miami.',
+    image: '/img/drive-commercial-pressure.webp',
+    crumbs: [['Commercial', '/commercial'], ['Pressure Washing', '/commercial/pressure-washing']],
+  },
   '/hoa-condominiums': {
     title: `HOA & Condo Painting in Miami, FL | ${BUSINESS.name}`,
     description: `Exterior repaints, stucco restoration and maintenance programs for HOAs and condominiums in Miami-Dade. Board-ready proposals and phased scheduling.`,

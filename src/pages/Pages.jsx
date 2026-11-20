@@ -150,6 +150,13 @@ export function Services() {
 }
 
 /* ---------------- Commercial ---------------- */
+const COMMERCIAL_PAINTING = [
+  { slug: 'interior-painting', name: 'Interior Painting', title: ['Commercial Interior', 'Painting'], icon: Palette, tile: '/img/drive-int-entrance.webp', hero: '/img/drive-int-entrance.webp', short: 'Professional painting for commercial interiors.', gallery: ['/img/drive-int-walls.webp', '/img/drive-int-stairs.webp', '/img/drive-int-ceiling.webp', '/img/drive-int-restaurant.webp', '/img/drive-int-loading.webp'] },
+  { slug: 'exterior-painting', name: 'Exterior Painting', title: ['Commercial Exterior', 'Painting'], icon: House, tile: '/img/drive-ext-facade.webp', hero: '/img/drive-ext-facade.webp', short: 'Durable painting for commercial exteriors.', gallery: ['/img/drive-ext-detail.webp', '/img/drive-ext-walls.webp'] },
+  { ...getService('stucco'), title: ['Commercial', 'Stucco'], short: 'Stucco finishes and repairs for commercial properties.', gallery: ['/img/drive-stucco-wall.webp', '/img/drive-stucco-corner.webp', '/img/drive-stucco-facade.webp', '/img/drive-stucco-detail.webp', '/img/drive-stucco-process.webp'], tile: '/img/drive-stucco-facade.webp', hero: '/img/drive-stucco-facade.webp' },
+  { ...getService('pressure-washing'), title: ['Commercial', 'Pressure Washing'], short: 'Professional exterior cleaning for commercial properties.', hero: '/img/drive-commercial-pressure.webp', tile: '/img/drive-commercial-pressure.webp', gallery: [] },
+]
+
 export function Commercial() {
   useLanguage()
   return (
@@ -164,7 +171,7 @@ export function Commercial() {
             <Reveal><p className="text-lg text-white/80 lg:border-l lg:border-white/20 lg:pl-8">{translate("Complete painting and finishing solutions for commercial spaces, tailored to your business needs.")}</p></Reveal>
           </div>
           <Stagger className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4" gap={0.06}>
-            {SERVICES.map((s, i) => <ServiceCard key={s.slug} s={s} i={i} />)}
+            {SERVICES.map((s, i) => { const commercial = COMMERCIAL_PAINTING.find((item) => item.slug === s.slug); return <ServiceCard key={s.slug} s={commercial || s} i={i} base={commercial ? '/commercial' : '/residential'} /> })}
           </Stagger>
         </div>
       </section>
@@ -188,7 +195,24 @@ export function Commercial() {
         ['Execute', 'Our skilled team completes the work with precision and care.'],
         ['Final Walkthrough', 'We review the results with you to ensure complete satisfaction.'],
       ]} text="A clear, efficient and professional process to deliver high-quality results for your business." />
-      <Gallery title={['Recent Commercial', 'Projects']} images={['/img/drive-int-walls.webp', '/img/drive-int-stairs.webp', '/img/drive-int-ceiling.webp', '/img/drive-int-restaurant.webp', '/img/drive-int-entrance.webp', '/img/drive-int-loading.webp', '/img/drive-ext-detail.webp', '/img/drive-ext-facade.webp', '/img/drive-ext-walls.webp', '/img/drive-stucco-wall.webp', '/img/drive-stucco-corner.webp', '/img/drive-stucco-facade.webp', '/img/drive-stucco-detail.webp', '/img/drive-stucco-process.webp']} />
+      <Gallery title={['Commercial Interior', 'Painting']} images={['/img/drive-int-walls.webp', '/img/drive-int-stairs.webp', '/img/drive-int-ceiling.webp', '/img/drive-int-restaurant.webp', '/img/drive-int-entrance.webp', '/img/drive-int-loading.webp']} />
+      <Gallery title={['Commercial Exterior', 'Painting']} images={['/img/drive-ext-detail.webp', '/img/drive-ext-facade.webp', '/img/drive-ext-walls.webp']} />
+      <Gallery title={['Commercial', 'Stucco']} images={['/img/drive-stucco-wall.webp', '/img/drive-stucco-corner.webp', '/img/drive-stucco-facade.webp', '/img/drive-stucco-detail.webp', '/img/drive-stucco-process.webp']} />
+      <CtaBanner title={['Need a Commercial', 'Painting Partner?']} text="Get a free, no-obligation estimate and let's discuss your project, timeline and specific requirements." />
+    </>
+  )
+}
+
+export function CommercialPaintingPage() {
+  useLanguage()
+  const { slug } = useParams()
+  const service = COMMERCIAL_PAINTING.find((item) => item.slug === slug)
+  if (!service) return <Navigate to="/commercial" replace />
+  return (
+    <>
+      <PageHero eyebrow="Commercial Services · Miami, FL" title={service.title} intro={service.short} image={service.hero} />
+      <BenefitsStrip items={[[Users, 'Minimal Business Disruption'], [ShieldCheck, 'Durable & Long-Lasting Finishes'], [Clock, 'On-Time & Reliable Service'], [Award, 'Quality Work & Professional Team']]} />
+      {service.gallery.length > 0 && <Gallery title={service.title} images={service.gallery} />}
       <CtaBanner title={['Need a Commercial', 'Painting Partner?']} text="Get a free, no-obligation estimate and let's discuss your project, timeline and specific requirements." />
     </>
   )
@@ -204,7 +228,7 @@ function Gallery({ title, images }) {
         <Stagger className="grid gap-5 sm:grid-cols-3">
           {images.map((im) => (
             <Stagger.Item key={im} className="group aspect-[4/3] overflow-hidden rounded-2xl shadow-lg">
-              <img src={im} alt={translate(`${title.join(' ')} – Miami, FL`)} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-110" />
+              <img src={im} alt={im.includes('/drive-') ? im.split('/drive-')[1].replace('.webp', '').replaceAll('-', ' ') : translate(`${title.join(' ')} – Miami, FL`)} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-110" />
             </Stagger.Item>
           ))}
         </Stagger>
@@ -239,7 +263,7 @@ export function SegmentPage({ id }) {
       </section>
 
       <Process steps={p.process} text="A clear and organized process designed for managers and boards." />
-      <Gallery title={['Recent', 'Projects']} images={p.gallery} />
+      {id === 'hoa' ? <><Gallery title={['Interior', 'Painting']} images={p.gallery.slice(0, 2)} /><Gallery title={['Exterior', 'Painting']} images={p.gallery.slice(2)} /></> : <Gallery title={['Recent', 'Projects']} images={p.gallery} />}
       <CtaBanner title={p.cta} text={p.ctaText} />
     </>
   )

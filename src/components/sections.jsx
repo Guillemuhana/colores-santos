@@ -260,11 +260,11 @@ export function CtaBanner({ title, text, flip = false }) {
 }
 
 /* ---------- Service card grid ---------- */
-export function ServiceCard({ s, i = 0 }) {
+export function ServiceCard({ s, i = 0, base = '/residential' }) {
   useLanguage()
   return (
     <Stagger.Item className="h-full">
-      <Link to={`/residential/${s.slug}`} className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-lg shadow-forest-900/10 ring-1 ring-black/5 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-brand-500/20">
+      <Link to={`${base}/${s.slug}`} className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-lg shadow-forest-900/10 ring-1 ring-black/5 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-brand-500/20">
         <div className="relative aspect-[16/9] overflow-hidden">
           <img src={s.tile} alt={translate(`${s.name} in Miami, FL`)} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-110" />
           <span className="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-0.5 text-xs font-bold text-forest-700 backdrop-blur">{translate("0")}{i + 1}</span>

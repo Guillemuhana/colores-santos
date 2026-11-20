@@ -13,6 +13,9 @@ Complete interior and exterior solutions for residential, commercial and multi-f
 Services|Servicios
 Company|Empresa
 Get in touch|Contactanos
+Previous photo|Foto anterior
+Next photo|Foto siguiente
+Photo|Foto
 Areas We Serve in Miami-Dade, Florida|Zonas de servicio en Miami-Dade, Florida
 Painting & Finishes. All rights reserved.|Pintura y acabados. Todos los derechos reservados.
 Licensed & insured · Painting contractor in Miami, FL|Con licencia y seguro · Contratista de pintura en Miami, FL
@@ -20,6 +23,13 @@ Get a free estimate|Pedir un presupuesto gratuito
 Free Estimate|Presupuesto gratis
 Get a Free Estimate|Pedir presupuesto gratis
 Interior Painting|Pintura interior
+Commercial Interior|Interior comercial
+Commercial Exterior|Exterior comercial
+Painting|Pintura
+Professional painting for commercial interiors.|Pintura profesional para interiores comerciales.
+Durable painting for commercial exteriors.|Pintura duradera para exteriores comerciales.
+Stucco finishes and repairs for commercial properties.|Acabados y reparaciones de estuco para propiedades comerciales.
+Professional exterior cleaning for commercial properties.|Limpieza exterior profesional para propiedades comerciales.
 Exterior Painting|Pintura exterior
 Stucco|Estuco
 Carpentry|Carpintería
