@@ -41,7 +41,7 @@ export function PageHero({ eyebrow, title, green, intro, image, slides, category
   const category = categorySlides?.[index]
   return (
     <section
-      className={`photo-hero ${tall ? 'photo-hero--home' : ''} ${compact ? 'photo-hero--compact' : ''} ${mirror ? 'photo-hero--mirror' : ''} ${image === '/img/cabinet-hero.webp' ? 'photo-hero--cabinet' : ''} ${image === '/img/pressure-hero.webp' ? 'photo-hero--pressure' : ''} ${image === '/img/stucco-hero.webp' ? 'photo-hero--stucco' : ''} ${image === '/img/drywall-hero.webp' ? 'photo-hero--drywall' : ''} ${image === '/img/carpentry-hero.webp' ? 'photo-hero--carpentry' : ''}`}
+      className={`photo-hero ${tall ? 'photo-hero--home' : ''} ${compact ? 'photo-hero--compact' : ''} ${mirror ? 'photo-hero--mirror' : ''} ${image === '/img/cabinet-hero.webp' ? 'photo-hero--cabinet' : ''} ${image === '/img/pressure-hero.webp' ? 'photo-hero--pressure' : ''} ${image === '/img/stucco-hero.webp' ? 'photo-hero--stucco' : ''} ${image === '/img/drive-stucco-detail.webp' ? 'photo-hero--commercial-stucco' : ''} ${image === '/img/drywall-hero.webp' ? 'photo-hero--drywall' : ''} ${image === '/img/carpentry-hero.webp' ? 'photo-hero--carpentry' : ''}`}
       aria-roledescription={multi ? 'carousel' : undefined}
       onTouchStart={(e) => { touch.current = e.touches[0].clientX }}
       onTouchEnd={(e) => {
