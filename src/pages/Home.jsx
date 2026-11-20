@@ -18,6 +18,7 @@ export default function Home() {
         title={['Professional', 'Painting & Finishes', 'in Miami, Florida']}
         intro="Complete interior and exterior solutions, including painting, stucco, drywall, carpentry and custom finishes, for residential, commercial and multi-family properties in Miami and surrounding areas."
         image="/img/home-hero.jpg"
+        slides={SEGMENTS.slice(1).map((segment) => segment.card)}
         alt={translate("Freshly painted home exterior in Miami, Florida")}
       >
         <Reveal delay={0.65} className="mt-9 flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium text-ink/80">
