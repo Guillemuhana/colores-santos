@@ -1,29 +1,92 @@
 import { translate, useLanguage } from '../i18n'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
 import { motion, useScroll, useTransform } from 'motion/react'
-import { ArrowRight, ChevronRight, CircleCheck, MoveHorizontal } from 'lucide-react'
+import { ArrowRight, ChevronLeft, ChevronRight, CircleCheck, MoveHorizontal } from 'lucide-react'
 import { Bar, EstimateButton, Eyebrow, Reveal, SplitTitle, Stagger, WhatsAppButton, ease } from './ui'
 import { PROCESS_ICONS } from '../data/services'
 import { RollerSVG } from './paint'
 
 const wrap = 'mx-auto max-w-[1760px] px-5 md:px-8 xl:px-12 2xl:px-16'
 
-/* ---------- Full-width photographic hero ---------- */
-export function PageHero({ eyebrow, title, green, intro, image, alt, children, tall = false, compact = false, mirror = false }) {
+/* ---------- Full-width photographic hero (slider) ---------- */
+const HERO_INTERVAL = 6000
+
+function useHeroSlider(count) {
+  const [index, setIndex] = useState(0)
+  const [paused, setPaused] = useState(false)
+  const [tick, setTick] = useState(0)
+  const go = (n) => { setIndex((n + count) % count); setTick((t) => t + 1) }
+  useEffect(() => {
+    if (count < 2 || paused) return
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return
+    const id = setTimeout(() => setIndex((i) => (i + 1) % count), HERO_INTERVAL)
+    return () => clearTimeout(id)
+  }, [index, paused, count, tick])
+  useEffect(() => {
+    const onVis = () => setPaused(document.hidden)
+    document.addEventListener('visibilitychange', onVis)
+    return () => document.removeEventListener('visibilitychange', onVis)
+  }, [])
+  return { index, go, paused, tick }
+}
+
+export function PageHero({ eyebrow, title, green, intro, image, slides, categorySlides, alt, children, tall = false, compact = false, mirror = false }) {
   useLanguage()
+  const images = categorySlides?.length ? categorySlides.map((slide) => slide.image) : [image, ...(slides || []).filter((src) => src && src !== image)]
+  const { index, go, paused, tick } = useHeroSlider(images.length)
+  const touch = useRef(null)
+  const label = translate(alt || `${title.join(' ')} in Miami, FL`)
+  const multi = images.length > 1
+  const category = categorySlides?.[index]
   return (
-    <section className={`photo-hero ${tall ? 'photo-hero--home' : ''} ${compact ? 'photo-hero--compact' : ''} ${mirror ? 'photo-hero--mirror' : ''} ${image === '/img/cabinet-hero.webp' ? 'photo-hero--cabinet' : ''} ${image === '/img/pressure-hero.webp' ? 'photo-hero--pressure' : ''} ${image === '/img/stucco-hero.webp' ? 'photo-hero--stucco' : ''} ${image === '/img/drywall-hero.webp' ? 'photo-hero--drywall' : ''}`}>
-      <img src={image} alt={translate(alt || `${title.join(' ')} in Miami, FL`)} className="photo-hero__image" fetchPriority="high" />
+    <section
+      className={`photo-hero ${tall ? 'photo-hero--home' : ''} ${compact ? 'photo-hero--compact' : ''} ${mirror ? 'photo-hero--mirror' : ''} ${image === '/img/cabinet-hero.webp' ? 'photo-hero--cabinet' : ''} ${image === '/img/pressure-hero.webp' ? 'photo-hero--pressure' : ''} ${image === '/img/stucco-hero.webp' ? 'photo-hero--stucco' : ''} ${image === '/img/drywall-hero.webp' ? 'photo-hero--drywall' : ''}`}
+      aria-roledescription={multi ? 'carousel' : undefined}
+      onTouchStart={(e) => { touch.current = e.touches[0].clientX }}
+      onTouchEnd={(e) => {
+        if (touch.current == null || !multi) return
+        const dx = e.changedTouches[0].clientX - touch.current
+        touch.current = null
+        if (Math.abs(dx) > 45) go(index + (dx < 0 ? 1 : -1))
+      }}
+    >
+      {images.map((src, i) => (
+        <div key={src} className={`photo-hero__slide ${i === index ? 'is-active' : ''}`} aria-hidden={i !== index}>
+          <img
+            src={src}
+            alt={i === 0 ? label : ''}
+            className={`photo-hero__image ${i === 0 ? 'photo-hero__image--primary' : 'photo-hero__image--extra'}`}
+            fetchPriority={i === 0 ? 'high' : 'low'}
+            loading={i === 0 ? 'eager' : 'lazy'}
+            decoding="async"
+          />
+        </div>
+      ))}
       <div className="photo-hero__shade" />
       <div className={`${wrap} photo-hero__layout`}>
         {tall && eyebrow && <div className="photo-hero__eyebrow"><Eyebrow light>{translate(eyebrow)}</Eyebrow></div>}
         <div className="photo-hero__content">
           {!tall && eyebrow && <Eyebrow light>{translate(eyebrow)}</Eyebrow>}
-          <SplitTitle lines={title} green={green} className="photo-hero__title font-extrabold" />
-          <p className="photo-hero__intro">{translate(intro)}</p>
+          <SplitTitle lines={category ? [category.name] : title} green={category ? [0] : green} className="photo-hero__title font-extrabold" />
+          <p className="photo-hero__intro">{translate(category ? category.intro : intro)}</p>
+          {category && <Link to={category.to} className="mt-4 inline-flex items-center gap-2 font-semibold text-white">{translate('View Services')} <ArrowRight className="size-4" /></Link>}
           <div className="mt-9 flex flex-wrap gap-4"><EstimateButton size="lg" /><WhatsAppButton size="lg" dark /></div>
           {children}
+          {multi && (
+            <div className="photo-hero__controls">
+              <button type="button" className="photo-hero__arrow" onClick={() => go(index - 1)} aria-label={translate('Previous photo')}><ChevronLeft className="size-5" /></button>
+              <div className="photo-hero__dots">
+                {images.map((src, i) => (
+                  <button key={src} type="button" onClick={() => go(i)} aria-label={`${translate('Photo')} ${i + 1}`} aria-current={i === index} className={`photo-hero__dot ${i === index ? 'is-active' : ''} ${paused ? 'is-paused' : ''}`}>
+                    {i === index && <span key={`${index}-${tick}`} style={{ animationDuration: `${HERO_INTERVAL}ms` }} />}
+                  </button>
+                ))}
+              </div>
+              <button type="button" className="photo-hero__arrow" onClick={() => go(index + 1)} aria-label={translate('Next photo')}><ChevronRight className="size-5" /></button>
+              <span className="photo-hero__count">{String(index + 1).padStart(2, '0')} / {String(images.length).padStart(2, '0')}</span>
+            </div>
+          )}
         </div>
       </div>
     </section>

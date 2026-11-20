@@ -1,5 +1,4 @@
 import { translate, useLanguage } from '../i18n'
-import { useEffect, useRef } from 'react'
 import { Link } from 'react-router'
 import { ArrowRight, Award, CalendarCheck, Handshake, Leaf, MapPin, ShieldCheck, Users } from 'lucide-react'
 import { PageHero, Process, CtaBanner, Marquee, WhyChoose, wrap } from '../components/sections'
@@ -10,17 +9,6 @@ import { AREAS } from '../config'
 
 export default function Home() {
   useLanguage()
-  const categorySlider = useRef(null)
-  useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    const timer = window.setInterval(() => {
-      const slider = categorySlider.current
-      if (!slider || slider.matches(':hover') || slider.contains(document.activeElement)) return
-      const next = slider.scrollLeft + (slider.firstElementChild?.getBoundingClientRect().width || 0) + 20
-      slider.scrollTo({ left: slider.scrollLeft >= slider.scrollWidth - slider.clientWidth - 1 ? 0 : next, behavior: 'smooth' })
-    }, 6000)
-    return () => window.clearInterval(timer)
-  }, [])
   return (
     <>
       <PageHero
@@ -30,6 +18,7 @@ export default function Home() {
         title={['Professional', 'Painting & Finishes', 'in Miami, Florida']}
         intro="Complete interior and exterior solutions, including painting, stucco, drywall, carpentry and custom finishes, for residential, commercial and multi-family properties in Miami and surrounding areas."
         image="/img/home-hero.jpg"
+        categorySlides={SEGMENTS.map((segment) => ({ image: segment.card, name: segment.name, intro: segment.short, to: segment.to }))}
         alt={translate("Freshly painted home exterior in Miami, Florida")}
       >
         <Reveal delay={0.65} className="mt-9 flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium text-ink/80">
@@ -41,9 +30,9 @@ export default function Home() {
 
       {/* Segments */}
       <section className="relative z-10 bg-white py-14">
-        <div ref={categorySlider} tabIndex={0} aria-label={translate('Categories')} className={`${wrap} flex snap-x snap-mandatory gap-5 overflow-x-auto pb-5`}>
+        <div className={`${wrap} grid gap-5 sm:grid-cols-2 lg:grid-cols-4`}>
           {SEGMENTS.map((s) => (
-            <div key={s.to} className="w-[85%] shrink-0 snap-start sm:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)]">
+            <div key={s.to}>
               <Link to={s.to} className="group block h-full overflow-hidden rounded-2xl bg-white shadow-xl shadow-forest-900/10 ring-1 ring-black/5 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand-500/25">
                 <div className="aspect-[16/9] overflow-hidden">
                   <img src={s.card} alt={translate(`${s.name} painting in Miami`)} className="h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-110" />

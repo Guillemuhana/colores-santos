@@ -86,7 +86,7 @@ export const SERVICES = [
     detailTitle: ['Our Cabinet', 'Refinishing Service'],
     detail: 'A cost-effective, high-impact solution to update and refresh your cabinets without the cost of a full replacement.',
     includes: ['Kitchen Cabinets', 'Bathroom Vanities', 'Built-Ins & Storage', 'Doors, Drawers & Trim', 'Color Updates & Custom Finishes'],
-    gallery: [img('cabinet-g1'), img('cabinet-g2'), img('cabinet-g3')],
+    gallery: [img('cabinet-white'), img('cabinet-blue'), img('cabinet-gray')],
     process: [
       ['Consult & Estimate', 'We review your cabinets, style and goals, and provide a clear quote.'],
       ['Color & Finish', 'We help you choose the perfect color and finish.'],
