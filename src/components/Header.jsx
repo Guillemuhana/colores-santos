@@ -14,7 +14,6 @@ const NAV = [
   { to: '/residential', label: 'Residential', menu: true },
   { to: '/commercial', label: 'Commercial' },
   { to: '/hoa-condominiums', label: 'HOA & Condominiums' },
-  { to: '/property-management', label: 'Property Management' },
   { to: '/about', label: 'About' },
   { to: '/contact', label: 'Contact' },
 ]
@@ -61,7 +60,7 @@ export default function Header() {
   const language = useLanguage()
   const [mobile, setMobile] = useState(false)
   const { pathname } = useLocation()
-  const hasHero = pathname === '/' || pathname === '/residential' || SERVICES.some(s => pathname === `/residential/${s.slug}`) || ['/commercial', '/hoa-condominiums', '/property-management', '/about'].includes(pathname)
+  const hasHero = pathname === '/' || pathname === '/residential' || SERVICES.some(s => pathname === `/residential/${s.slug}`) || pathname.startsWith('/commercial/') || ['/commercial', '/hoa-condominiums', '/property-management', '/about'].includes(pathname)
   const overlay = hasHero
   const { scrollYProgress } = useScroll()
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 25 })

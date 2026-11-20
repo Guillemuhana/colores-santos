@@ -151,9 +151,9 @@ export function Services() {
 
 /* ---------------- Commercial ---------------- */
 const COMMERCIAL_PAINTING = [
-  { slug: 'interior-painting', name: 'Interior Painting', title: ['Commercial Interior', 'Painting'], icon: Palette, tile: '/img/drive-int-entrance.webp', hero: '/img/drive-int-entrance.webp', short: 'Professional painting for commercial interiors.', gallery: ['/img/drive-int-walls.webp', '/img/drive-int-stairs.webp', '/img/drive-int-ceiling.webp', '/img/drive-int-restaurant.webp', '/img/drive-int-loading.webp'] },
-  { slug: 'exterior-painting', name: 'Exterior Painting', title: ['Commercial Exterior', 'Painting'], icon: House, tile: '/img/drive-ext-facade.webp', hero: '/img/drive-ext-facade.webp', short: 'Durable painting for commercial exteriors.', gallery: ['/img/drive-ext-detail.webp', '/img/drive-ext-walls.webp'] },
-  { ...getService('stucco'), title: ['Commercial', 'Stucco'], short: 'Stucco finishes and repairs for commercial properties.', gallery: ['/img/drive-stucco-wall.webp', '/img/drive-stucco-corner.webp', '/img/drive-stucco-facade.webp', '/img/drive-stucco-detail.webp', '/img/drive-stucco-process.webp'], tile: '/img/drive-stucco-facade.webp', hero: '/img/drive-stucco-facade.webp' },
+  { slug: 'interior-painting', name: 'Interior Painting', title: ['Commercial Interior', 'Painting'], icon: Palette, tile: '/img/commercial-interior.webp', hero: '/img/commercial-interior.webp', short: 'Professional painting for commercial interiors.', gallery: ['/img/drive-int-walls.webp', '/img/drive-int-stairs.webp', '/img/drive-int-ceiling.webp', '/img/drive-int-restaurant.webp', '/img/drive-int-entrance.webp', '/img/drive-int-loading.webp'] },
+  { slug: 'exterior-painting', name: 'Exterior Painting', title: ['Commercial Exterior', 'Painting'], icon: House, tile: '/img/commercial-exterior.webp', hero: '/img/commercial-exterior.webp', short: 'Durable painting for commercial exteriors.', gallery: ['/img/drive-ext-detail.webp', '/img/drive-ext-facade.webp', '/img/drive-ext-walls.webp'] },
+  { ...getService('stucco'), title: ['Commercial', 'Stucco'], short: 'Stucco finishes and repairs for commercial properties.', gallery: ['/img/drive-stucco-wall.webp', '/img/drive-stucco-corner.webp', '/img/drive-stucco-detail.webp', '/img/drive-stucco-process.webp'], tile: '/img/drive-stucco-facade.webp', hero: '/img/drive-stucco-facade.webp' },
   { ...getService('pressure-washing'), title: ['Commercial', 'Pressure Washing'], short: 'Professional exterior cleaning for commercial properties.', hero: '/img/drive-commercial-pressure.webp', tile: '/img/drive-commercial-pressure.webp', gallery: [] },
 ]
 
@@ -162,7 +162,7 @@ export function Commercial() {
   return (
     <>
       <PageHero crumbs={[['Home', '/'], ['Commercial']]} eyebrow="Commercial Services · Miami, FL" title={['Commercial', 'Painting & Finishes']}
-        intro="Professional, efficient and high-quality painting solutions for businesses and commercial properties across South Florida." image="/img/commercial-pressure.webp" />
+        intro="Professional, efficient and high-quality painting solutions for businesses and commercial properties across South Florida." image="/img/commercial-exterior.webp" />
       <BenefitsStrip items={[[Users, 'Minimal Business Disruption'], [ShieldCheck, 'Durable & Long-Lasting Finishes'], [Clock, 'On-Time & Reliable Service'], [HardHat, 'Safety & Compliance'], [Award, 'Quality Work & Professional Team']]} />
       <section className="grain relative overflow-hidden bg-forest-900 py-16 lg:py-20">
         <div className={wrap}>
@@ -171,7 +171,7 @@ export function Commercial() {
             <Reveal><p className="text-lg text-white/80 lg:border-l lg:border-white/20 lg:pl-8">{translate("Complete painting and finishing solutions for commercial spaces, tailored to your business needs.")}</p></Reveal>
           </div>
           <Stagger className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4" gap={0.06}>
-            {SERVICES.map((s, i) => { const commercial = COMMERCIAL_PAINTING.find((item) => item.slug === s.slug); return <ServiceCard key={s.slug} s={commercial || s} i={i} base={commercial ? '/commercial' : '/residential'} /> })}
+            {COMMERCIAL_PAINTING.map((s, i) => <ServiceCard key={s.slug} s={s} i={i} base="/commercial" />)}
           </Stagger>
         </div>
       </section>
@@ -195,9 +195,6 @@ export function Commercial() {
         ['Execute', 'Our skilled team completes the work with precision and care.'],
         ['Final Walkthrough', 'We review the results with you to ensure complete satisfaction.'],
       ]} text="A clear, efficient and professional process to deliver high-quality results for your business." />
-      <Gallery title={['Commercial Interior', 'Painting']} images={['/img/drive-int-walls.webp', '/img/drive-int-stairs.webp', '/img/drive-int-ceiling.webp', '/img/drive-int-restaurant.webp', '/img/drive-int-entrance.webp', '/img/drive-int-loading.webp']} />
-      <Gallery title={['Commercial Exterior', 'Painting']} images={['/img/drive-ext-detail.webp', '/img/drive-ext-facade.webp', '/img/drive-ext-walls.webp']} />
-      <Gallery title={['Commercial', 'Stucco']} images={['/img/drive-stucco-wall.webp', '/img/drive-stucco-corner.webp', '/img/drive-stucco-facade.webp', '/img/drive-stucco-detail.webp', '/img/drive-stucco-process.webp']} />
       <CtaBanner title={['Need a Commercial', 'Painting Partner?']} text="Get a free, no-obligation estimate and let's discuss your project, timeline and specific requirements." />
     </>
   )
@@ -218,6 +215,18 @@ export function CommercialPaintingPage() {
   )
 }
 
+const PROJECT_IMAGE_ALT = {
+  'int-walls': 'White walls in a commercial interior', 'int-stairs': 'Painted commercial stairway',
+  'int-ceiling': 'Commercial warehouse ceiling', 'int-restaurant': 'Finished restaurant interior',
+  'int-entrance': 'Painted commercial entrance interior', 'int-loading': 'Interior with loading doors',
+  'ext-detail': 'Commercial exterior architectural wall detail', 'ext-facade': 'Commercial building facade',
+  'ext-walls': 'Commercial building exterior side walls', 'stucco-wall': 'Large commercial stucco wall',
+  'stucco-corner': 'Commercial stucco corner facade', 'stucco-facade': 'Commercial stucco building facade',
+  'stucco-detail': 'Commercial exterior stucco detail', 'stucco-process': 'Commercial stucco work in progress',
+  'hoa-hall': 'Condominium interior hallway', 'hoa-interior': 'Condominium interior painting',
+  'hoa-entry': 'Condominium exterior entrance',
+}
+
 function Gallery({ title, images }) {
   useLanguage()
   const heading = translateLines(title)
@@ -228,7 +237,7 @@ function Gallery({ title, images }) {
         <Stagger className="grid gap-5 sm:grid-cols-3">
           {images.map((im) => (
             <Stagger.Item key={im} className="group aspect-[4/3] overflow-hidden rounded-2xl shadow-lg">
-              <img src={im} alt={im.includes('/drive-') ? im.split('/drive-')[1].replace('.webp', '').replaceAll('-', ' ') : translate(`${title.join(' ')} – Miami, FL`)} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-110" />
+              <img src={im} alt={PROJECT_IMAGE_ALT[im.split('/drive-')[1]?.replace('.webp', '')] || translate(`${title.join(' ')} – Miami, FL`)} loading="lazy" className="h-full w-full bg-mist object-contain" />
             </Stagger.Item>
           ))}
         </Stagger>

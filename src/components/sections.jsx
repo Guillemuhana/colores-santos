@@ -114,6 +114,7 @@ export function BenefitsStrip({ items }) {
 export function DetailSection({ title, text, includes, gallery, name = '' }) {
   useLanguage()
   const g = gallery
+  const cabinetAlt = { '/img/cabinet-white.jpg': 'White refinished cabinets', '/img/cabinet-blue.jpg': 'Blue refinished cabinets', '/img/cabinet-gray.jpg': 'Gray refinished cabinets' }
   const fullPhotos = ['Interior Painting', 'Stucco', 'Carpentry', 'Drywall'].includes(name)
   return (
     <>
@@ -140,7 +141,7 @@ export function DetailSection({ title, text, includes, gallery, name = '' }) {
               key={src}
               className={`group relative overflow-hidden rounded-2xl border-4 border-white/90 shadow-2xl ${fullPhotos ? '' : `${i === 0 ? 'col-span-2 aspect-[4/3] sm:col-span-1 sm:row-span-2 sm:aspect-auto' : 'aspect-[4/3]'} ${g.length === 4 && i === 1 ? 'sm:col-span-2' : ''}`}`}
             >
-              <img src={src} alt={translate(`${name} project in Miami, FL – photo ${i + 1}`)} loading="lazy" className={fullPhotos ? 'block h-auto w-full' : 'h-full w-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-110'} />
+              <img src={src} alt={cabinetAlt[src] || translate(`${name} project in Miami, FL – photo ${i + 1}`)} loading="lazy" className={fullPhotos ? 'block h-auto w-full' : cabinetAlt[src] ? 'h-full w-full bg-forest-900 object-contain' : 'h-full w-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-110'} />
             </Stagger.Item>
           ))}
         </Stagger>

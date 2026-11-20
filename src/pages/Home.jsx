@@ -18,7 +18,7 @@ export default function Home() {
         title={['Professional', 'Painting & Finishes', 'in Miami, Florida']}
         intro="Complete interior and exterior solutions, including painting, stucco, drywall, carpentry and custom finishes, for residential, commercial and multi-family properties in Miami and surrounding areas."
         image="/img/home-hero.jpg"
-        categorySlides={SEGMENTS.map((segment) => ({ image: segment.card, name: segment.name, intro: segment.short, to: segment.to }))}
+        categorySlides={SEGMENTS.map((segment) => ({ image: segment.hero || segment.card, name: segment.name, intro: segment.short, to: segment.to }))}
         alt={translate("Freshly painted home exterior in Miami, Florida")}
       >
         <Reveal delay={0.65} className="mt-9 flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium text-ink/80">
@@ -30,7 +30,7 @@ export default function Home() {
 
       {/* Segments */}
       <section className="relative z-10 bg-white py-14">
-        <div className={`${wrap} grid gap-5 sm:grid-cols-2 lg:grid-cols-4`}>
+        <div className={`${wrap} grid gap-5 sm:grid-cols-2 lg:grid-cols-3`}>
           {SEGMENTS.map((s) => (
             <div key={s.to}>
               <Link to={s.to} className="group block h-full overflow-hidden rounded-2xl bg-white shadow-xl shadow-forest-900/10 ring-1 ring-black/5 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand-500/25">

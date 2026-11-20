@@ -43,7 +43,7 @@ function Footer() {
         <div>
           <h4 className="mb-4 font-bold text-brand-300">{translate("Company")}</h4>
           <ul className="space-y-2 text-sm text-white/70">
-            {[['Residential', '/residential'], ['Commercial', '/commercial'], ['HOA & Condominiums', '/hoa-condominiums'], ['Property Management', '/property-management'], ['About', '/about'], ['Contact', '/contact']].map(([l, t]) => (
+            {[['Residential', '/residential'], ['Commercial', '/commercial'], ['HOA & Condominiums', '/hoa-condominiums'], ['About', '/about'], ['Contact', '/contact']].map(([l, t]) => (
               <li key={t}><Link className="transition-colors hover:text-white" to={t}>{translate(l)}</Link></li>
             ))}
           </ul>
