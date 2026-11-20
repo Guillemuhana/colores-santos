@@ -136,10 +136,6 @@ h1, h2, h3, h4 { @apply font-display tracking-tight; }
 .photo-hero__slide { position: absolute; inset: 0; z-index: -2; opacity: 0; transform: scale(1.06); transition: opacity 1.2s ease, transform 7s ease-out; will-change: opacity, transform; }
 .photo-hero__slide.is-active { opacity: 1; transform: scale(1); }
 .photo-hero__image--extra { object-position: center; }
-.photo-hero--commercial-stucco .photo-hero__image { width: 56%; object-fit: contain; object-position: center; }
-@media (max-width: 1023px) {
-  .photo-hero--commercial-stucco .photo-hero__image { width: 100%; object-position: center top; }
-}
 .photo-hero__controls { margin-top: 32px; display: flex; align-items: center; gap: 12px; }
 .photo-hero__arrow { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 999px; border: 1px solid rgb(255 255 255 / .35); color: white; background: rgb(255 255 255 / .06); backdrop-filter: blur(6px); transition: background .3s, border-color .3s, transform .3s; cursor: pointer; }
 .photo-hero__arrow:hover { background: #95efa2; border-color: #95efa2; color: #051c0a; transform: scale(1.06); }
