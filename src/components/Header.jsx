@@ -59,26 +59,19 @@ function NavItem({ item, light = false }) {
 
 export default function Header() {
   const language = useLanguage()
-  const [scrolled, setScrolled] = useState(false)
   const [mobile, setMobile] = useState(false)
   const { pathname } = useLocation()
   const hasHero = pathname === '/' || pathname === '/residential' || SERVICES.some(s => pathname === `/residential/${s.slug}`) || ['/commercial', '/hoa-condominiums', '/property-management', '/about'].includes(pathname)
-  const overlay = hasHero && !scrolled
+  const overlay = hasHero
   const { scrollYProgress } = useScroll()
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 25 })
 
-  useEffect(() => {
-    const on = () => setScrolled(window.scrollY > 20)
-    on()
-    window.addEventListener('scroll', on, { passive: true })
-    return () => window.removeEventListener('scroll', on)
-  }, [])
   useEffect(() => setMobile(false), [pathname])
 
   return (
-    <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled ? 'bg-white/85 py-2 shadow-[0_8px_30px_-12px_rgb(11_58_50/0.25)] backdrop-blur-xl' : overlay ? 'bg-transparent py-5' : 'bg-white py-3.5'}`}>
+    <header className={`absolute inset-x-0 top-0 z-50 ${overlay ? 'bg-transparent py-5' : 'bg-white py-3.5'}`}>
       <div className="mx-auto flex max-w-[1760px] items-center justify-between gap-2 px-4 md:gap-4 md:px-8 xl:px-12 2xl:px-16">
-        <Logo light={overlay} className={`shrink-0 transition-[font-size] duration-500 ${scrolled ? 'text-[6px] md:text-[8px]' : overlay ? 'text-[6px] md:text-[12px]' : 'text-[6px] md:text-[10px]'}`} />
+        <Logo light={overlay} className={`shrink-0 ${overlay ? 'text-[6px] md:text-[12px]' : 'text-[6px] md:text-[10px]'}`} />
         <nav aria-label={language === 'es' ? 'Navegación principal' : 'Main navigation'} className="hidden items-center gap-4 2xl:flex">
           {NAV.map((n) => <NavItem key={n.to} item={n} light={overlay} />)}
         </nav>

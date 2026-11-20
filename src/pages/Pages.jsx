@@ -155,7 +155,7 @@ export function Commercial() {
   return (
     <>
       <PageHero crumbs={[['Home', '/'], ['Commercial']]} eyebrow="Commercial Services · Miami, FL" title={['Commercial', 'Painting & Finishes']}
-        intro="Professional, efficient and high-quality painting solutions for businesses and commercial properties across South Florida." image="/img/commercial-hero.jpg" />
+        intro="Professional, efficient and high-quality painting solutions for businesses and commercial properties across South Florida." image="/img/commercial-pressure.webp" />
       <BenefitsStrip items={[[Users, 'Minimal Business Disruption'], [ShieldCheck, 'Durable & Long-Lasting Finishes'], [Clock, 'On-Time & Reliable Service'], [HardHat, 'Safety & Compliance'], [Award, 'Quality Work & Professional Team']]} />
       <section className="grain relative overflow-hidden bg-forest-900 py-16 lg:py-20">
         <div className={wrap}>
