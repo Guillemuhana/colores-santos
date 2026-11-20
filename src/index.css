@@ -198,6 +198,11 @@ h1, h2, h3, h4 { @apply font-display tracking-tight; }
 .photo-hero--pressure .photo-hero__shade { background: linear-gradient(90deg, transparent 40%, rgb(5 28 10 / .16) 55%, rgb(5 28 10 / .48) 78%, rgb(5 28 10 / .64) 100%), linear-gradient(180deg, rgb(0 0 0 / .24), transparent 24%); }
 .photo-hero--pressure .photo-hero__content { text-shadow: 0 2px 12px rgb(0 0 0 / .65); }
 .photo-hero--pressure .photo-hero__content a { text-shadow: none; }
+@media (min-width: 1024px) {
+  .photo-hero--carpentry .photo-hero__layout { grid-template-columns: 1fr 1.45fr; }
+  .photo-hero--carpentry .photo-hero__content { grid-column: 1; }
+  .photo-hero--carpentry .photo-hero__shade { background: linear-gradient(90deg, #051c0a 0%, rgb(5 28 10 / .90) 28%, rgb(7 30 12 / .22) 58%, transparent 75%), linear-gradient(180deg, rgb(0 0 0 / .48), transparent 25%); }
+}
 @media (max-width: 1023px) {
   .photo-hero--pressure .photo-hero__shade { background: linear-gradient(180deg, rgb(0 0 0 / .32), transparent 25%, rgb(5 28 10 / .25) 40%, #051c0a 67%); }
 }
