@@ -70,12 +70,12 @@ export default function Header() {
   return (
     <header className={`absolute inset-x-0 top-0 z-50 ${overlay ? 'bg-transparent py-5' : 'bg-white py-3.5'}`}>
       <div className="mx-auto flex max-w-[1760px] items-center justify-between gap-2 px-4 md:gap-4 md:px-8 xl:px-12 2xl:px-16">
-        <Logo light={overlay} className={`shrink-0 ${overlay ? 'text-[6px] md:text-[12px]' : 'text-[6px] md:text-[10px]'}`} />
-        <nav aria-label={language === 'es' ? 'Navegación principal' : 'Main navigation'} className="hidden items-center gap-4 2xl:flex">
+        <Logo light={overlay} className={`shrink-0 ${overlay ? 'text-[6px] md:text-[12px] lg:text-[8px] xl:text-[10px] 2xl:text-[12px]' : 'text-[6px] md:text-[10px] lg:text-[8px] xl:text-[10px]'}`} />
+        <nav aria-label={language === 'es' ? 'Navegación principal' : 'Main navigation'} className="hidden items-center gap-3 lg:flex xl:gap-4">
           {NAV.map((n) => <NavItem key={n.to} item={n} light={overlay} />)}
         </nav>
         {!overlay && <div className="hidden min-[1800px]:block"><EstimateButton size="sm" /></div>}
-        <div className="ml-auto flex shrink-0 items-center gap-2 2xl:ml-0">
+        <div className="ml-auto flex shrink-0 items-center gap-2 lg:ml-0">
           <div id="site-language" role="group" aria-label="Idioma / Language" className={`inline-flex items-center gap-0.5 rounded-full p-0.5 ring-1 transition-colors ${overlay ? 'bg-white/10 ring-white/20 backdrop-blur-sm' : 'bg-brand-50/70 ring-brand-200/80'}`}>
             {[['en', 'EN', 'English'], ['es', 'ES', 'Español']].map(([value, label, name]) => (
               <button key={value} type="button" lang={value} aria-label={name} title={name} aria-pressed={language === value} onClick={() => setLanguage(value)} className={`grid h-7 w-8 place-items-center rounded-full text-[10px] font-bold tracking-wide transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-400 ${language === value ? 'bg-brand-300 text-forest-950 shadow-sm' : overlay ? 'text-white/75 hover:bg-white/10 hover:text-white' : 'text-forest-800/65 hover:bg-brand-100 hover:text-forest-950'}`}>
@@ -83,7 +83,7 @@ export default function Header() {
               </button>
             ))}
           </div>
-        <button className="grid size-11 place-items-center rounded-xl bg-forest-900 text-white 2xl:hidden" onClick={() => setMobile((v) => !v)} aria-expanded={mobile} aria-label={translate("Menu")}>
+        <button className="grid size-11 place-items-center rounded-xl bg-forest-900 text-white lg:hidden" onClick={() => setMobile((v) => !v)} aria-expanded={mobile} aria-label={translate("Menu")}>
           {mobile ? <X /> : <Menu />}
         </button>
         </div>
@@ -97,7 +97,7 @@ export default function Header() {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.4, ease }}
-            className="overflow-hidden bg-white 2xl:hidden"
+            className="overflow-hidden bg-white lg:hidden"
             data-lenis-prevent
           >
             <div className="max-h-[80vh] overflow-y-auto px-5 pb-6 pt-3">
