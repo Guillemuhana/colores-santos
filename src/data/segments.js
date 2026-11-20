@@ -5,7 +5,7 @@ import {
 
 export const SEGMENTS = [
   { to: '/residential', name: 'Residential', icon: House, card: '/img/home-hero.jpg', short: 'Painting, finishes and property upgrades for your home.' },
-  { to: '/commercial', name: 'Commercial', icon: Building2, card: '/img/commercial-pressure.webp', hero: '/img/commercial-exterior.webp', short: 'Professional painting and finish solutions for offices, retail and commercial spaces.' },
+  { to: '/commercial', name: 'Commercial', icon: Building2, card: '/img/commercial-exterior.webp', short: 'Professional painting and finish solutions for offices, retail and commercial spaces.' },
   { to: '/hoa-condominiums', name: 'HOA & Condominiums', icon: Users, card: '/img/drive-hoa-hero.webp', short: 'Reliable painting, stucco and maintenance solutions for HOAs and condominium communities.' },
 ]
 
