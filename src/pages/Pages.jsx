@@ -188,7 +188,7 @@ export function Commercial() {
         ['Execute', 'Our skilled team completes the work with precision and care.'],
         ['Final Walkthrough', 'We review the results with you to ensure complete satisfaction.'],
       ]} text="A clear, efficient and professional process to deliver high-quality results for your business." />
-      <Gallery title={['Recent Commercial', 'Projects']} images={['/img/commercial-p1.jpg', '/img/commercial-p2.jpg', '/img/commercial-p3.jpg']} />
+      <Gallery title={['Recent Commercial', 'Projects']} images={['/img/drive-int-walls.webp', '/img/drive-int-stairs.webp', '/img/drive-int-ceiling.webp', '/img/drive-int-restaurant.webp', '/img/drive-int-entrance.webp', '/img/drive-int-loading.webp', '/img/drive-ext-detail.webp', '/img/drive-ext-facade.webp', '/img/drive-ext-walls.webp', '/img/drive-stucco-wall.webp', '/img/drive-stucco-corner.webp', '/img/drive-stucco-facade.webp', '/img/drive-stucco-detail.webp', '/img/drive-stucco-process.webp']} />
       <CtaBanner title={['Need a Commercial', 'Painting Partner?']} text="Get a free, no-obligation estimate and let's discuss your project, timeline and specific requirements." />
     </>
   )

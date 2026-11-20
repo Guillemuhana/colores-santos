@@ -26,7 +26,7 @@ export const SEGMENT_PAGES = {
     eyebrow: 'Community Services',
     title: ['HOA &', 'Condominium Painting'],
     intro: 'Reliable painting, stucco and maintenance programs for HOAs and condominium communities, planned around your board, residents and budget.',
-    hero: '/img/card-hoa.jpg',
+    hero: '/img/drive-hoa-hero.webp',
     benefits: [
       [ClipboardList, 'Board-Ready Proposals'],
       [Users, 'Resident-Friendly Scheduling'],
@@ -50,7 +50,7 @@ export const SEGMENT_PAGES = {
       ['Phased Execution', 'Work organized by building or area with resident notices.'],
       ['Final Walkthrough', 'We review every area with management before closing.'],
     ],
-    gallery: ['/img/card-hoa.jpg', '/img/stucco-g1.jpg', '/img/pressure-g3.jpg'],
+    gallery: ['/img/drive-hoa-hall.webp', '/img/drive-hoa-interior.webp', '/img/drive-hoa-entry.webp'],
     cta: ['Planning Your Next', 'Community Project?'],
     ctaText: 'Request a free site visit and a board-ready proposal for your HOA or condominium.',
   },
